@@ -4067,3 +4067,6 @@ em {
     gap: 10px;
   }
 }
+
+/* Confine perspective layers during animated entrances on narrow screens. */
+.hero { overflow: clip; }
