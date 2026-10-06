@@ -1,5 +1,7 @@
 # Asteria
 
+[Open the app](https://asteria-sand-nine.vercel.app) · [Verification record](docs/VERIFICATION.md)
+
 A free astrology web app and installable PWA. Built with Next.js, TypeScript, Anime.js, shadcn/ui (Radix Nova), Better Auth, and Neon Postgres. A warm editorial interface pairs original learning material with calculated tropical charts and a private reflection space.
 
 ## Features
