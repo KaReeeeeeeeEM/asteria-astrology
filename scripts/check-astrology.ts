@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {calculateChart,birthUTC,normalize,separation,skyAt,aspectsBetween,placementsAt} from '../src/lib/astrology';
+import {birthSchema} from '../src/lib/validation';
+import {articles,signs} from '../src/lib/knowledge';
+const input={name:'Test chart',date:'2000-01-01',time:'12:00',timezone:'Africa/Dar_es_Salaam',latitude:-6.7924,longitude:39.2083,place:'Dar es Salaam',unknownTime:false};
+assert.equal(birthUTC(input).toISOString(),'2000-01-01T09:00:00.000Z');
+const c=calculateChart(input);assert.equal(c.placements.length,10);assert.equal(c.placements[0].sign,'Capricorn');assert.ok(c.ascendant!==null&&c.ascendant>=0&&c.ascendant<360);assert.equal(c.placements[0].house,((Math.floor(c.placements[0].longitude/30)-Math.floor(c.ascendant!/30)+12)%12)+1);assert.equal(Object.values(c.elements).reduce((a,b)=>a+b,0),10);
+const unknown=calculateChart({...input,unknownTime:true});assert.equal(unknown.ascendant,null);assert.equal(unknown.midheaven,null);assert.ok(unknown.placements.every(p=>p.house===undefined));assert.equal(calculateChart({...input,latitude:70}).ascendant,null);
+assert.equal(normalize(-5),355);assert.equal(separation(359,1),2);assert.ok(!c.placements[0].retrograde&&!c.placements[1].retrograde);
+assert.equal(birthSchema.safeParse({...input,date:'2025-02-30'}).success,false);assert.equal(birthSchema.safeParse({...input,latitude:91}).success,false);assert.equal(birthSchema.safeParse({...input,timezone:'invalid/zone'}).success,false);
+assert.throws(()=>birthUTC({...input,date:'2026-03-08',time:'02:30',timezone:'America/New_York'}));
+const sky=skyAt(new Date('2026-10-06T12:00:00Z'));assert.ok(sky.illumination>=0&&sky.illumination<=1);assert.equal(sky.next.length,4);assert.ok(sky.next.every(p=>new Date(p.date)>new Date('2026-10-06T12:00:00Z')));
+const cross=aspectsBetween(c.placements,c.placements,3);assert.ok(cross.some(a=>a.a==='Sun'&&a.b==='Sun'&&a.name==='Conjunction'));
+assert.equal(new Set(articles.map(a=>a.slug)).size,articles.length);assert.equal(signs.length,12);assert.equal(placementsAt(new Date('2026-03-21T12:00:00Z'))[0].sign,'Aries');
+console.log(`Astrology checks passed: time zones, DST rejection, date/location validation, ten planets, whole-sign houses, uncertainty, angles, lunar events, synastry, and ${articles.length} unique articles.`);
