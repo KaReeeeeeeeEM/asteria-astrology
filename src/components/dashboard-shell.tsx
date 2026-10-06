@@ -9,6 +9,8 @@ import {
   NotebookPen,
   BookOpen,
   Settings,
+  Hash,
+  Heart,
   LogOut,
   ArrowUpRight,
   Menu,
@@ -17,12 +19,15 @@ import {
 import { Logo } from "./logo";
 import { Button } from "./ui/button";
 import { authClient } from "@/lib/auth-client";
+import { ThemeToggle } from "./theme";
 import { PWAInstall } from "./pwa";
 const nav = [
   { title: "Overview", href: "/dashboard", icon: LayoutDashboard },
   { title: "My birth charts", href: "/dashboard/charts", icon: Orbit },
   { title: "My journal", href: "/dashboard/journal", icon: NotebookPen },
   { title: "Saved knowledge", href: "/dashboard/library", icon: BookOpen },
+  { title: "Numerology", href: "/numerology", icon: Hash },
+  { title: "Compatibility", href: "/compatibility", icon: Heart },
   { title: "Settings", href: "/dashboard/settings", icon: Settings },
 ];
 export function DashboardShell({
@@ -118,7 +123,10 @@ export function DashboardShell({
             <Menu />
           </Button>
           <span className="eyebrow">✦ ASTERIA · YOUR CORNER OF THE COSMOS</span>
-          <PWAInstall />
+          <div className="dashboard-theme-actions">
+            <ThemeToggle />
+            <PWAInstall />
+          </div>
         </header>
         <main className="dashboard-main">{children}</main>
         <footer className="dashboard-footer">

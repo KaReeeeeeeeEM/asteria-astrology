@@ -15,3 +15,4 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
       - run: npm run check:astrology
+      - run: npm run check:explorations

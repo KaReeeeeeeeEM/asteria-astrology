@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Logo, LogoMark } from "./logo";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "./theme";
 import { PWAInstall } from "./pwa";
 import { authClient } from "@/lib/auth-client";
 export function SiteHeader() {
@@ -15,6 +16,7 @@ export function SiteHeader() {
     ["Explore", "/zodiac"],
     ["Today’s sky", "/sky"],
     ["Learn", "/learn"],
+    ["Numerology", "/numerology"],
     ["About", "/about"],
   ];
   return (
@@ -28,7 +30,7 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <div className="header-actions">
+        <div className="header-actions"><ThemeToggle/>
           <Link href={data ? "/dashboard" : "/signin"} className="signin-link">
             {data ? "My dashboard" : "Log in"}
           </Link>
@@ -86,7 +88,7 @@ export function SiteFooter() {
             <span>EXPLORE</span>
             <Link href="/chart">Birth chart</Link>
             <Link href="/horoscopes">Daily readings</Link>
-            <Link href="/compatibility">Compatibility</Link>
+            <Link href="/compatibility">Compatibility</Link><Link href="/numerology">Life path & numbers</Link>
             <Link href="/sky">Today’s sky</Link>
           </div>
           <div>

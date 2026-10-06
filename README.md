@@ -2,19 +2,22 @@
 
 [Open the app](https://asteria-sand-nine.vercel.app) · [Verification record](docs/VERIFICATION.md)
 
-A free astrology web app and installable PWA. Built with Next.js, TypeScript, Anime.js, shadcn/ui (Radix Nova), Better Auth, and Neon Postgres. A warm editorial interface pairs original learning material with calculated tropical charts and a private reflection space.
+A free astrology web app and installable PWA. Built with Next.js, TypeScript, Anime.js, shadcn/ui (Radix Nova), Better Auth, and Neon Postgres. A playful lavender and midnight interface pairs original learning material with calculated tropical charts and a private reflection space.
 
 ## Features
 
 - Animated landing page, twelve zodiac profiles, searchable 48-article library, current sky and lunar phases, daily sign reflections.
 - Browser-calculated birth charts: ten planets, eleven aspect types, whole-sign houses, Ascendant/Midheaven, retrograde flags, elements, and JSON export.
-- Sign comparison and two-person planetary synastry.
+- Zodiac match percentages with a transparent symbolic scoring breakdown, and two-person planetary synastry.
+- Life path, birthday, and personal-year numerology with visible calculation steps.
+- Upcoming lunar quarters, sign ingresses, stations, seasonal markers, and global eclipse dates; public `/api/sky` JSON.
+- Light/dark themes, self-hosted Nunito Sans, Anime.js perspective scenes, and original cartoon zodiac mascots.
 - Email/password registration and signin, password recovery and email verification through Easymail, WebAuthn passkeys.
 - Protected dashboard with saved charts, current transits, private mood journal, article bookmarks, profile/password/passkey management, data export, and account deletion.
 - Installable PWA with custom SVG branding, PNG/maskable icons, and a lightweight offline fallback. Private pages and auth responses are never cached by the service worker.
 - Responsive layouts, keyboard navigation, accessible Radix controls, reduced-motion support, bundled fonts, metadata, sitemap, and share image.
 
-Asteria is for symbolic reflection and entertainment. Interpretations are original rule-based prose; they are not scientific forecasts or generated AI claims. The library introduces several traditions; only the documented tropical methods have working calculators. See [calculation scope](docs/ASTROLOGY.md).
+Asteria is for symbolic reflection and entertainment. Interpretations are original rule-based prose; they are not scientific forecasts or generated AI claims. The library introduces several traditions; only the documented tropical methods have working calculators. See [calculation scope](docs/ASTROLOGY.md) and [live-data and numerology methods](docs/DYNAMICS.md).
 
 ## Local setup
 
@@ -36,6 +39,7 @@ Easymail sends from the verified sender attached to the key. This app uses `POST
 npm run lint
 npm run typecheck
 npm run check:astrology
+npm run check:explorations
 npm run build
 npm start
 ```
@@ -59,7 +63,7 @@ See [operations](docs/OPERATIONS.md) for Vercel, domains, environment variables,
 
 ## Design and attribution
 
-[Design notes](docs/DESIGN.md) describe the palette, chosen preset, research references, accessibility, and motion. Logo and favicon are original vector artwork. Cormorant Garamond and DM Sans use the SIL Open Font License. Astronomy Engine is MIT-licensed; see its upstream validation references in the calculation notes. shadcn/ui components are generated from the official registry.
+[Design notes](docs/DESIGN.md) describe the palette, chosen preset, research references, accessibility, and motion. Logo and favicon are original vector artwork. Nunito Sans uses the SIL Open Font License. Earlier Cormorant Garamond and DM Sans files retain their licenses. Original AI-assisted illustrations and their prompts are recorded in [art notes](docs/ART.md). Astronomy Engine is MIT-licensed; see its upstream validation references in the calculation notes. shadcn/ui components are generated from the official registry.
 
 ## License
 

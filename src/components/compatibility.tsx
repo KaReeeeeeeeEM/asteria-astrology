@@ -1,4 +1,6 @@
 "use client";
+import { zodiacMatch } from "@/lib/explorations";
+import { ZodiacMascot } from "./cartoons";
 import { useState } from "react";
 import { signs } from "@/lib/knowledge";
 import {
@@ -27,6 +29,7 @@ export function Compatibility() {
   const [two, setTwo] = useState<Chart | null>(null);
   const s1 = signs.find((s) => s.name === a)!;
   const s2 = signs.find((s) => s.name === b)!;
+  const match = zodiacMatch(a, b);
   const same = s1.element === s2.element;
   const harmonious =
     [s1.element, s2.element].every((e) => ["Fire", "Air"].includes(e)) ||
@@ -65,9 +68,28 @@ export function Compatibility() {
           ))}
         </div>
         <div className="connection-art">
-          <span>{s1.symbol}</span>
+          <ZodiacMascot sign={s1.name} />
           <Heart strokeWidth={0.6} />
-          <span>{s2.symbol}</span>
+          <ZodiacMascot sign={s2.name} />
+        </div>
+        <div className="match-result" aria-live="polite">
+          <div className="match-percent">
+            <strong>{match.percentage}%</strong>
+            <span>Symbolic match</span>
+          </div>
+          <div className="match-breakdown">
+            {match.scores.map((x) => (
+              <div key={x.label}>
+                <span>
+                  {x.label} · {x.weight}% weight
+                </span>
+                <strong>{x.value}%</strong>
+                <div className="match-track">
+                  <i style={{ width: `${x.value}%` }} />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
         <div className="connection-reading">
           <span className="eyebrow">
@@ -106,8 +128,10 @@ export function Compatibility() {
             </div>
           </div>
           <p className="method-note">
-            This is a symbolic comparison of sign elements, not a relationship
-            score. For a fuller picture, explore two-chart synastry.
+            This playful score combines elemental flow (55%), sign geometry
+            (30%), and modality (15%). It is a designed symbolic scale, not a
+            measured probability of relationship success. Explore two-chart
+            synastry for more detail.
           </p>
         </div>
       </TabsContent>

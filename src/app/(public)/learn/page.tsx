@@ -1,3 +1,4 @@
+import { LearningFriends } from "@/components/cartoons";
 import { PageHeading } from "@/components/page-heading";
 import { Library } from "@/components/library";
 export const metadata = {
@@ -13,7 +14,7 @@ export default function Learn() {
         title="A universe of understanding."
         description="Follow a question, learn a new language, or find a different perspective. Your curiosity belongs here."
       />
-      <Library />
+      <div className="library-welcome"><LearningFriends/><div><h2>A curious mind is a beautiful thing.</h2><p>Meet the planets, connect the patterns, and learn at your own pace.</p></div></div><Library />
     </main>
   );
 }

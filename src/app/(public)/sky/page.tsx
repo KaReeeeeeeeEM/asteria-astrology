@@ -1,3 +1,4 @@
+import { upcomingEvents } from "@/lib/sky-events";
 import { PageHeading } from "@/components/page-heading";
 import { skyAt, degreeText } from "@/lib/astrology";
 import { Badge } from "@/components/ui/badge";
@@ -8,6 +9,7 @@ export const metadata = { title: "Today’s sky — planets & lunar phases" };
 export default function Sky() {
   const now = new Date();
   const sky = skyAt(now);
+  const events = upcomingEvents(now);
   const moon = sky.placements.find((p) => p.name === "Moon")!;
   return (
     <main className="container public-main">
@@ -87,6 +89,7 @@ export default function Sky() {
           </p>
         </section>
       </div>
+      <section className="event-section"><span className="eyebrow">YOUR CELESTIAL CALENDAR</span><h2>Up next in the universe.</h2><p>Fourteen days of lunar phases, sign changes, and stations, plus the next global eclipses.</p><div className="event-grid">{events.map(e=><article className="event-card" key={e.name+e.date}><Badge variant="secondary">{e.kind}</Badge><h3>{e.name}</h3><time dateTime={e.date}>{new Intl.DateTimeFormat("en",{dateStyle:"medium",timeStyle:"short",timeZone:"UTC"}).format(new Date(e.date))} UTC</time><p>{e.description}</p></article>)}</div></section>
       <p className="method-note">
         Tropical, geocentric ecliptic longitudes from Astronomy Engine. Rx
         indicates apparent retrograde motion, estimated across a 24-hour window.

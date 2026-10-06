@@ -1,3 +1,4 @@
+import { ZodiacMascot } from "@/components/cartoons";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { PageHeading } from "@/components/page-heading";
@@ -23,7 +24,7 @@ export default function Zodiac() {
               <span className="small">{String(i + 1).padStart(2, "0")}</span>
               <ArrowUpRight size={18} />
             </div>
-            <span className="zodiac-large">{s.symbol}</span>
+            <ZodiacMascot sign={s.name}/>
             <span className="eyebrow">
               {s.element} · {s.modality}
             </span>

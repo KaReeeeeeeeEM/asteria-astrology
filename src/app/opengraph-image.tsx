@@ -5,8 +5,8 @@ export default function Image() {
   return new ImageResponse(
     <div
       style={{
-        background: "#f8f5ee",
-        color: "#272920",
+        background: "#f7f6ff",
+        color: "#262342",
         width: "100%",
         height: "100%",
         display: "flex",
@@ -19,7 +19,7 @@ export default function Image() {
         style={{
           display: "flex",
           fontSize: 28,
-          color: "#a45c40",
+          color: "#7052e8",
           letterSpacing: 5,
         }}
       >
@@ -30,28 +30,28 @@ export default function Image() {
           display: "flex",
           fontSize: 82,
           marginTop: 30,
-          fontFamily: "serif",
+          fontFamily: "sans-serif",
         }}
       >
-        Written in the stars.
+        Your universe,
       </div>
       <div
         style={{
           display: "flex",
           fontSize: 82,
-          fontFamily: "serif",
-          fontStyle: "italic",
-          color: "#a45c40",
+          fontFamily: "sans-serif",
+          fontWeight: 700,
+          color: "#7052e8",
         }}
       >
-        Discovered by you.
+        a little closer.
       </div>
       <div
         style={{
           display: "flex",
           fontSize: 25,
           marginTop: 40,
-          color: "#686b61",
+          color: "#68627e",
         }}
       >
         Free birth charts · Daily reflections · An open astrology library

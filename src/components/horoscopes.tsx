@@ -1,4 +1,5 @@
 "use client";
+import { ZodiacMascot } from "./cartoons";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -57,7 +58,7 @@ export function Horoscopes({ date }: { date: string }) {
         </Select>
       </div>
       <div className="reading-hero" key={sign}>
-        <div className="reading-symbol">{reading.sign.symbol}</div>
+        <ZodiacMascot sign={reading.sign.name}/>
         <div>
           <span className="eyebrow">
             {reading.sign.name} · {reading.sign.element}
@@ -109,9 +110,7 @@ export function Horoscopes({ date }: { date: string }) {
         </Button>
       </div>
       <p className="method-note">
-        These free readings combine the calculated Moon sign with original
-        element-based prompts, using the UTC calendar day. They are symbolic
-        reflections, not personalized event predictions.
+        These readings combine calculated Sun and Moon signs, lunar phase, the closest current sky aspect, and a solar-sign whole-sign reflection theme. Original rule-based text varies with the sky and UTC date. Themes use your chosen Sun sign, not your saved natal chart; they are symbolic reflections, not event forecasts.
       </p>
     </>
   );

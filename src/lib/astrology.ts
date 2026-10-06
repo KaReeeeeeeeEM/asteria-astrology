@@ -232,15 +232,21 @@ export function dailyReading(signName: string, date: Date) {
       "Return to a place or practice that helps you feel settled.",
     ],
   };
+  const sun=sky.placements.find(p=>p.name==="Sun")!;
+  const personalHouse=((signs.findIndex(x=>x.name===moon.sign)-signs.indexOf(s)+12)%12)+1;
+  const lenses=["identity and intention","resources and values","learning and conversation","home and belonging","creativity and play","daily habits and care","connection and listening","trust and shared resources","discovery and perspective","goals and responsibility","friendship and community","rest and reflection"];
+  const contact=sky.aspects[0];
+  const themes=lenses[personalHouse-1];
+  const extra=contact?` The closest current sky aspect is ${contact.a} ${contact.name.toLowerCase()} ${contact.b} (${contact.orb.toFixed(1)}° orb), a symbolic invitation to notice ${planetKeywords[contact.a]} and ${planetKeywords[contact.b]}.`:"";
   return {
     sign: s,
     moon,
     phaseName: sky.phaseName,
-    title: `A little space for ${s.gift.toLowerCase()}.`,
-    text: `With the Moon in ${moon.sign}, today’s symbolic lens turns toward ${signAt(moon.longitude).gift.toLowerCase()} and ${signAt(moon.longitude).growth.toLowerCase()}. For ${s.name}, let ${s.gift.toLowerCase()} guide your next small step. ${actions[s.element][monthSeed]}`,
-    prompt: `Where could ${s.growth.toLowerCase()} make room for your ${s.gift.toLowerCase()} today?`,
-    connection: `Bring ${s.gift.toLowerCase()} to a conversation, and practice ${s.growth.toLowerCase()} when you listen.`,
-    focus: actions[s.element][(monthSeed + 2) % 5],
+    title: `Make space for ${themes}.`,
+    text: `With the Moon in ${moon.sign}, today’s symbolic lens turns toward ${signAt(moon.longitude).gift.toLowerCase()} and ${signAt(moon.longitude).growth.toLowerCase()}. For ${s.name}, let ${s.gift.toLowerCase()} guide your next small step. ${actions[s.element][monthSeed]} With the Sun in ${sun.sign} and the ${sky.phaseName.toLowerCase()} phase, use ${themes} as today’s reflection theme.${extra}`,
+    prompt: `How could ${s.gift.toLowerCase()} support ${themes} today, while leaving room for ${s.growth.toLowerCase()}?`,
+    connection: `With the Moon in ${moon.sign}, bring ${signAt(moon.longitude).gift.toLowerCase()} to a conversation. Practice ${s.growth.toLowerCase()} when you listen.`,
+    focus: `Focus on ${themes}. ${actions[s.element][(monthSeed + 2 + personalHouse) % 5]}`,
   };
 }
 export function aspectReading(a: Aspect) {

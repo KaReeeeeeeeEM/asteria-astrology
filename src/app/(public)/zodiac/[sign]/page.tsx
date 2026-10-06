@@ -1,3 +1,4 @@
+import { ZodiacMascot } from "@/components/cartoons";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
@@ -44,7 +45,7 @@ export default async function SignPage({
           </Button>
         </div>
         <div className={`sign-detail-art element-${s.element.toLowerCase()}`}>
-          <span>{s.symbol}</span>
+          <ZodiacMascot sign={s.name}/>
           <i />
         </div>
       </div>

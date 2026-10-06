@@ -19,7 +19,9 @@ import { Field, FieldGroup, FieldLabel, FieldDescription } from "./ui/field";
 import { Alert, AlertTitle, AlertDescription } from "./ui/alert";
 import { Separator } from "./ui/separator";
 import { Logo } from "./logo";
-import { CelestialWheel } from "./wheel";
+import { ThemeToggle } from "./theme";
+import { LearningFriends } from "./cartoons";
+
 type Mode =
   "signup" | "signin" | "forgot-password" | "reset-password" | "verify-email";
 const content = {
@@ -146,7 +148,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
   }
   return (
     <main className="auth-layout">
-      <section className="auth-story">
+      <section className="auth-story"><div className="auth-theme"><ThemeToggle/></div>
         <Logo />
         <div>
           <span className="eyebrow">A GUIDE, NOT A DESTINATION</span>
@@ -155,7 +157,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
             <br />
             <em>You are the story.</em>
           </h2>
-          <CelestialWheel hero />
+          <LearningFriends/>
         </div>
         <p>Free to explore. Room to be yourself.</p>
       </section>

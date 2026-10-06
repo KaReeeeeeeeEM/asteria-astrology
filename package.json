@@ -10,7 +10,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx scripts/migrate.ts",
     "typecheck": "tsc --noEmit",
-    "check:astrology": "tsx scripts/check-astrology.ts"
+    "check:astrology": "tsx scripts/check-astrology.ts",
+    "check:explorations": "tsx scripts/check-explorations.ts"
   },
   "dependencies": {
     "@better-auth/passkey": "^1.7.7",

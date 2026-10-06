@@ -1,6 +1,6 @@
 # Asteria design system
 
-Asteria is an editorial celestial atlas: warm ivory, moss ink, copper accents, thin astronomical linework, and generous space. The original logo combines an orbit, a four-point star, and a satellite dot. It is drawn as SVG, works in one color, and remains recognizable as an app icon. No stock logo is reused.
+Asteria is a playful celestial atlas: lavender and white in light mode; midnight, lilac, and mint in dark mode. Soft peach and aqua support original cartoon illustrations. Both themes use semantic tokens for consistent cards, forms, charts, and dashboard surfaces. The original logo combines an orbit, a four-point star, and a satellite dot. It is drawn as SVG, works in one color, and remains recognizable as an app icon. No stock logo is reused.
 
 ## Research and references
 
@@ -15,11 +15,11 @@ Asteria is an editorial celestial atlas: warm ivory, moss ink, copper accents, t
 
 ## Typography
 
-Cormorant Garamond provides expressive, human-scale headings; DM Sans provides readable labels and body copy. Next.js self-hosts both fonts. Copper italic text highlights possibility without competing with controls.
+Nunito Sans is self-hosted in weights 400, 700, and 900. Rounded, heavy headings suit the cartoon characters; readable body copy and visible form labels carry the tools. Theme selection persists across reloads, with color transitions disabled for reduced motion.
 
 ## Motion
 
-Anime.js v4 handles initial page entrances, SVG orbit rotation, star movement, and viewport reveals. Native scroll remains native. Animations revert on route changes. Reduced-motion preference skips Anime.js and disables CSS transitions. Content remains present without JavaScript; animation is progressive enhancement.
+Anime.js v4 handles initial page entrances, CSS perspective, tilted orbital planes, pointer-responsive 3D rotation, floating cartoon layers, star movement, and viewport reveals. Native scroll remains native. Animations revert on route changes. Reduced-motion preference skips Anime.js and disables CSS transitions. Content remains present without JavaScript; animation is progressive enhancement.
 
 ## UX decisions
 
@@ -32,6 +32,6 @@ Anime.js v4 handles initial page entrances, SVG orbit rotation, star movement, a
 - Passkeys supplement email/password onboarding and can be managed after sign-in.
 - Private features use account-scoped database queries and server-side session checks.
 - Destructive account/data actions have explicit in-app confirmation.
-- Readings avoid relationship scores and deterministic event predictions.
+- Match percentages expose their weights and are labeled as symbolic scores. Readings avoid deterministic personal event predictions.
 - Navigation, chart wheel, library, and dashboard reflow for phones.
 - The PWA offline experience avoids caching authenticated content.
