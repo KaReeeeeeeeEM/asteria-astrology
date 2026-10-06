@@ -14,3 +14,7 @@ Launch checks on 6 October 2026:
 Email delivery, verification links and recovery delivery are awaiting the dedicated Easymail credential. They are not claimed as verified. Passkey browser coverage uses an emulated authenticator; physical device prompt UX still varies by browser/OS.
 
 Calculation tests cover normalized angular separation, known solar signs, valid/invalid dates and coordinates, daylight-saving gaps, unknown-time house omission, future lunar phases, cross-chart aspects and unique library slugs. Educational methods and remaining calculation limits are listed separately in ASTROLOGY.md.
+
+Public-origin follow-up: signup/signin/session/signout and private data persistence checks also passed at `https://asteria-sand-nine.vercel.app`. Browser password signin reached the deployed dashboard. The service worker was active and controlled public navigation; disabling network returned the branded offline guide. GitHub's Application checks workflow passed. The Vercel project is connected to the repository's `feature/asteria` production branch.
+
+Production passkey registration and signin passed on the canonical public origin with the virtual WebAuthn authenticator. The browser reached the deployed dashboard after passkey signin without an email/password submission.
