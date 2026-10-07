@@ -2233,7 +2233,8 @@ svg {
   gap: 10px;
 }
 .dashboard-form-panel {
-  max-width: 650px;
+  width: 100%;
+  max-width: none;
   padding: 30px;
   background: var(--card);
   border: 1px solid var(--border);
@@ -4667,3 +4668,10 @@ a {
  .numerology-report [data-slot="tabs-trigger"] { flex-basis: 100%; padding: 12px; }
  .reading-prose { font-size: 14px; }
 }
+
+/* Dashboard editing surfaces use the entire content area. */
+.dashboard-form-panel .journey-progress { max-width: none; }
+.dashboard-main .journal-layout { grid-template-columns: minmax(0, 1fr); }
+.dashboard-main .journal-compose { position: static; min-width: 0; }
+.dashboard-main .settings-panel:has(form) { grid-column: 1 / -1; }
+.dashboard-main .settings-panel form { width: 100%; min-width: 0; }

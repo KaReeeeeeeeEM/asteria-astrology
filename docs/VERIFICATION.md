@@ -75,3 +75,9 @@ Two issues found during this revision were corrected: overly broad reveal observ
 - Browser checks: full report, 2027 year change, tab/accordion interactions, preserved notes across tabs, actual file download, handbook route and a 33/6 master-number explanation. Grids remain one column at 320/390px and two at 768/1440px without horizontal overflow.
 - ESLint, exploration assertions, TypeScript and optimized Next.js build passed; no browser console errors during the new flows.
 - Further-study references describe conventions and curricula; interpretations and teaching exercises are original Asteria content, not copied source reports.
+
+## Full-width dashboard forms — 7 October 2026
+
+- Removed the 650px chart-creation panel cap and dashboard chart progress-width cap. Journal composition now occupies its own full-width row. Profile/password editing panels span the settings grid.
+- Rendered the actual SavedCharts, Journal and Settings components with browser-only GET fixtures. Both birth-form steps, journal form and profile/password panels matched available dashboard width at 320, 390, 768, 1440 and 1920px without horizontal overflow. Back/next navigation retained input. No account or chart data was written.
+- Temporary local verification route and generated type removed before publication. ESLint, TypeScript and optimized Next.js build passed.
