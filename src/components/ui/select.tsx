@@ -1,5 +1,6 @@
 "use client";
 
+import { useHydrated } from "@/hooks/use-hydrated";
 import * as React from "react";
 import { cn } from "cn";
 import { Select as SelectPrimitive } from "radix-ui";
@@ -38,6 +39,7 @@ function SelectTrigger({
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
   size?: "sm" | "default";
 }) {
+  const ready = useHydrated();
   return (
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
@@ -47,6 +49,7 @@ function SelectTrigger({
         className,
       )}
       {...props}
+      disabled={props.disabled || !ready}
     >
       {children}
       <SelectPrimitive.Icon asChild>

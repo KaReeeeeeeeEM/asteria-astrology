@@ -1,3 +1,5 @@
+"use client";
+import { useHydrated } from "@/hooks/use-hydrated";
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
@@ -50,6 +52,7 @@ function Button({
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
   }) {
+  const ready = useHydrated();
   const Comp = asChild ? Slot.Root : "button";
 
   return (
@@ -59,6 +62,7 @@ function Button({
       data-size={size}
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
+      disabled={props.disabled || (!asChild && !ready)}
     />
   );
 }

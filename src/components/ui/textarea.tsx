@@ -1,7 +1,10 @@
+"use client";
+import { useHydrated } from "@/hooks/use-hydrated";
 import * as React from "react";
 import { cn } from "cn";
 
 function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
+  const ready = useHydrated();
   return (
     <textarea
       data-slot="textarea"
@@ -10,6 +13,7 @@ function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
         className,
       )}
       {...props}
+      disabled={props.disabled || !ready}
     />
   );
 }

@@ -1,7 +1,10 @@
+"use client";
+import { useHydrated } from "@/hooks/use-hydrated";
 import * as React from "react";
 import { cn } from "cn";
 
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
+  const ready = useHydrated();
   return (
     <input
       type={type}
@@ -11,6 +14,7 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
         className,
       )}
       {...props}
+      disabled={props.disabled || !ready}
     />
   );
 }

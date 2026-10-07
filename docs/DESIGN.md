@@ -45,3 +45,5 @@ WebGL imports lazily, uses a capped pixel ratio and approximately 30 fps, pauses
 Active navigation retains an underline; hover/focus draws the underline from left to right. Public navigation composes shadcn NavigationMenu and a focus-trapping Sheet on phones. Date inputs compose shadcn Input, Popover, Calendar and Select; time and time-zone choices use Select. No native date/time picker or datalist UI is used.
 
 Numerology and sign matching use three guided steps. Birth charts split the birth moment from the birth place. Back actions retain inputs, result screens allow corrections, validation is local, and there are no artificial processing delays.
+
+Shadcn buttons and text/select controls remain disabled during server rendering until React attaches their handlers. Shared readiness uses matching server/hydration snapshots and a client snapshot; navigation links remain usable as progressive enhancement. This prevents lost first clicks or edits on a fresh page while its client code is loading.
