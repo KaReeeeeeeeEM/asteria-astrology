@@ -4622,6 +4622,31 @@ a {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .dashboard-bento > * { grid-column: auto; grid-row: auto; min-width: 0; }
+
+/* Exactly three cards share a row on large screens; longer collections stay two-wide. */
+@media (min-width: 1024px) {
+  :is(
+    .feature-grid,
+    .sign-preview-grid,
+    .article-preview-grid,
+    .library-grid,
+    .zodiac-grid,
+    .reading-grid,
+    .house-grid,
+    .element-distribution,
+    .aspect-grid,
+    .connection-prompts,
+    .saved-chart-grid,
+    .settings-grid,
+    .dashboard-bento,
+    .quick-explore,
+    .number-results,
+    .event-grid
+  ):has(> :nth-child(3):last-child) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 700px) {
   .header-actions .header-primary-action { display: none; }
   .dashboard-mobile-brand { display: block; }
