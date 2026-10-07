@@ -15,7 +15,6 @@ import {
   type Language,
   type Catalog,
 } from "@/i18n/translation";
-import { Button } from "./ui/button";
 import {
   Select,
   SelectContent,
@@ -95,30 +94,24 @@ export function LocalizedElement({
 }
 export function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
   const { language, setLanguage, pending, t } = useLanguage();
-  if (compact)
-    return (
-      <Button
-        type="button"
-        variant="ghost"
-        size="icon"
-        disabled={pending}
-        aria-label={t("Change language")}
-        title={language === "en" ? "Kiswahili" : "English"}
-        onClick={() => void setLanguage(language === "en" ? "sw" : "en")}
-      >
-        <Languages />
-      </Button>
-    );
   return (
     <Select
       value={language}
       onValueChange={(v) => void setLanguage(v as Language)}
       disabled={pending}
     >
-      <SelectTrigger aria-label={t("Language")} className="language-select">
-        <SelectValue />
+      <SelectTrigger
+        aria-label={t(compact ? "Change language" : "Language")}
+        className={compact ? "language-select-compact" : "language-select"}
+      >
+        {compact ? (
+          <>
+            <Languages aria-hidden="true" />
+            <span className="sr-only"><SelectValue /></span>
+          </>
+        ) : <SelectValue />}
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent position="popper" align="end">
         <SelectGroup>
           <SelectItem value="en">English</SelectItem>
           <SelectItem value="sw">Kiswahili</SelectItem>

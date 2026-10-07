@@ -4739,3 +4739,18 @@ a {
 
 [data-state="collapsed"] .dashboard-navigation [data-slot="sidebar-menu-button"]>span:not(.nav-underline){display:none;}
 [data-state="collapsed"] .dashboard-navigation .nav-underline{display:block;}
+
+.language-select-compact[data-slot="select-trigger"] {
+  width: 52px;
+  height: 40px;
+  padding: 8px;
+  border: 0;
+  border-radius: 999px;
+  justify-content: center;
+  background: transparent;
+  box-shadow: none;
+}
+.language-select-compact[data-slot="select-trigger"]:hover,
+.language-select-compact[data-state="open"] {
+  background: var(--accent);
+}
