@@ -60,3 +60,9 @@ Two issues found during this revision were corrected: overly broad reveal observ
 - Nine public/auth routes checked at 320, 390, 430, 1024, 1440 and 1920px (54 viewport checks): rendered card grids use one mobile column and two desktop columns, with no horizontal overflow.
 - Dashboard shell independently rendered with sample cards at the same six widths; menu opening/closing, footer installation and spinner accessibility checked. The temporary verification route was removed before publication.
 - ESLint and optimized Next.js build passed.
+
+## Calendar containment — 7 October 2026
+
+- Scoped calendar button dimensions prevent global form-button padding from expanding the date grid. Popup width respects the viewport, and excessive height can scroll.
+- All seven weekday columns and navigation buttons remain inside the panel at 320, 390, 768 and 1440px. Month/year selection, February 29, 2000 selection, reopening and next-month navigation passed.
+- ESLint and production build passed after clearing a stale generated development type from the removed verification route.
