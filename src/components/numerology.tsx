@@ -1,8 +1,10 @@
 "use client";
+import Link from "next/link";
+import { NumerologyReport } from "./numerology-report";
 import { useState, useRef, useEffect } from "react";
 import { animate } from "animejs";
 import { ArrowRight, ArrowLeft, RotateCcw } from "lucide-react";
-import { numerology, numberMeanings } from "@/lib/explorations";
+import { numerology } from "@/lib/explorations";
 import { Button } from "./ui/button";
 import { DatePicker } from "./date-picker";
 import { Field, FieldLabel, FieldDescription, FieldGroup } from "./ui/field";
@@ -67,6 +69,7 @@ export function Numerology() {
                   bring a date; we’ll show every step.
                 </p>
                 <Typewriter text="No account needed. Just a birthday and a little curiosity." />
+                <p className="method-note">Learning to give readings? Start with the <Link href="/learn/numerology-readers-handbook">reader’s handbook</Link>, then use your own results to practice.</p>
               </CardContent>
               <CardFooter>
                 <Button onClick={() => setStep(1)}>
@@ -153,28 +156,7 @@ export function Numerology() {
                 Try another birthday
               </Button>
             </div>
-            <div className="number-results">
-              {[
-                { label: "Life path", value: result.lifePath },
-                { label: "Birthday number", value: result.birthday },
-                {
-                  label: `Personal year · ${result.year}`,
-                  value: result.personalYear,
-                },
-              ].map((n) => (
-                <Card key={n.label}>
-                  <CardHeader>
-                    <CardDescription>{n.label}</CardDescription>
-                    <div className="number-orb">{n.value}</div>
-                    <CardTitle>{numberMeanings[n.value].title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p>{numberMeanings[n.value].text}</p>
-                  </CardContent>
-                </Card>
-              ))}
-              <p className="method-note">{result.steps}</p>
-            </div>
+            <NumerologyReport key={date} date={date} result={result} onYearChange={year=>setResult(numerology(date,year))}/>
           </section>
         )}
       </div>

@@ -66,3 +66,12 @@ Two issues found during this revision were corrected: overly broad reveal observ
 - Scoped calendar button dimensions prevent global form-button padding from expanding the date grid. Popup width respects the viewport, and excessive height can scroll.
 - All seven weekday columns and navigation buttons remain inside the panel at 320, 390, 768 and 1440px. Month/year selection, February 29, 2000 selection, reopening and next-month navigation passed.
 - ESLint and production build passed after clearing a stale generated development type from the removed verification route.
+
+## Numerology reader’s desk — 7 October 2026
+
+- Replaced identical short meanings with distinct life-path, birthday-talent and personal-year readings. Added original editorial profiles for 1–9 and 11/22/33, strengths, development, growth, relationships, work, practices and questions.
+- Added combined interpretation, a six-lesson handbook (also searchable in the library), twelve-number reference, year exploration, ephemeral session notes and Markdown report download. The UI explains notes are not saved and should be downloaded before changing birthdays or leaving.
+- Automated checks cover all 1,188 supported life-path/birthday/year combinations, distinct role paragraphs, unchanged birth-date numbers when the year changes, and report content/notes export.
+- Browser checks: full report, 2027 year change, tab/accordion interactions, preserved notes across tabs, actual file download, handbook route and a 33/6 master-number explanation. Grids remain one column at 320/390px and two at 768/1440px without horizontal overflow.
+- ESLint, exploration assertions, TypeScript and optimized Next.js build passed; no browser console errors during the new flows.
+- Further-study references describe conventions and curricula; interpretations and teaching exercises are original Asteria content, not copied source reports.

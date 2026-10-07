@@ -65,6 +65,7 @@ export default async function ArticlePage({
           ))}
           <div className="article-sources">
             <h3>Keep exploring</h3>
+            {a.sources ? <><p>Original Asteria editorial lessons. These references explain the tradition and provide further study.</p><ul>{a.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noreferrer">{source.title}</a></li>)}</ul></> : (
             <p>
               Study the vocabulary and traditions in the{" "}
               <a
@@ -85,8 +86,9 @@ export default async function ArticlePage({
               . Interpretations are original Asteria editorial content and are
               not scientific predictions.
             </p>
+            )}
           </div>
-          <ButtonLink />
+          <ButtonLink numerology={a.slug === "numerology-readers-handbook"} />
         </article>
       </div>
       {related.length > 0 && (
@@ -107,10 +109,10 @@ export default async function ArticlePage({
     </main>
   );
 }
-function ButtonLink() {
+function ButtonLink({ numerology = false }: { numerology?: boolean }) {
   return (
-    <Link href="/chart" className="text-link">
-      See the symbolism in your own chart
+    <Link href={numerology ? "/numerology" : "/chart"} className="text-link">
+      {numerology ? "Practice with your own numerology reading" : "See the symbolism in your own chart"}
       <ArrowUpRight size={17} />
     </Link>
   );

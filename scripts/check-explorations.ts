@@ -1,3 +1,4 @@
+import { buildNumerologyReading, numerologyReportMarkdown, numberProfiles } from "../src/lib/numerology-readings";
 import assert from "node:assert/strict";
 import { numerology, zodiacMatch, reduceNumber } from "../src/lib/explorations";
 import { upcomingEvents } from "../src/lib/sky-events";
@@ -45,3 +46,25 @@ assert.notEqual(
 console.log(
   "Exploration checks passed: numerology conventions, all 144 zodiac pair scores, future events, and changing sky-based readings.",
 );
+
+const base = numerology("1990-07-17", 2026);
+for (const lifePath of Object.keys(numberProfiles).map(Number)) {
+  for (const birthday of [1,2,3,4,5,6,7,8,9,11,22]) {
+    for (let personalYear=1; personalYear<=9; personalYear++) {
+      const report = buildNumerologyReading({...base, lifePath, birthday, personalYear});
+      assert.equal(report.sections.length, 3);
+      assert.notDeepEqual(report.sections[0].paragraphs, report.sections[1].paragraphs);
+      assert.ok(report.sections.every(s=>s.details.length>=3));
+    }
+  }
+}
+const next = numerology("1990-07-17", 2027);
+assert.equal(next.lifePath, base.lifePath);
+assert.equal(next.birthday, base.birthday);
+assert.notEqual(next.personalYear, base.personalYear);
+assert.notDeepEqual(buildNumerologyReading(next).sections[2], buildNumerologyReading(base).sections[2]);
+const exported = numerologyReportMarkdown("1990-07-17", base, "My practice notes");
+assert.ok(exported.includes("My practice notes"));
+assert.ok(exported.includes("Relationships and communication"));
+assert.ok(exported.includes(base.steps));
+console.log("Detailed reading checks passed: all 1,188 supported role combinations, distinct roles, changing year, and complete notes export.");

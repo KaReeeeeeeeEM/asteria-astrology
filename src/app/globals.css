@@ -4645,3 +4645,25 @@ a {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+.numerology-report { margin-top: 32px; }
+.reading-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 30px; }
+.reading-toolbar h2 { margin: 16px 0 10px; }
+.reading-toolbar p { color: var(--muted-foreground); }
+.reading-detail-card { align-self: start; }
+.reading-prose { font-size: 15px; line-height: 1.85; overflow-wrap: anywhere; }
+.reading-prose p { margin-bottom: 20px; }
+.reading-prose section { margin-top: 26px; }
+.reading-prose h4 { font-family: var(--font-display), sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+.reading-role { color: var(--muted-foreground); padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.reading-workbench { margin-top: 28px; }
+.numerology-report [data-slot="tabs-list"] { max-width: 100%; flex-wrap: wrap; }
+.numerology-report [data-slot="tabs-trigger"] { white-space: normal; }
+.numerology-report [data-slot="accordion-trigger"] { font-size: 16px; padding-block: 20px; }
+.numerology-report .method-note a, .numerology-layout .method-note a { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 700px) {
+ .reading-toolbar { align-items: flex-start; flex-direction: column; }
+ .numerology-report [data-slot="tabs-list"] { width: 100%; }
+ .numerology-report [data-slot="tabs-trigger"] { flex-basis: 100%; padding: 12px; }
+ .reading-prose { font-size: 14px; }
+}

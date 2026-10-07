@@ -1,3 +1,4 @@
+import { readingLessons } from "./reader-lessons";
 export type Sign = {
   name: string;
   symbol: string;
@@ -341,6 +342,7 @@ export type Article = {
   intro: string;
   sections: { title: string; text: string }[];
   minutes: number;
+  sources?: { title: string; url: string }[];
 };
 const slugify = (s: string) =>
   s
@@ -657,6 +659,18 @@ const foundations: Article[] = [
   },
 ];
 export const articles: Article[] = [
+  {
+    slug: "numerology-readers-handbook",
+    title: "The numerology reader’s handbook",
+    category: "Practice",
+    intro: "A six-part workshop in calculation, interpretation, synthesis and the art of asking better questions. Learn to read a symbolic chart with clarity and care.",
+    minutes: 9,
+    sections: readingLessons.map(lesson => ({title: lesson.title, text: `${lesson.text} Practice exercise: ${lesson.exercise}`})),
+    sources: [
+      {title: "Numerology.com: life-path calculation", url: "https://www.numerology.com/articles/your-numerology-chart/life-path-number-calculator/"},
+      {title: "World Numerology: curriculum and further study", url: "https://www.worldnumerology.com/hans-decoz-school-of-numerology/numerology-course-curriculum.html"},
+    ],
+  },
   ...foundations,
   ...planets.map((p) => ({
     slug: slugify(p.name),
