@@ -1,13 +1,16 @@
 "use client";
 import { useEffect, useRef } from "react";
+import { useLanguage } from "./language";
 import { animate } from "animejs";
 export function Typewriter({
-  text,
+  text: sourceText,
   className = "",
 }: {
   text: string;
   className?: string;
 }) {
+  const { t } = useLanguage();
+  const text = t(sourceText);
   const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {
     const el = ref.current;

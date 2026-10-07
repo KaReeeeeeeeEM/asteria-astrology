@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { Text } from "@/components/language";
+import Link from "@/components/app-link";
 import {
   ArrowUpRight,
   ArrowRight,
@@ -31,27 +32,33 @@ export default function Home() {
       <section className="hero container">
         <div className="hero-copy">
           <div className="eyebrow enter">
-            <span className="tiny-star">✦</span> YOUR CORNER OF THE COSMOS
+            <span className="tiny-star">✦</span>
+            <Text>{"YOUR CORNER OF THE COSMOS"}</Text>
           </div>
           <h1 className="enter">
-            Your universe,
+            <Text>{"Your universe,"}</Text>
             <br />
-            <em>a little closer.</em>
+            <em>
+              <Text>{"a little closer."}</Text>
+            </em>
           </h1>
           <p className="hero-description enter">
-            Meet your celestial side. Explore your birth chart, discover your
-            numbers, and follow the sky with a little more curiosity.
+            <Text>
+              {
+                "Meet your celestial side. Explore your birth chart, discover your numbers, and follow the sky with a little more curiosity."
+              }
+            </Text>
           </p>
           <div className="hero-actions enter">
             <Button asChild size="lg">
               <Link href="/chart">
-                Discover your birth chart
+                <Text>{"Discover your birth chart"}</Text>
                 <ArrowUpRight data-icon="inline-end" />
               </Link>
             </Button>
             <Button asChild variant="ghost" size="lg">
               <Link href="/learn">
-                Explore astrology
+                <Text>{"Explore astrology"}</Text>
                 <ArrowRight data-icon="inline-end" />
               </Link>
             </Button>
@@ -59,15 +66,15 @@ export default function Home() {
           <div className="hero-trust enter">
             <span>
               <Check size={14} />
-              Always free
+              <Text>{"Always free"}</Text>
             </span>
             <span>
               <Check size={14} />
-              Made for everyone
+              <Text>{"Made for everyone"}</Text>
             </span>
             <span>
               <Check size={14} />
-              No chart experience needed
+              <Text>{"No chart experience needed"}</Text>
             </span>
           </div>
         </div>
@@ -76,9 +83,15 @@ export default function Home() {
           <div className="sky-note">
             <span className="sky-note-icon">☽</span>
             <div>
-              <span className="eyebrow">IN THE SKY TODAY</span>
+              <span className="eyebrow">
+                <Text>{"IN THE SKY TODAY"}</Text>
+              </span>
               <p>
-                Moon in {moon.sign} <span>· {sky.phaseName}</span>
+                <Text>{"Moon in "}</Text>
+                <Text>{moon.sign}</Text>{" "}
+                <span>
+                  · <Text>{sky.phaseName}</Text>
+                </span>
               </p>
             </div>
             <Link href="/sky" aria-label="Explore today’s sky">
@@ -87,36 +100,61 @@ export default function Home() {
           </div>
         </div>
         <div className="hero-bottom">
-          <span>A GUIDE, NOT A DESTINATION.</span>
+          <span>
+            <Text>{"A GUIDE, NOT A DESTINATION."}</Text>
+          </span>
           <a href="#discover">
-            KEEP EXPLORING <span>↓</span>
+            <Text>{"KEEP EXPLORING "}</Text>
+            <span>↓</span>
           </a>
-          <span>EST. 2026 · OPEN TO ALL</span>
+          <span>
+            <Text>{"EST. 2026 · OPEN TO ALL"}</Text>
+          </span>
         </div>
       </section>
       <ScrollStory />
       <section className="container quick-explore" data-reveal>
         <Link href="/numerology">
-          <span>01 · NUMBER MAGIC</span>
-          <h3>Find your life path</h3>
-          <p>Three numbers. A fresh perspective.</p>
+          <span>
+            <Text>{"01 · NUMBER MAGIC"}</Text>
+          </span>
+          <h3>
+            <Text>{"Find your life path"}</Text>
+          </h3>
+          <p>
+            <Text>{"Three numbers. A fresh perspective."}</Text>
+          </p>
         </Link>
         <Link href="/compatibility">
-          <span>02 · COSMIC CONNECTION</span>
-          <h3>Explore your match</h3>
-          <p>A playful percentage, with the method explained.</p>
+          <span>
+            <Text>{"02 · COSMIC CONNECTION"}</Text>
+          </span>
+          <h3>
+            <Text>{"Explore your match"}</Text>
+          </h3>
+          <p>
+            <Text>{"A playful percentage, with the method explained."}</Text>
+          </p>
         </Link>
         <Link href="/sky">
-          <span>03 · ALWAYS IN MOTION</span>
-          <h3>See what’s coming</h3>
-          <p>Live positions and your next celestial moments.</p>
+          <span>
+            <Text>{"03 · ALWAYS IN MOTION"}</Text>
+          </span>
+          <h3>
+            <Text>{"See what’s coming"}</Text>
+          </h3>
+          <p>
+            <Text>{"Live positions and your next celestial moments."}</Text>
+          </p>
         </Link>
       </section>
       <div className="zodiac-ribbon" aria-hidden="true">
         {signs.map((s) => (
           <span key={s.name}>
-            {s.symbol}
-            <small>{s.name}</small>
+            <Text>{s.symbol}</Text>
+            <small>
+              <Text>{s.name}</Text>
+            </small>
             <i>·</i>
           </span>
         ))}
@@ -125,18 +163,20 @@ export default function Home() {
         <div className="section-heading" data-reveal>
           <div>
             <span className="eyebrow">
-              THE UNIVERSE, A LITTLE MORE PERSONAL
+              <Text>{"THE UNIVERSE, A LITTLE MORE PERSONAL"}</Text>
             </span>
             <h2>
-              Find your own way
+              <Text>{"Find your own way"}</Text>
               <br />
-              <em>into the stars.</em>
+              <em>
+                <Text>{"into the stars."}</Text>
+              </em>
             </h2>
           </div>
           <p>
-            Start with a question. Follow your curiosity.
+            <Text>{"Start with a question. Follow your curiosity."}</Text>
             <br />
-            There’s no right way to begin.
+            <Text>{"There’s no right way to begin."}</Text>
           </p>
         </div>
         <div className="feature-grid">
@@ -177,12 +217,18 @@ export default function Home() {
             <Link href={f.href} key={f.n} className="feature-card" data-reveal>
               <div className="feature-top">
                 <f.icon strokeWidth={1} />
-                <span>{f.n}</span>
+                <span>
+                  <Text>{f.n}</Text>
+                </span>
               </div>
-              <h3>{f.title}</h3>
-              <p>{f.text}</p>
+              <h3>
+                <Text>{f.title}</Text>
+              </h3>
+              <p>
+                <Text>{f.text}</Text>
+              </p>
               <span className="text-link">
-                {f.link}
+                <Text>{f.link}</Text>
                 <ArrowUpRight size={18} />
               </span>
             </Link>
@@ -237,29 +283,38 @@ export default function Home() {
               <path d="M280 267v20m-10-10h20" stroke="currentColor" />
             </svg>
             <span>
-              THE SKY IS A MIRROR.
+              <Text>{"THE SKY IS A MIRROR."}</Text>
               <br />
-              YOU ARE THE STORY.
+              <Text>{"YOU ARE THE STORY."}</Text>
             </span>
           </div>
           <div className="philosophy-copy" data-reveal>
-            <span className="eyebrow">OUR PHILOSOPHY</span>
+            <span className="eyebrow">
+              <Text>{"OUR PHILOSOPHY"}</Text>
+            </span>
             <h2>
-              Less fortune-telling.
+              <Text>{"Less fortune-telling."}</Text>
               <br />
-              <em>More self-discovery.</em>
+              <em>
+                <Text>{"More self-discovery."}</Text>
+              </em>
             </h2>
             <p>
-              We believe astrology is at its best when it opens a
-              conversation—with the world, with each other, and with yourself.
+              <Text>
+                {
+                  "We believe astrology is at its best when it opens a conversation—with the world, with each other, and with yourself."
+                }
+              </Text>
             </p>
             <p>
-              Asteria is a place for possibility, not certainty. Thoughtful
-              interpretations. Real sky calculations. Room to be your own
-              person.
+              <Text>
+                {
+                  "Asteria is a place for possibility, not certainty. Thoughtful interpretations. Real sky calculations. Room to be your own person."
+                }
+              </Text>
             </p>
             <Link className="text-link" href="/about">
-              Get to know Asteria
+              <Text>{"Get to know Asteria"}</Text>
               <ArrowUpRight size={18} />
             </Link>
           </div>
@@ -269,17 +324,19 @@ export default function Home() {
         <div className="section-heading" data-reveal>
           <div>
             <span className="eyebrow">
-              TWELVE SIGNS. ENDLESS POSSIBILITIES.
+              <Text>{"TWELVE SIGNS. ENDLESS POSSIBILITIES."}</Text>
             </span>
             <h2>
-              A whole world
+              <Text>{"A whole world"}</Text>
               <br />
-              <em>in every sign.</em>
+              <em>
+                <Text>{"in every sign."}</Text>
+              </em>
             </h2>
           </div>
           <Button asChild variant="outline">
             <Link href="/zodiac">
-              Meet all the signs
+              <Text>{"Meet all the signs"}</Text>
               <ArrowUpRight data-icon="inline-end" />
             </Link>
           </Button>
@@ -295,10 +352,14 @@ export default function Home() {
               <ZodiacMascot sign={s.name} />
               <div>
                 <span className="eyebrow">
-                  {s.element} · {s.modality}
+                  <Text>{s.element}</Text> · <Text>{s.modality}</Text>
                 </span>
-                <h3>{s.name}</h3>
-                <p>{s.archetype}</p>
+                <h3>
+                  <Text>{s.name}</Text>
+                </h3>
+                <p>
+                  <Text>{s.archetype}</Text>
+                </p>
               </div>
               <ArrowUpRight size={20} />
             </Link>
@@ -308,15 +369,19 @@ export default function Home() {
       <section className="container library-section">
         <div className="section-heading" data-reveal>
           <div>
-            <span className="eyebrow">A GOOD PLACE TO START</span>
+            <span className="eyebrow">
+              <Text>{"A GOOD PLACE TO START"}</Text>
+            </span>
             <h2>
-              A little knowledge.
+              <Text>{"A little knowledge."}</Text>
               <br />
-              <em>A wider universe.</em>
+              <em>
+                <Text>{"A wider universe."}</Text>
+              </em>
             </h2>
           </div>
           <Link href="/learn" className="text-link">
-            Visit the library
+            <Text>{"Visit the library"}</Text>
             <ArrowUpRight size={18} />
           </Link>
         </div>
@@ -329,15 +394,24 @@ export default function Home() {
               data-reveal
             >
               <div className={`article-art art-${i}`}>
-                <span>{["☉", "✦", "☽"][i]}</span>
+                <span>
+                  <Text>{["☉", "✦", "☽"][i]}</Text>
+                </span>
                 <div className="art-orbit" />
               </div>
               <div className="article-preview-body">
-                <Badge variant="secondary">{a.category}</Badge>
-                <h3>{a.title}</h3>
-                <p>{a.intro}</p>
+                <Badge variant="secondary">
+                  <Text>{a.category}</Text>
+                </Badge>
+                <h3>
+                  <Text>{a.title}</Text>
+                </h3>
+                <p>
+                  <Text>{a.intro}</Text>
+                </p>
                 <span className="article-read">
-                  {a.minutes} MIN READ
+                  <Text>{a.minutes}</Text>
+                  <Text>{"MIN READ"}</Text>
                   <ArrowUpRight size={19} />
                 </span>
               </div>
@@ -347,11 +421,15 @@ export default function Home() {
       </section>
       <section className="container faq-section">
         <div data-reveal>
-          <span className="eyebrow">A FEW THINGS YOU MIGHT BE WONDERING</span>
+          <span className="eyebrow">
+            <Text>{"A FEW THINGS YOU MIGHT BE WONDERING"}</Text>
+          </span>
           <h2>
-            Let’s clear
+            <Text>{"Let’s clear"}</Text>
             <br />
-            <em>a little space.</em>
+            <em>
+              <Text>{"a little space."}</Text>
+            </em>
           </h2>
         </div>
         <Accordion type="single" collapsible data-reveal>
@@ -374,28 +452,40 @@ export default function Home() {
             ],
           ].map(([q, a], i) => (
             <AccordionItem value={`q${i}`} key={q}>
-              <AccordionTrigger>{q}</AccordionTrigger>
-              <AccordionContent>{a}</AccordionContent>
+              <AccordionTrigger>
+                <Text>{q}</Text>
+              </AccordionTrigger>
+              <AccordionContent>
+                <Text>{a}</Text>
+              </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
       </section>
       <section className="cta-section" data-reveal>
-        <span className="eyebrow">YOUR NEXT CHAPTER STARTS WITH CURIOSITY</span>
+        <span className="eyebrow">
+          <Text>{"YOUR NEXT CHAPTER STARTS WITH CURIOSITY"}</Text>
+        </span>
         <h2>
-          The universe is vast.
+          <Text>{"The universe is vast."}</Text>
           <br />
-          <em>Start with you.</em>
+          <em>
+            <Text>{"Start with you."}</Text>
+          </em>
         </h2>
-        <p>Your chart. Your reflections. Your own little constellation.</p>
+        <p>
+          <Text>
+            {"Your chart. Your reflections. Your own little constellation."}
+          </Text>
+        </p>
         <Button asChild size="lg">
           <Link href="/signup">
-            Create your free account
+            <Text>{"Create your free account"}</Text>
             <ArrowUpRight data-icon="inline-end" />
           </Link>
         </Button>
         <span className="cta-footnote">
-          NO PAYWALLS. NO PRESSURE. JUST POSSIBILITY.
+          <Text>{"NO PAYWALLS. NO PRESSURE. JUST POSSIBILITY."}</Text>
         </span>
         <Plus className="cta-star" strokeWidth={0.7} />
       </section>

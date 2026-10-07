@@ -1,4 +1,5 @@
 "use client";
+import { useLocalizedProps } from "@/components/language-context";
 
 import * as React from "react";
 import { cn } from "cn";
@@ -10,6 +11,8 @@ function Separator({
   decorative = true,
   ...props
 }: React.ComponentProps<typeof SeparatorPrimitive.Root>) {
+  props = useLocalizedProps(props);
+
   return (
     <SeparatorPrimitive.Root
       data-slot="separator"

@@ -1,4 +1,5 @@
 "use client";
+import { useLocalizedProps } from "@/components/language-context";
 
 import * as React from "react";
 import { type VariantProps } from "class-variance-authority";
@@ -32,6 +33,8 @@ function ToggleGroup({
     spacing?: number;
     orientation?: "horizontal" | "vertical";
   }) {
+  props = useLocalizedProps(props);
+
   return (
     <ToggleGroupPrimitive.Root
       data-slot="toggle-group"
@@ -63,6 +66,8 @@ function ToggleGroupItem({
   ...props
 }: React.ComponentProps<typeof ToggleGroupPrimitive.Item> &
   VariantProps<typeof toggleVariants>) {
+  props = useLocalizedProps(props);
+
   const context = React.useContext(ToggleGroupContext);
 
   return (

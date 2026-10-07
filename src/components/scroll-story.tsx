@@ -1,7 +1,9 @@
 "use client";
+import { Text, LocalizedElement } from "@/components/language";
+
 import { useEffect, useRef } from "react";
 import { animate } from "animejs";
-import Link from "next/link";
+import Link from "@/components/app-link";
 import { ThreeUniverse } from "./three-universe";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
@@ -95,7 +97,8 @@ export function ScrollStory() {
     };
   }, []);
   return (
-    <section
+    <LocalizedElement
+      as="section"
       className="scroll-story"
       ref={ref}
       aria-label="An interactive journey through Asteria"
@@ -105,12 +108,18 @@ export function ScrollStory() {
         <div className="story-copy">
           {chapters.map((c, i) => (
             <div className="story-chapter" key={c.label} hidden={i !== 0}>
-              <Badge variant="outline">{c.label}</Badge>
-              <h2>{c.title}</h2>
-              <p>{c.text}</p>
+              <Badge variant="outline">
+                <Text>{c.label}</Text>
+              </Badge>
+              <h2>
+                <Text>{c.title}</Text>
+              </h2>
+              <p>
+                <Text>{c.text}</Text>
+              </p>
               <Button asChild>
                 <Link href={c.href}>
-                  {c.action}
+                  <Text>{c.action}</Text>
                   <ArrowUpRight data-icon="inline-end" />
                 </Link>
               </Button>
@@ -122,6 +131,6 @@ export function ScrollStory() {
           <Progress value={0} aria-label="Cosmic journey scroll progress" />
         </div>
       </div>
-    </section>
+    </LocalizedElement>
   );
 }

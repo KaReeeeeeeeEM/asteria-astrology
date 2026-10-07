@@ -1,8 +1,12 @@
+import { Text } from "@/components/language";
 import { signs } from "@/lib/knowledge";
 import type { Placement, Aspect } from "@/lib/astrology";
 function point(a: number, r: number) {
   const rad = ((a - 90) * Math.PI) / 180;
-  return { x: Number((250 + r * Math.cos(rad)).toFixed(6)), y: Number((250 + r * Math.sin(rad)).toFixed(6)) };
+  return {
+    x: Number((250 + r * Math.cos(rad)).toFixed(6)),
+    y: Number((250 + r * Math.sin(rad)).toFixed(6)),
+  };
 }
 export function CelestialWheel({
   placements,
@@ -15,15 +19,13 @@ export function CelestialWheel({
 }) {
   const samples = [18, 64, 138, 171, 226, 274, 311, 349];
   const coords = placements?.map((p) => p.longitude) || samples;
-  const lines = aspects
-    ?.slice(0, 22)
-    .map((a) => ({
-      from: placements!.find((p) => p.name === a.a)!.longitude,
-      to: placements!.find((p) => p.name === a.b)!.longitude,
-      color: ["Square", "Opposition"].includes(a.name)
-        ? "var(--accent-copper)"
-        : "var(--sage)",
-    })) || [
+  const lines = aspects?.slice(0, 22).map((a) => ({
+    from: placements!.find((p) => p.name === a.a)!.longitude,
+    to: placements!.find((p) => p.name === a.b)!.longitude,
+    color: ["Square", "Opposition"].includes(a.name)
+      ? "var(--accent-copper)"
+      : "var(--sage)",
+  })) || [
     { from: 18, to: 138, color: "var(--sage)" },
     { from: 64, to: 226, color: "var(--accent-copper)" },
     { from: 171, to: 311, color: "var(--sage)" },
@@ -135,7 +137,7 @@ export function CelestialWheel({
                 opacity=".7"
                 fontFamily="serif"
               >
-                {s.symbol}
+                <Text>{s.symbol}</Text>
               </text>
               <text
                 x={n.x}
@@ -146,7 +148,7 @@ export function CelestialWheel({
                 fill="currentColor"
                 opacity=".48"
               >
-                {s.name.toUpperCase()}
+                <Text>{s.name.toUpperCase()}</Text>
               </text>
             </g>
           );
@@ -181,7 +183,7 @@ export function CelestialWheel({
                   textAnchor="middle"
                   fill="currentColor"
                 >
-                  {placements[i].symbol}
+                  <Text>{placements[i].symbol}</Text>
                 </text>
               )}
             </g>
@@ -209,8 +211,12 @@ export function CelestialWheel({
       </svg>
       {hero && (
         <>
-          <span className="wheel-annotation annotation-top">AS ABOVE</span>
-          <span className="wheel-annotation annotation-bottom">SO BELOW</span>
+          <span className="wheel-annotation annotation-top">
+            <Text>{"AS ABOVE"}</Text>
+          </span>
+          <span className="wheel-annotation annotation-bottom">
+            <Text>{"SO BELOW"}</Text>
+          </span>
           <span className="wheel-dot dot-one">✦</span>
           <span className="wheel-dot dot-two">✧</span>
         </>

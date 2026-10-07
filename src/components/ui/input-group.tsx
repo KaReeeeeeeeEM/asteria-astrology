@@ -1,4 +1,5 @@
 "use client";
+import { useLocalizedProps } from "@/components/language-context";
 
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
@@ -9,6 +10,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 function InputGroup({ className, ...props }: React.ComponentProps<"div">) {
+  props = useLocalizedProps(props);
+
   return (
     <div
       data-slot="input-group"
@@ -48,6 +51,8 @@ function InputGroupAddon({
   align = "inline-start",
   ...props
 }: React.ComponentProps<"div"> & VariantProps<typeof inputGroupAddonVariants>) {
+  props = useLocalizedProps(props);
+
   return (
     <div
       role="group"
@@ -91,6 +96,8 @@ function InputGroupButton({
   ...props
 }: Omit<React.ComponentProps<typeof Button>, "size"> &
   VariantProps<typeof inputGroupButtonVariants>) {
+  props = useLocalizedProps(props);
+
   return (
     <Button
       type={type}
@@ -103,6 +110,8 @@ function InputGroupButton({
 }
 
 function InputGroupText({ className, ...props }: React.ComponentProps<"span">) {
+  props = useLocalizedProps(props);
+
   return (
     <span
       className={cn(
@@ -118,6 +127,8 @@ function InputGroupInput({
   className,
   ...props
 }: React.ComponentProps<"input">) {
+  props = useLocalizedProps(props);
+
   return (
     <Input
       data-slot="input-group-control"
@@ -134,6 +145,8 @@ function InputGroupTextarea({
   className,
   ...props
 }: React.ComponentProps<"textarea">) {
+  props = useLocalizedProps(props);
+
   return (
     <Textarea
       data-slot="input-group-control"

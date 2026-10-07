@@ -1,4 +1,6 @@
 "use client";
+import { Text } from "@/components/language";
+
 import { useEffect, useState } from "react";
 import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -33,13 +35,15 @@ export function PWAInstall() {
         }}
       >
         <Download data-icon="inline-start" />
-        Install app
+        <Text>{"Install app"}</Text>
       </Button>
       {help && (
         <p className="install-help" role="status">
-          On iPhone, use Share → Add to Home Screen. On desktop or Android, use
-          your browser’s install option. If already installed, open Asteria from
-          your apps.
+          <Text>
+            {
+              "On iPhone, use Share → Add to Home Screen. On desktop or Android, use your browser’s install option. If already installed, open Asteria from your apps."
+            }
+          </Text>
         </p>
       )}
     </>

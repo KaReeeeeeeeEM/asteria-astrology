@@ -1,4 +1,7 @@
 "use client";
+import { LanguageSwitcher } from "./language";
+import { Text, LocalizedElement } from "@/components/language";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -48,7 +51,7 @@ export function SiteHeader() {
                     aria-current={path.startsWith(href) ? "page" : undefined}
                     data-active={path.startsWith(href)}
                   >
-                    {label}
+                    <Text>{label}</Text>
                     <span className="nav-underline" aria-hidden="true" />
                   </Link>
                 </NavigationMenuLink>
@@ -57,13 +60,14 @@ export function SiteHeader() {
           </NavigationMenuList>
         </NavigationMenu>
         <div className="header-actions">
+          <LanguageSwitcher compact />
           <ThemeToggle />
           <Link href={data ? "/dashboard" : "/signin"} className="signin-link">
-            {data ? "My dashboard" : "Log in"}
+            <Text>{data ? "My dashboard" : "Log in"}</Text>
           </Link>
           <Button asChild size="sm" className="header-primary-action">
             <Link href={data ? "/dashboard/charts" : "/signup"}>
-              {data ? "My charts" : "Begin your journey"}
+              <Text>{data ? "My charts" : "Begin your journey"}</Text>
               <ArrowUpRight data-icon="inline-end" />
             </Link>
           </Button>
@@ -80,10 +84,18 @@ export function SiteHeader() {
             </SheetTrigger>
             <SheetContent>
               <SheetHeader>
-                <SheetTitle>Your little universe</SheetTitle>
-                <SheetDescription>Follow your curiosity.</SheetDescription>
+                <SheetTitle>
+                  <Text>{"Your little universe"}</Text>
+                </SheetTitle>
+                <SheetDescription>
+                  <Text>{"Follow your curiosity."}</Text>
+                </SheetDescription>
               </SheetHeader>
-              <nav className="sheet-navigation" aria-label="Mobile navigation">
+              <LocalizedElement
+                as="nav"
+                className="sheet-navigation"
+                aria-label="Mobile navigation"
+              >
                 {links
                   .concat([
                     ["Birth chart", "/chart"],
@@ -104,11 +116,11 @@ export function SiteHeader() {
                       aria-current={path.startsWith(href) ? "page" : undefined}
                       onClick={() => setOpen(false)}
                     >
-                      {label}
+                      <Text>{label}</Text>
                       <span className="nav-underline" aria-hidden="true" />
                     </Link>
                   ))}
-              </nav>
+              </LocalizedElement>
             </SheetContent>
           </Sheet>
         </div>
@@ -123,51 +135,83 @@ export function SiteFooter() {
         <div>
           <Logo />
           <p>
-            A little closer to the cosmos.
-            <br />A little closer to yourself.
+            <Text>{"A little closer to the cosmos."}</Text>
+            <br />
+            <Text>{"A little closer to yourself."}</Text>
           </p>
         </div>
         <div className="footer-links">
           <div>
-            <span>EXPLORE</span>
-            <Link href="/chart">Birth chart</Link>
-            <Link href="/horoscopes">Daily readings</Link>
-            <Link href="/compatibility">Compatibility</Link>
-            <Link href="/numerology">Life path & numbers</Link>
-            <Link href="/sky">Today’s sky</Link>
+            <span>
+              <Text>{"EXPLORE"}</Text>
+            </span>
+            <Link href="/chart">
+              <Text>{"Birth chart"}</Text>
+            </Link>
+            <Link href="/horoscopes">
+              <Text>{"Daily readings"}</Text>
+            </Link>
+            <Link href="/compatibility">
+              <Text>{"Compatibility"}</Text>
+            </Link>
+            <Link href="/numerology">
+              <Text>{"Life path & numbers"}</Text>
+            </Link>
+            <Link href="/sky">
+              <Text>{"Today’s sky"}</Text>
+            </Link>
           </div>
           <div>
-            <span>DISCOVER</span>
-            <Link href="/zodiac">Zodiac signs</Link>
-            <Link href="/learn">Astrology library</Link>
-            <Link href="/about">Our philosophy</Link>
-            <Link href="/signup">Create an account</Link>
+            <span>
+              <Text>{"DISCOVER"}</Text>
+            </span>
+            <Link href="/zodiac">
+              <Text>{"Zodiac signs"}</Text>
+            </Link>
+            <Link href="/learn">
+              <Text>{"Astrology library"}</Text>
+            </Link>
+            <Link href="/about">
+              <Text>{"Our philosophy"}</Text>
+            </Link>
+            <Link href="/signup">
+              <Text>{"Create an account"}</Text>
+            </Link>
           </div>
           <div>
-            <span>TAKE US WITH YOU</span>
+            <span>
+              <Text>{"TAKE US WITH YOU"}</Text>
+            </span>
             <PWAInstall />
             <p className="small">
-              Free, always.
+              <Text>{"Free, always."}</Text>
               <br />
-              Made for curious minds.
+              <Text>{"Made for curious minds."}</Text>
             </p>
           </div>
         </div>
       </div>
       <div className="footer-bottom">
         <span>
-          © {new Date().getFullYear()} Asteria. Written in the stars, grounded
-          in you.
+          © <Text>{new Date().getFullYear()}</Text>
+          <Text>{"Asteria. Written in the stars, grounded in you."}</Text>
         </span>
         <div>
-          <Link href="/privacy">Privacy</Link>
-          <Link href="/terms">Terms</Link>
+          <Link href="/privacy">
+            <Text>{"Privacy"}</Text>
+          </Link>
+          <Link href="/terms">
+            <Text>{"Terms"}</Text>
+          </Link>
           <LogoMark size={22} />
         </div>
       </div>
       <p className="disclaimer">
-        Astrology is a symbolic practice for reflection and entertainment, not a
-        scientifically validated prediction method.
+        <Text>
+          {
+            "Astrology is a symbolic practice for reflection and entertainment, not a scientifically validated prediction method."
+          }
+        </Text>
       </p>
     </footer>
   );

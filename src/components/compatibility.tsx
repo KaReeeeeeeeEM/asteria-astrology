@@ -1,4 +1,6 @@
 "use client";
+import { Text } from "@/components/language";
+
 import {
   Card,
   CardHeader,
@@ -50,8 +52,12 @@ export function Compatibility() {
   return (
     <Tabs defaultValue="signs">
       <TabsList>
-        <TabsTrigger value="signs">Sign connection</TabsTrigger>
-        <TabsTrigger value="charts">Two-chart synastry</TabsTrigger>
+        <TabsTrigger value="signs">
+          <Text>{"Sign connection"}</Text>
+        </TabsTrigger>
+        <TabsTrigger value="charts">
+          <Text>{"Two-chart synastry"}</Text>
+        </TabsTrigger>
       </TabsList>
       <TabsContent value="signs">
         <div className="journey-progress">
@@ -59,16 +65,22 @@ export function Compatibility() {
             value={((step + 1) / 3) * 100}
             aria-label="Connection journey progress"
           />
-          <span>STEP {step + 1} OF 3</span>
+          <span>
+            <Text>{"STEP "}</Text>
+            <Text>{step + 1}</Text>
+            <Text>{"OF 3"}</Text>
+          </span>
         </div>
         {step === 0 && (
           <Card className="connection-welcome">
             <CardHeader>
               <CardTitle>
-                <h2>Two signs. A little spark.</h2>
+                <h2>
+                  <Text>{"Two signs. A little spark."}</Text>
+                </h2>
               </CardTitle>
               <CardDescription>
-                Get curious about your cosmic connection.
+                <Text>{"Get curious about your cosmic connection."}</Text>
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -81,7 +93,7 @@ export function Compatibility() {
             </CardContent>
             <CardFooter>
               <Button onClick={() => setStep(1)}>
-                Choose our signs
+                <Text>{"Choose our signs"}</Text>
                 <ArrowRight data-icon="inline-end" />
               </Button>
             </CardFooter>
@@ -95,7 +107,9 @@ export function Compatibility() {
                 { v: b, set: setB, label: "Their sign" },
               ].map((s) => (
                 <div key={s.label}>
-                  <label className="eyebrow">{s.label}</label>
+                  <label className="eyebrow">
+                    <Text>{s.label}</Text>
+                  </label>
                   <Select value={s.v} onValueChange={s.set}>
                     <SelectTrigger aria-label={s.label}>
                       <SelectValue />
@@ -104,7 +118,7 @@ export function Compatibility() {
                       <SelectGroup>
                         {signs.map((x) => (
                           <SelectItem key={x.name} value={x.name}>
-                            {x.symbol} {x.name}
+                            <Text>{x.symbol}</Text> <Text>{x.name}</Text>
                           </SelectItem>
                         ))}
                       </SelectGroup>
@@ -115,10 +129,10 @@ export function Compatibility() {
             </div>
             <div className="step-actions">
               <Button variant="ghost" onClick={() => setStep(0)}>
-                Back
+                <Text>{"Back"}</Text>
               </Button>
               <Button onClick={() => setStep(2)}>
-                Reveal our connection
+                <Text>{"Reveal our connection"}</Text>
                 <Heart data-icon="inline-end" />
               </Button>
             </div>
@@ -127,7 +141,7 @@ export function Compatibility() {
         {step === 2 && (
           <section className="step-panel">
             <Button variant="outline" onClick={() => setStep(1)}>
-              Change our signs
+              <Text>{"Change our signs"}</Text>
             </Button>
             <div className="connection-art">
               <ZodiacMascot sign={s1.name} />
@@ -136,16 +150,23 @@ export function Compatibility() {
             </div>
             <div className="match-result" aria-live="polite">
               <div className="match-percent">
-                <strong>{match.percentage}%</strong>
-                <span>Symbolic match</span>
+                <strong>
+                  <Text>{match.percentage}</Text>%
+                </strong>
+                <span>
+                  <Text>{"Symbolic match"}</Text>
+                </span>
               </div>
               <div className="match-breakdown">
                 {match.scores.map((x) => (
                   <div key={x.label}>
                     <span>
-                      {x.label} · {x.weight}% weight
+                      <Text>{x.label}</Text> · <Text>{x.weight}</Text>
+                      <Text>{"% weight"}</Text>
                     </span>
-                    <strong>{x.value}%</strong>
+                    <strong>
+                      <Text>{x.value}</Text>%
+                    </strong>
                     <div className="match-track">
                       <i style={{ width: `${x.value}%` }} />
                     </div>
@@ -155,45 +176,68 @@ export function Compatibility() {
             </div>
             <div className="connection-reading">
               <span className="eyebrow">
-                {s1.element} MEETS {s2.element}
+                <Text>{s1.element}</Text>
+                <Text>{"MEETS "}</Text>
+                <Text>{s2.element}</Text>
               </span>
               <h2>
-                {same
-                  ? "A familiar kind of magic."
-                  : harmonious
-                    ? "A spark of understanding."
-                    : "A different kind of possibility."}
+                <Text>
+                  {same
+                    ? "A familiar kind of magic."
+                    : harmonious
+                      ? "A spark of understanding."
+                      : "A different kind of possibility."}
+                </Text>
               </h2>
               <p>
-                {same
-                  ? `${s1.name} and ${s2.name} share the ${s1.element.toLowerCase()} element, suggesting a familiar symbolic language. Familiarity can support understanding, while differences in modality invite new approaches.`
-                  : harmonious
-                    ? `${s1.name} brings ${s1.gift.toLowerCase()}, while ${s2.name} brings ${s2.gift.toLowerCase()}. Your elements are traditionally considered complementary—a starting point for noticing how you encourage one another.`
-                    : `${s1.name} and ${s2.name} approach life through different elements. The contrast between ${s1.gift.toLowerCase()} and ${s2.gift.toLowerCase()} can become a useful conversation about needs and perspective.`}
+                <Text>
+                  {same
+                    ? `${s1.name} and ${s2.name} share the ${s1.element.toLowerCase()} element, suggesting a familiar symbolic language. Familiarity can support understanding, while differences in modality invite new approaches.`
+                    : harmonious
+                      ? `${s1.name} brings ${s1.gift.toLowerCase()}, while ${s2.name} brings ${s2.gift.toLowerCase()}. Your elements are traditionally considered complementary—a starting point for noticing how you encourage one another.`
+                      : `${s1.name} and ${s2.name} approach life through different elements. The contrast between ${s1.gift.toLowerCase()} and ${s2.gift.toLowerCase()} can become a useful conversation about needs and perspective.`}
+                </Text>
               </p>
               <div className="connection-prompts">
                 <div>
-                  <h3>A place to connect</h3>
+                  <h3>
+                    <Text>{"A place to connect"}</Text>
+                  </h3>
                   <p>
-                    Ask each other: “When do you feel most supported?” Let{" "}
-                    {s1.gift.toLowerCase()} and {s2.gift.toLowerCase()} shape
-                    how you listen.
+                    <Text>
+                      {"Ask each other: “When do you feel most supported?” Let"}
+                    </Text>
+                    <Text> </Text>
+                    <Text>{s1.gift.toLowerCase()}</Text>
+                    <Text>{"and"}</Text>
+                    <Text>{s2.gift.toLowerCase()}</Text>
+                    <Text>{"shape how you listen."}</Text>
                   </p>
                 </div>
                 <div>
-                  <h3>Room to grow</h3>
+                  <h3>
+                    <Text>{"Room to grow"}</Text>
+                  </h3>
                   <p>
-                    Practice {s1.growth.toLowerCase()} and{" "}
-                    {s2.growth.toLowerCase()}. A chart cannot replace consent,
-                    kindness, or honest communication.
+                    <Text>{"Practice "}</Text>
+                    <Text>{s1.growth.toLowerCase()}</Text>
+                    <Text>{"and"}</Text>
+                    <Text> </Text>
+                    <Text>{s2.growth.toLowerCase()}</Text>
+                    <Text>
+                      {
+                        ". A chart cannot replace consent, kindness, or honest communication."
+                      }
+                    </Text>
                   </p>
                 </div>
               </div>
               <p className="method-note">
-                This playful score combines elemental flow (55%), sign geometry
-                (30%), and modality (15%). It is a designed symbolic scale, not
-                a measured probability of relationship success. Explore
-                two-chart synastry for more detail.
+                <Text>
+                  {
+                    "This playful score combines elemental flow (55%), sign geometry (30%), and modality (15%). It is a designed symbolic scale, not a measured probability of relationship success. Explore two-chart synastry for more detail."
+                  }
+                </Text>
               </p>
             </div>
           </section>
@@ -201,20 +245,27 @@ export function Compatibility() {
       </TabsContent>
       <TabsContent value="charts">
         <div className="synastry-intro">
-          <h2>A conversation between two skies.</h2>
+          <h2>
+            <Text>{"A conversation between two skies."}</Text>
+          </h2>
           <p>
-            Enter birth details with the other person’s permission. Calculations
-            remain in your browser.
+            <Text>
+              {
+                "Enter birth details with the other person’s permission. Calculations remain in your browser."
+              }
+            </Text>
           </p>
         </div>
         <div className="synastry-forms">
           <section>
             <h3>
-              {one ? `${one.input.name}’s chart is ready` : "First person"}
+              <Text>
+                {one ? `${one.input.name}’s chart is ready` : "First person"}
+              </Text>
             </h3>
             {one ? (
               <Button variant="outline" onClick={() => setOne(null)}>
-                Edit first chart
+                <Text>{"Edit first chart"}</Text>
               </Button>
             ) : (
               <BirthForm
@@ -225,11 +276,13 @@ export function Compatibility() {
           </section>
           <section>
             <h3>
-              {two ? `${two.input.name}’s chart is ready` : "Second person"}
+              <Text>
+                {two ? `${two.input.name}’s chart is ready` : "Second person"}
+              </Text>
             </h3>
             {two ? (
               <Button variant="outline" onClick={() => setTwo(null)}>
-                Edit second chart
+                <Text>{"Edit second chart"}</Text>
               </Button>
             ) : (
               <BirthForm
@@ -242,32 +295,50 @@ export function Compatibility() {
         {one && two && (
           <section className="synastry-results">
             <h2>
-              {one.input.name} <ArrowRight size={24} /> {two.input.name}
+              <Text>{one.input.name}</Text> <ArrowRight size={24} />{" "}
+              <Text>{two.input.name}</Text>
             </h2>
             <p className="muted">
-              {aspects.length} cross-chart longitude aspects within a 3° orb.
-              First planet belongs to {one.input.name}; second to{" "}
-              {two.input.name}.
+              <Text>{aspects.length}</Text>
+              <Text>
+                {
+                  "cross-chart longitude aspects within a 3° orb. First planet belongs to "
+                }
+              </Text>
+              <Text>{one.input.name}</Text>
+              <Text>{"; second to"}</Text>
+              <Text> </Text>
+              <Text>{two.input.name}</Text>.
             </p>
             <div className="aspect-grid">
               {aspects.map((x) => (
                 <div className="aspect-item" key={`${x.a}-${x.b}`}>
                   <h3>
-                    {x.a} {x.name.toLowerCase()} {x.b}
+                    <Text>{x.a}</Text> <Text>{x.name.toLowerCase()}</Text>{" "}
+                    <Text>{x.b}</Text>
                   </h3>
                   <span className="eyebrow">
-                    {x.orb.toFixed(1)}° ORB · {x.tone}
+                    <Text>{x.orb.toFixed(1)}</Text>
+                    <Text>{"° ORB · "}</Text>
+                    <Text>{x.tone}</Text>
                   </span>
-                  <p>{aspectReading(x)}</p>
+                  <p>
+                    <Text>{aspectReading(x)}</Text>
+                  </p>
                 </div>
               ))}
             </div>
             {!aspects.length && (
               <Alert>
-                <AlertTitle>No close aspects in this selection</AlertTitle>
+                <AlertTitle>
+                  <Text>{"No close aspects in this selection"}</Text>
+                </AlertTitle>
                 <AlertDescription>
-                  This does not imply poor compatibility. The 3° orb is
-                  deliberately narrow.
+                  <Text>
+                    {
+                      "This does not imply poor compatibility. The 3° orb is deliberately narrow."
+                    }
+                  </Text>
                 </AlertDescription>
               </Alert>
             )}

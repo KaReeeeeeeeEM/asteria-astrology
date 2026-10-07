@@ -1,6 +1,8 @@
 "use client";
+import { Text } from "@/components/language";
+
 import { useState } from "react";
-import Link from "next/link";
+import Link from "@/components/app-link";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import {
@@ -13,16 +15,26 @@ import {
 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { Button } from "./ui/button";
-import {InputGroup,InputGroupInput,InputGroupAddon,InputGroupButton} from './ui/input-group';
+import {
+  InputGroup,
+  InputGroupInput,
+  InputGroupAddon,
+  InputGroupButton,
+} from "./ui/input-group";
 import { Field, FieldGroup, FieldLabel, FieldDescription } from "./ui/field";
 import { Alert, AlertTitle, AlertDescription } from "./ui/alert";
 import { Separator } from "./ui/separator";
 import { Logo } from "./logo";
+import { LanguageSwitcher } from "./language";
 import { ThemeToggle } from "./theme";
 import { LearningFriends } from "./cartoons";
 
 type Mode =
-  "signup" | "signin" | "forgot-password" | "reset-password" | "verify-email";
+  | "signup"
+  | "signin"
+  | "forgot-password"
+  | "reset-password"
+  | "verify-email";
 const content = {
   signup: {
     title: "A little closer to yourself.",
@@ -147,39 +159,66 @@ export function AuthForm({ mode }: { mode: Mode }) {
   }
   return (
     <main className="auth-layout">
-      <section className="auth-story"><div className="auth-theme"><ThemeToggle/></div>
+      <section className="auth-story">
+        <div className="auth-theme">
+          <LanguageSwitcher />
+          <ThemeToggle />
+        </div>
         <Logo />
         <div>
-          <span className="eyebrow">A GUIDE, NOT A DESTINATION</span>
+          <span className="eyebrow">
+            <Text>{"A GUIDE, NOT A DESTINATION"}</Text>
+          </span>
           <h2>
-            The sky is a mirror.
+            <Text>{"The sky is a mirror."}</Text>
             <br />
-            <em>You are the story.</em>
+            <em>
+              <Text>{"You are the story."}</Text>
+            </em>
           </h2>
-          <LearningFriends/>
+          <LearningFriends />
         </div>
-        <p>Free to explore. Room to be yourself.</p>
+        <p>
+          <Text>{"Free to explore. Room to be yourself."}</Text>
+        </p>
       </section>
       <section className="auth-form-side">
+        <div className="auth-mobile-controls">
+          <LanguageSwitcher compact />
+          <ThemeToggle />
+        </div>
         <Link href="/" className="auth-back">
-          ← Back to Asteria
+          <Text>{"← Back to Asteria"}</Text>
         </Link>
         <div className="auth-form-inner enter">
           <span className="eyebrow">
-            ✦{" "}
-            {mode === "signup"
-              ? "BEGIN YOUR JOURNEY"
-              : "YOUR CORNER OF THE COSMOS"}
+            ✦<Text> </Text>
+            <Text>
+              {mode === "signup"
+                ? "BEGIN YOUR JOURNEY"
+                : "YOUR CORNER OF THE COSMOS"}
+            </Text>
           </span>
-          <h1>{c.title}</h1>
-          <p>{c.description}</p>
+          <h1>
+            <Text>{c.title}</Text>
+          </h1>
+          <p>
+            <Text>{c.description}</Text>
+          </p>
           {mode === "verify-email" && search.get("verified") === "1" ? (
             <Alert>
               <Check />
-              <AlertTitle>Email verified</AlertTitle>
+              <AlertTitle>
+                <Text>{"Email verified"}</Text>
+              </AlertTitle>
               <AlertDescription>
-                Thank you. Your account’s email address is confirmed.{" "}
-                <Link href="/dashboard">Continue to your dashboard.</Link>
+                <Text>
+                  {"Thank you. Your account’s email address is confirmed."}
+                </Text>
+                <Text> </Text>
+                <Link href="/dashboard">
+                  <Text>{"Continue to your dashboard."}</Text>
+                </Link>
               </AlertDescription>
             </Alert>
           ) : (
@@ -187,7 +226,9 @@ export function AuthForm({ mode }: { mode: Mode }) {
               <FieldGroup>
                 {mode !== "reset-password" && (
                   <Field>
-                    <FieldLabel htmlFor="email">Email address</FieldLabel>
+                    <FieldLabel htmlFor="email">
+                      <Text>{"Email address"}</Text>
+                    </FieldLabel>
                     <InputGroup>
                       <InputGroupInput
                         id="email"
@@ -207,12 +248,16 @@ export function AuthForm({ mode }: { mode: Mode }) {
                   <Field>
                     <div className="password-label">
                       <FieldLabel htmlFor="password">
-                        {mode === "reset-password"
-                          ? "New password"
-                          : "Password"}
+                        <Text>
+                          {mode === "reset-password"
+                            ? "New password"
+                            : "Password"}
+                        </Text>
                       </FieldLabel>
                       {mode === "signin" && (
-                        <Link href="/forgot-password">Forgot password?</Link>
+                        <Link href="/forgot-password">
+                          <Text>{"Forgot password?"}</Text>
+                        </Link>
                       )}
                     </div>
                     <InputGroup>
@@ -234,34 +279,47 @@ export function AuthForm({ mode }: { mode: Mode }) {
                             : "Your password"
                         }
                       />
-                      <InputGroupAddon align="inline-end"><InputGroupButton
-                        type="button"
-                        variant="ghost"
-                        size="icon-xs"
-                        onClick={() => setShow(!show)}
-                        aria-label={show ? "Hide password" : "Show password"}
-                      >
-                        {show ? <EyeOff /> : <Eye />}
-                      </InputGroupButton></InputGroupAddon>
+                      <InputGroupAddon align="inline-end">
+                        <InputGroupButton
+                          type="button"
+                          variant="ghost"
+                          size="icon-xs"
+                          onClick={() => setShow(!show)}
+                          aria-label={show ? "Hide password" : "Show password"}
+                        >
+                          {show ? <EyeOff /> : <Eye />}
+                        </InputGroupButton>
+                      </InputGroupAddon>
                     </InputGroup>
                     {mode !== "signin" && (
                       <FieldDescription>
-                        Use at least 12 characters. A unique passphrase works
-                        well.
+                        <Text>
+                          {
+                            "Use at least 12 characters. A unique passphrase works well."
+                          }
+                        </Text>
                       </FieldDescription>
                     )}
                   </Field>
                 )}
                 {error && (
                   <Alert variant="destructive" role="alert">
-                    <AlertTitle>Let’s try that again</AlertTitle>
-                    <AlertDescription>{error}</AlertDescription>
+                    <AlertTitle>
+                      <Text>{"Let’s try that again"}</Text>
+                    </AlertTitle>
+                    <AlertDescription>
+                      <Text>{error}</Text>
+                    </AlertDescription>
                   </Alert>
                 )}
                 {success && (
                   <Alert role="status">
-                    <AlertTitle>You’re all set</AlertTitle>
-                    <AlertDescription>{success}</AlertDescription>
+                    <AlertTitle>
+                      <Text>{"You’re all set"}</Text>
+                    </AlertTitle>
+                    <AlertDescription>
+                      <Text>{success}</Text>
+                    </AlertDescription>
                   </Alert>
                 )}
                 <Button type="submit" size="lg" disabled={busy}>
@@ -273,7 +331,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                   ) : (
                     <ArrowUpRight data-icon="inline-end" />
                   )}
-                  {busy ? "One moment…" : c.button}
+                  <Text>{busy ? "One moment…" : c.button}</Text>
                 </Button>
               </FieldGroup>
             </form>
@@ -282,7 +340,9 @@ export function AuthForm({ mode }: { mode: Mode }) {
             <>
               <div className="auth-divider">
                 <Separator />
-                <span>or return with a passkey</span>
+                <span>
+                  <Text>{"or return with a passkey"}</Text>
+                </span>
                 <Separator />
               </div>
               <Button
@@ -292,36 +352,58 @@ export function AuthForm({ mode }: { mode: Mode }) {
                 onClick={passkey}
               >
                 <Fingerprint data-icon="inline-start" />
-                Log in with a passkey
+                <Text>{"Log in with a passkey"}</Text>
               </Button>
               <p className="small muted">
-                Register a passkey in your dashboard after creating an account.
+                <Text>
+                  {
+                    "Register a passkey in your dashboard after creating an account."
+                  }
+                </Text>
               </p>
             </>
           )}
           {mode === "signup" && (
             <p className="auth-legal">
-              By creating an account, you agree to our{" "}
-              <Link href="/terms">Terms</Link> and{" "}
-              <Link href="/privacy">Privacy Policy</Link>.
+              <Text>{"By creating an account, you agree to our"}</Text>
+              <Text> </Text>
+              <Link href="/terms">
+                <Text>{"Terms"}</Text>
+              </Link>
+              <Text>{"and"}</Text>
+              <Text> </Text>
+              <Link href="/privacy">
+                <Text>{"Privacy Policy"}</Text>
+              </Link>
+              .
             </p>
           )}
           <p className="auth-switch">
             {mode === "signup" ? (
               <>
-                Already have an account? <Link href="/signin">Log in</Link>
+                <Text>{"Already have an account? "}</Text>
+                <Link href="/signin">
+                  <Text>{"Log in"}</Text>
+                </Link>
               </>
             ) : mode === "signin" ? (
               <>
-                New to Asteria?{" "}
-                <Link href="/signup">Create a free account</Link>
+                <Text>{"New to Asteria?"}</Text>
+                <Text> </Text>
+                <Link href="/signup">
+                  <Text>{"Create a free account"}</Text>
+                </Link>
               </>
             ) : (
-              <Link href="/signin">Return to log in</Link>
+              <Link href="/signin">
+                <Text>{"Return to log in"}</Text>
+              </Link>
             )}
           </p>
         </div>
-        <span className="auth-bottom">ALWAYS FREE. ALWAYS YOURS.</span>
+        <span className="auth-bottom">
+          <Text>{"ALWAYS FREE. ALWAYS YOURS."}</Text>
+        </span>
       </section>
     </main>
   );

@@ -1,9 +1,11 @@
 "use client";
+import { Text } from "@/components/language";
+
 import { useEffect, useState } from "react";
 import { Bookmark } from "lucide-react";
 import { Button } from "./ui/button";
 import { authClient } from "@/lib/auth-client";
-import { toast } from "sonner";
+import { toast } from "@/lib/localized-toast";
 export function BookmarkButton({ slug }: { slug: string }) {
   const { data } = authClient.useSession();
   const [saved, setSaved] = useState(false);
@@ -51,7 +53,7 @@ export function BookmarkButton({ slug }: { slug: string }) {
         data-icon="inline-start"
         fill={saved ? "currentColor" : "none"}
       />
-      {saved ? "Saved" : "Save article"}
+      <Text>{saved ? "Saved" : "Save article"}</Text>
     </Button>
   );
 }

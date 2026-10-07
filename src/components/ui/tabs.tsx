@@ -1,4 +1,5 @@
 "use client";
+import { useLocalizedProps } from "@/components/language-context";
 
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
@@ -10,6 +11,8 @@ function Tabs({
   orientation = "horizontal",
   ...props
 }: React.ComponentProps<typeof TabsPrimitive.Root>) {
+  props = useLocalizedProps(props);
+
   return (
     <TabsPrimitive.Root
       data-slot="tabs"
@@ -44,6 +47,8 @@ function TabsList({
   ...props
 }: React.ComponentProps<typeof TabsPrimitive.List> &
   VariantProps<typeof tabsListVariants>) {
+  props = useLocalizedProps(props);
+
   return (
     <TabsPrimitive.List
       data-slot="tabs-list"
@@ -58,6 +63,8 @@ function TabsTrigger({
   className,
   ...props
 }: React.ComponentProps<typeof TabsPrimitive.Trigger>) {
+  props = useLocalizedProps(props);
+
   return (
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
@@ -77,6 +84,8 @@ function TabsContent({
   className,
   ...props
 }: React.ComponentProps<typeof TabsPrimitive.Content>) {
+  props = useLocalizedProps(props);
+
   return (
     <TabsPrimitive.Content
       data-slot="tabs-content"

@@ -1,3 +1,6 @@
+import { localizedMetadata } from "@/i18n/server";
+import { cookies } from "next/headers";
+import { LanguageProvider, Text } from "@/components/language";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme";
@@ -23,7 +26,7 @@ const display = localFont({
   variable: "--font-display",
   display: "swap",
 });
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   metadataBase: new URL(process.env.BETTER_AUTH_URL || "http://localhost:3000"),
   title: {
     default: "Asteria — Your corner of the cosmos",
@@ -43,6 +46,10 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image" },
 };
+export async function generateMetadata() {
+  return localizedMetadata(pageMetadata);
+}
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -51,27 +58,33 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: dark)", color: "#000000" },
   ],
 };
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const language =
+    (await cookies()).get("asteria_language")?.value === "sw" ? "sw" : "en";
+  const catalog =
+    language === "sw" ? (await import("@/i18n/sw.json")).default : {};
   return (
     <html
-      lang="en"
+      lang={language}
       className={`${sans.variable} ${display.variable}`}
       suppressHydrationWarning
     >
       <body>
-        <ThemeProvider>
-          <a className="skip-link" href="#content">
-            Skip to content
-          </a>
-          <div id="content">
-            <Motion>{children}</Motion>
-          </div>
-          <Toaster position="bottom-right" richColors />
-        </ThemeProvider>
+        <LanguageProvider initialLanguage={language} initialCatalog={catalog}>
+          <ThemeProvider>
+            <a className="skip-link" href="#content">
+              <Text>Skip to content</Text>
+            </a>
+            <div id="content">
+              <Motion>{children}</Motion>
+            </div>
+            <Toaster position="bottom-right" richColors />
+          </ThemeProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

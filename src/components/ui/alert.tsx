@@ -1,3 +1,5 @@
+"use client";
+import { useLocalizedProps } from "@/components/language-context";
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
@@ -23,6 +25,8 @@ function Alert({
   variant,
   ...props
 }: React.ComponentProps<"div"> & VariantProps<typeof alertVariants>) {
+  props = useLocalizedProps(props);
+
   return (
     <div
       data-slot="alert"
@@ -34,6 +38,8 @@ function Alert({
 }
 
 function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
+  props = useLocalizedProps(props);
+
   return (
     <div
       data-slot="alert-title"
@@ -50,6 +56,8 @@ function AlertDescription({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  props = useLocalizedProps(props);
+
   return (
     <div
       data-slot="alert-description"
@@ -63,6 +71,8 @@ function AlertDescription({
 }
 
 function AlertAction({ className, ...props }: React.ComponentProps<"div">) {
+  props = useLocalizedProps(props);
+
   return (
     <div
       data-slot="alert-action"

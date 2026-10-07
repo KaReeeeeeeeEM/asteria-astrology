@@ -70,3 +70,9 @@ See [operations](docs/OPERATIONS.md) for Vercel, domains, environment variables,
 ## License
 
 MIT. See [LICENSE](LICENSE). Never commit real API keys, auth secrets, connection strings, test passwords, or personal chart/journal data.
+
+### Languages and dashboard navigation
+
+English and Kiswahili switching covers public pages, account forms, the dashboard, reading content, the learning library, dates and numerology downloads. See [language maintenance](docs/LANGUAGES.md). Run `npm run check:i18n` to verify reading coverage.
+
+Dashboard tools and article/detail pages stay inside the authenticated dashboard shell. The shadcn sidenav collapses from its header button or **⌘B / Ctrl+B**, with icon tooltips on desktop and a navigation sheet on mobile.

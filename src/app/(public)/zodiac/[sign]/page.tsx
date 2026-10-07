@@ -1,5 +1,8 @@
+import { localizedMetadata } from "@/i18n/server";
+
+import { Text } from "@/components/language";
 import { ZodiacMascot } from "@/components/cartoons";
-import Link from "next/link";
+import Link from "@/components/app-link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { signs } from "@/lib/knowledge";
@@ -13,7 +16,9 @@ export async function generateMetadata({
   params: Promise<{ sign: string }>;
 }) {
   const { sign } = await params;
-  return { title: signs.find((s) => s.name.toLowerCase() === sign)?.name };
+  return localizedMetadata({
+    title: signs.find((s) => s.name.toLowerCase() === sign)?.name,
+  });
 }
 export default async function SignPage({
   params,
@@ -27,25 +32,32 @@ export default async function SignPage({
     <main className="container public-main">
       <Link href="/zodiac" className="text-link">
         <ArrowLeft size={16} />
-        All zodiac signs
+        <Text>{"All zodiac signs"}</Text>
       </Link>
       <div className="sign-detail enter">
         <div>
-          <span className="eyebrow">{s.dates} · THE TROPICAL ZODIAC</span>
+          <span className="eyebrow">
+            <Text>{s.dates}</Text>
+            <Text>{"· THE TROPICAL ZODIAC"}</Text>
+          </span>
           <h1>
-            {s.name}
-            <em>{s.archetype}</em>
+            <Text>{s.name}</Text>
+            <em>
+              <Text>{s.archetype}</Text>
+            </em>
           </h1>
-          <p>{s.description}</p>
+          <p>
+            <Text>{s.description}</Text>
+          </p>
           <Button asChild>
             <Link href={`/horoscopes?sign=${s.name.toLowerCase()}`}>
-              Your daily reading
+              <Text>{"Your daily reading"}</Text>
               <ArrowUpRight data-icon="inline-end" />
             </Link>
           </Button>
         </div>
         <div className={`sign-detail-art element-${s.element.toLowerCase()}`}>
-          <ZodiacMascot sign={s.name}/>
+          <ZodiacMascot sign={s.name} />
           <i />
         </div>
       </div>
@@ -58,21 +70,30 @@ export default async function SignPage({
           ["Room to grow", s.growth],
         ].map(([k, v]) => (
           <div key={k}>
-            <span className="eyebrow">{k}</span>
-            <h3>{v}</h3>
+            <span className="eyebrow">
+              <Text>{k}</Text>
+            </span>
+            <h3>
+              <Text>{v}</Text>
+            </h3>
           </div>
         ))}
       </div>
       <section className="narrow-section">
-        <h2>More than a sun sign.</h2>
+        <h2>
+          <Text>{"More than a sun sign."}</Text>
+        </h2>
         <p>
-          You carry all twelve signs in your birth chart. {s.name} takes on a
-          different meaning depending on whether it describes your Sun, Moon,
-          rising sign, or another planet. A placement is a starting point for
-          reflection, never the whole story of a person.
+          <Text>{"You carry all twelve signs in your birth chart. "}</Text>
+          <Text>{s.name}</Text>
+          <Text>
+            {
+              "takes on a different meaning depending on whether it describes your Sun, Moon, rising sign, or another planet. A placement is a starting point for reflection, never the whole story of a person."
+            }
+          </Text>
         </p>
         <Link href="/chart" className="text-link">
-          Explore your full chart
+          <Text>{"Explore your full chart"}</Text>
           <ArrowUpRight size={18} />
         </Link>
       </section>

@@ -1,19 +1,30 @@
-import Link from "next/link";
+import { Text } from "@/components/language";
+import Link from "@/components/app-link";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 export default function NotFound() {
   return (
     <main className="error-page">
       <Logo />
-      <span className="eyebrow">A SMALL DETOUR</span>
+      <span className="eyebrow">
+        <Text>{"A SMALL DETOUR"}</Text>
+      </span>
       <h1>
-        This star is a little
+        <Text>{"This star is a little"}</Text>
         <br />
-        <em>off the map.</em>
+        <em>
+          <Text>{"off the map."}</Text>
+        </em>
       </h1>
-      <p>We couldn’t find that page. Your next discovery is still waiting.</p>
+      <p>
+        <Text>
+          {"We couldn’t find that page. Your next discovery is still waiting."}
+        </Text>
+      </p>
       <Button asChild>
-        <Link href="/">Return to Asteria</Link>
+        <Link href="/">
+          <Text>{"Return to Asteria"}</Text>
+        </Link>
       </Button>
     </main>
   );

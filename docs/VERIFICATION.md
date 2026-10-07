@@ -81,3 +81,13 @@ Two issues found during this revision were corrected: overly broad reveal observ
 - Removed the 650px chart-creation panel cap and dashboard chart progress-width cap. Journal composition now occupies its own full-width row. Profile/password editing panels span the settings grid.
 - Rendered the actual SavedCharts, Journal and Settings components with browser-only GET fixtures. Both birth-form steps, journal form and profile/password panels matched available dashboard width at 320, 390, 768, 1440 and 1920px without horizontal overflow. Back/next navigation retained input. No account or chart data was written.
 - Temporary local verification route and generated type removed before publication. ESLint, TypeScript and optimized Next.js build passed.
+
+## Dashboard shell and English/Kiswahili update — October 7, 2026
+
+- Production build, TypeScript and lint pass.
+- Language coverage checks exercise all 49 articles, twelve zodiac signs, daily readings, 252 numerology date/year combinations, downloadable reports and all 144 zodiac pairs. No untranslated reading fallback or corrupted dynamic placeholders occurred in those checks.
+- A disposable account successfully opened the authenticated dashboard. Sidebar click, Command+B and Ctrl+B all changed its state. The collapsed sidebar settled at 64px and the content expanded to use the released width.
+- Numerology, Compatibility, the library and a linked handbook/article stayed below `/dashboard` with the navigation shell present. An open numerology result survived English→Kiswahili→English switching.
+- At 390×844, mobile navigation opened as a sheet, closed after choosing a tool and produced no horizontal page overflow.
+- Language and desktop sidebar preferences survived refresh. Server HTML language and page titles matched the selected locale.
+- Translation checks verify coverage and composition, rather than certifying every long-form translation's linguistic quality. The reviewed override catalogue and translation-maintenance guide support further editorial improvements.

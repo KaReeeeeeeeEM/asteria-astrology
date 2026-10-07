@@ -1,16 +1,26 @@
 "use client";
+import { Text } from "@/components/language";
+
 import { Button } from "@/components/ui/button";
 export default function ErrorPage({ reset }: { reset: () => void }) {
   return (
     <main className="error-page">
-      <span className="eyebrow">A MOMENT TO RESET</span>
+      <span className="eyebrow">
+        <Text>{"A MOMENT TO RESET"}</Text>
+      </span>
       <h1>
-        A little interruption
+        <Text>{"A little interruption"}</Text>
         <br />
-        <em>in the orbit.</em>
+        <em>
+          <Text>{"in the orbit."}</Text>
+        </em>
       </h1>
-      <p>Something didn’t load. Please try again in a moment.</p>
-      <Button onClick={reset}>Try again</Button>
+      <p>
+        <Text>{"Something didn’t load. Please try again in a moment."}</Text>
+      </p>
+      <Button onClick={reset}>
+        <Text>{"Try again"}</Text>
+      </Button>
     </main>
   );
 }

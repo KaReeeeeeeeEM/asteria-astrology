@@ -1,3 +1,5 @@
+"use client";
+import { useLocalizedProps } from "@/components/language-context";
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
@@ -33,6 +35,8 @@ function Badge({
   ...props
 }: React.ComponentProps<"span"> &
   VariantProps<typeof badgeVariants> & { asChild?: boolean }) {
+  props = useLocalizedProps(props);
+
   const Comp = asChild ? Slot.Root : "span";
 
   return (

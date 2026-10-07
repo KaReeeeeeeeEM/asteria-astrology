@@ -1,8 +1,14 @@
+import { localizedMetadata } from "@/i18n/server";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { sessionUser } from "@/lib/api";
 import { DashboardShell } from "@/components/dashboard-shell";
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Your personal dashboard" };
+const pageMetadata = { title: "Your personal dashboard" };
+export async function generateMetadata() {
+  return localizedMetadata(pageMetadata);
+}
+
 export default async function Layout({
   children,
 }: {
@@ -11,7 +17,11 @@ export default async function Layout({
   const user = await sessionUser();
   if (!user) redirect("/signin");
   return (
-    <DashboardShell name={user.name} email={user.email}>
+    <DashboardShell
+      name={user.name}
+      email={user.email}
+      defaultOpen={(await cookies()).get("sidebar_state")?.value !== "false"}
+    >
       {children}
     </DashboardShell>
   );

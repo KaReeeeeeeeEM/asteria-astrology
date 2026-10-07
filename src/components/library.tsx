@@ -1,6 +1,8 @@
 "use client";
+import { Text, useLanguage } from "@/components/language";
+
 import { useMemo, useState } from "react";
-import Link from "next/link";
+import Link from "@/components/app-link";
 import { Search, ArrowUpRight, BookOpen } from "lucide-react";
 import { articles, categories } from "@/lib/knowledge";
 import { Input } from "./ui/input";
@@ -14,6 +16,7 @@ import {
   EmptyMedia,
 } from "./ui/empty";
 export function Library() {
+  const { t } = useLanguage();
   const [q, setQ] = useState("");
   const [category, setCategory] = useState("All");
   const filtered = useMemo(
@@ -21,11 +24,11 @@ export function Library() {
       articles.filter(
         (a) =>
           (category === "All" || a.category === category) &&
-          `${a.title} ${a.intro} ${a.sections.map((s) => s.text).join(" ")}`
+          `${a.title} ${a.intro} ${a.sections.map((s) => s.text).join(" ")} ${t(a.title)} ${t(a.intro)} ${a.sections.map((s) => t(s.text)).join(" ")}`
             .toLowerCase()
             .includes(q.toLowerCase()),
       ),
-    [q, category],
+    [q, category, t],
   );
   return (
     <>
@@ -48,38 +51,49 @@ export function Library() {
         >
           {categories.map((c) => (
             <ToggleGroupItem value={c} key={c}>
-              {c}
+              <Text>{c}</Text>
             </ToggleGroupItem>
           ))}
         </ToggleGroup>
       </div>
       <p className="small muted">
-        {filtered.length} articles · Free to explore
+        <Text>{filtered.length}</Text>
+        <Text>{"articles · Free to explore"}</Text>
       </p>
       <div className="library-grid">
         {filtered.map((a, i) => (
           <Link href={`/learn/${a.slug}`} key={a.slug} className="library-card">
             <div className="library-card-top">
               <span className="library-card-symbol">
-                {a.category === "Planets"
-                  ? "☉"
-                  : a.category === "Aspects"
-                    ? "△"
-                    : a.category === "Houses"
-                      ? "⌂"
-                      : a.category === "Moon"
-                        ? "☽"
-                        : "✦"}
+                <Text>
+                  {a.category === "Planets"
+                    ? "☉"
+                    : a.category === "Aspects"
+                      ? "△"
+                      : a.category === "Houses"
+                        ? "⌂"
+                        : a.category === "Moon"
+                          ? "☽"
+                          : "✦"}
+                </Text>
               </span>
               <span className="small muted">
-                {String(i + 1).padStart(2, "0")}
+                <Text>{String(i + 1).padStart(2, "0")}</Text>
               </span>
             </div>
-            <Badge variant="secondary">{a.category}</Badge>
-            <h3>{a.title}</h3>
-            <p>{a.intro}</p>
+            <Badge variant="secondary">
+              <Text>{a.category}</Text>
+            </Badge>
+            <h3>
+              <Text>{a.title}</Text>
+            </h3>
+            <p>
+              <Text>{a.intro}</Text>
+            </p>
             <span className="article-read">
-              {a.minutes} MIN READ <ArrowUpRight size={18} />
+              <Text>{a.minutes}</Text>
+              <Text>{"MIN READ "}</Text>
+              <ArrowUpRight size={18} />
             </span>
           </Link>
         ))}
@@ -90,9 +104,11 @@ export function Library() {
             <EmptyMedia variant="icon">
               <BookOpen />
             </EmptyMedia>
-            <EmptyTitle>No articles found</EmptyTitle>
+            <EmptyTitle>
+              <Text>{"No articles found"}</Text>
+            </EmptyTitle>
             <EmptyDescription>
-              Try a different word or choose another category.
+              <Text>{"Try a different word or choose another category."}</Text>
             </EmptyDescription>
           </EmptyHeader>
         </Empty>

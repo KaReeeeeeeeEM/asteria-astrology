@@ -1,4 +1,7 @@
-import Link from "next/link";
+import { localizedMetadata } from "@/i18n/server";
+
+import { Text } from "@/components/language";
+import Link from "@/components/app-link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { articles } from "@/lib/knowledge";
@@ -14,7 +17,7 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
   const a = articles.find((a) => a.slug === slug);
-  return { title: a?.title, description: a?.intro };
+  return localizedMetadata({ title: a?.title, description: a?.intro });
 }
 export default async function ArticlePage({
   params,
@@ -31,61 +34,102 @@ export default async function ArticlePage({
     <main className="container article-page">
       <Link href="/learn" className="text-link">
         <ArrowLeft size={16} />
-        Back to the library
+        <Text>{"Back to the library"}</Text>
       </Link>
       <div className="article-heading enter">
-        <Badge variant="secondary">{a.category}</Badge>
-        <h1>{a.title}</h1>
-        <p>{a.intro}</p>
+        <Badge variant="secondary">
+          <Text>{a.category}</Text>
+        </Badge>
+        <h1>
+          <Text>{a.title}</Text>
+        </h1>
+        <p>
+          <Text>{a.intro}</Text>
+        </p>
         <div className="article-meta">
-          <span>{a.minutes} MIN READ · ASTERIA EDITORIAL</span>
+          <span>
+            <Text>{a.minutes}</Text>
+            <Text>{"MIN READ · ASTERIA EDITORIAL"}</Text>
+          </span>
           <BookmarkButton slug={slug} />
         </div>
       </div>
       <div className="article-layout">
         <aside className="article-toc">
-          <span className="eyebrow">IN THIS ARTICLE</span>
+          <span className="eyebrow">
+            <Text>{"IN THIS ARTICLE"}</Text>
+          </span>
           {a.sections.map((s, i) => (
             <a href={`#section-${i}`} key={s.title}>
-              {s.title}
+              <Text>{s.title}</Text>
             </a>
           ))}
           <p className="small muted">
-            A symbolic lens.
+            <Text>{"A symbolic lens."}</Text>
             <br />
-            Your choices remain yours.
+            <Text>{"Your choices remain yours."}</Text>
           </p>
         </aside>
         <article className="article-prose">
           {a.sections.map((s, i) => (
             <section id={`section-${i}`} key={s.title}>
-              <h2>{s.title}</h2>
-              <p>{s.text}</p>
+              <h2>
+                <Text>{s.title}</Text>
+              </h2>
+              <p>
+                <Text>{s.text}</Text>
+              </p>
             </section>
           ))}
           <div className="article-sources">
-            <h3>Keep exploring</h3>
-            {a.sources ? <><p>Original Asteria editorial lessons. These references explain the tradition and provide further study.</p><ul>{a.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noreferrer">{source.title}</a></li>)}</ul></> : (
-            <p>
-              Study the vocabulary and traditions in the{" "}
-              <a
-                href="https://www.astro.com/astrowiki/en/Main_Page"
-                target="_blank"
-                rel="noreferrer"
-              >
-                AstroWiki reference
-              </a>
-              . Astronomical calculations use{" "}
-              <a
-                href="https://github.com/cosinekitty/astronomy"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Astronomy Engine
-              </a>
-              . Interpretations are original Asteria editorial content and are
-              not scientific predictions.
-            </p>
+            <h3>
+              <Text>{"Keep exploring"}</Text>
+            </h3>
+            {a.sources ? (
+              <>
+                <p>
+                  <Text>
+                    {
+                      "Original Asteria editorial lessons. These references explain the tradition and provide further study."
+                    }
+                  </Text>
+                </p>
+                <ul>
+                  {a.sources.map((source) => (
+                    <li key={source.url}>
+                      <a href={source.url} target="_blank" rel="noreferrer">
+                        <Text>{source.title}</Text>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <p>
+                <Text>{"Study the vocabulary and traditions in the"}</Text>
+                <Text> </Text>
+                <a
+                  href="https://www.astro.com/astrowiki/en/Main_Page"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Text>{"AstroWiki reference"}</Text>
+                </a>
+                <Text>{". Astronomical calculations use"}</Text>
+                <Text> </Text>
+                <a
+                  href="https://github.com/cosinekitty/astronomy"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Text>{"Astronomy Engine"}</Text>
+                </a>
+                <Text>
+                  {
+                    ". Interpretations are original Asteria editorial content and are not scientific predictions."
+                  }
+                </Text>
+              </p>
             )}
           </div>
           <ButtonLink numerology={a.slug === "numerology-readers-handbook"} />
@@ -93,14 +137,16 @@ export default async function ArticlePage({
       </div>
       {related.length > 0 && (
         <section className="related-articles">
-          <h2>Follow your curiosity.</h2>
+          <h2>
+            <Text>{"Follow your curiosity."}</Text>
+          </h2>
           {related.map((x) => (
             <Link
               href={`/learn/${x.slug}`}
               className="related-link"
               key={x.slug}
             >
-              {x.title}
+              <Text>{x.title}</Text>
               <ArrowUpRight size={18} />
             </Link>
           ))}
@@ -112,7 +158,11 @@ export default async function ArticlePage({
 function ButtonLink({ numerology = false }: { numerology?: boolean }) {
   return (
     <Link href={numerology ? "/numerology" : "/chart"} className="text-link">
-      {numerology ? "Practice with your own numerology reading" : "See the symbolism in your own chart"}
+      <Text>
+        {numerology
+          ? "Practice with your own numerology reading"
+          : "See the symbolism in your own chart"}
+      </Text>
       <ArrowUpRight size={17} />
     </Link>
   );

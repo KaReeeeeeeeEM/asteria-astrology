@@ -1,4 +1,6 @@
 "use client";
+import { Text } from "@/components/language";
+
 import { useState } from "react";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "./ui/calendar";
@@ -90,7 +92,7 @@ export function DatePicker({
                 <SelectGroup>
                   {months.map((m, i) => (
                     <SelectItem key={m} value={String(i)}>
-                      {m}
+                      <Text>{m}</Text>
                     </SelectItem>
                   ))}
                 </SelectGroup>
@@ -110,7 +112,7 @@ export function DatePicker({
                   {Array.from({ length: year - 1899 }, (_, i) => year - i).map(
                     (y) => (
                       <SelectItem key={y} value={String(y)}>
-                        {y}
+                        <Text>{y}</Text>
                       </SelectItem>
                     ),
                   )}
@@ -173,7 +175,7 @@ export function TimePicker({
                 String(i).padStart(2, "0"),
               ).map((v) => (
                 <SelectItem key={v} value={v}>
-                  {v}
+                  <Text>{v}</Text>
                 </SelectItem>
               ))}
             </SelectGroup>

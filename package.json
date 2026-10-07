@@ -11,7 +11,10 @@
     "db:migrate": "tsx scripts/migrate.ts",
     "typecheck": "tsc --noEmit",
     "check:astrology": "tsx scripts/check-astrology.ts",
-    "check:explorations": "tsx scripts/check-explorations.ts"
+    "check:explorations": "tsx scripts/check-explorations.ts",
+    "check:i18n": "tsx scripts/check-i18n.ts",
+    "i18n:extract": "node scripts/i18n/extract.mjs",
+    "i18n:catalog": "node scripts/i18n/catalog.mjs"
   },
   "dependencies": {
     "@better-auth/passkey": "^1.7.7",

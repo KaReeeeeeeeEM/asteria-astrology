@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { Text } from "@/components/language";
+import Link from "./app-link";
 export function LogoMark({
   className = "",
   size = 36,
@@ -40,12 +41,13 @@ export function LogoMark({
     </svg>
   );
 }
-export function Logo() {
+export function Logo({ href = "/" }: { href?: string }) {
   return (
-    <Link href="/" className="brand" aria-label="Asteria home">
+    <Link href={href} className="brand" aria-label="Asteria home">
       <LogoMark />
       <span>
-        asteria<span className="brand-dot">.</span>
+        <Text>{"asteria"}</Text>
+        <span className="brand-dot">.</span>
       </span>
     </Link>
   );

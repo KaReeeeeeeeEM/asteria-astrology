@@ -1,20 +1,23 @@
-"use client"
+"use client";
+import { useLocalizedProps } from "@/components/language-context";
 
-import * as React from "react"
-import { cn } from "cn"
-import { Progress as ProgressPrimitive } from "radix-ui"
+import * as React from "react";
+import { cn } from "cn";
+import { Progress as ProgressPrimitive } from "radix-ui";
 
 function Progress({
   className,
   value,
   ...props
 }: React.ComponentProps<typeof ProgressPrimitive.Root>) {
+  props = useLocalizedProps(props);
+
   return (
     <ProgressPrimitive.Root
       data-slot="progress"
       className={cn(
         "relative flex h-1 w-full items-center overflow-x-hidden rounded-full bg-muted",
-        className
+        className,
       )}
       {...props}
     >
@@ -24,7 +27,7 @@ function Progress({
         style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
       />
     </ProgressPrimitive.Root>
-  )
+  );
 }
 
-export { Progress }
+export { Progress };

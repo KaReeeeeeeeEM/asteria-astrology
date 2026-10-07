@@ -1,4 +1,5 @@
 "use client";
+import { useLocalizedProps } from "@/components/language-context";
 
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
@@ -34,6 +35,8 @@ function Toggle({
   ...props
 }: React.ComponentProps<typeof TogglePrimitive.Root> &
   VariantProps<typeof toggleVariants>) {
+  props = useLocalizedProps(props);
+
   return (
     <TogglePrimitive.Root
       data-slot="toggle"

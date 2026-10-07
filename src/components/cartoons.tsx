@@ -1,4 +1,5 @@
-import Image from "next/image";
+import { LocalizedElement } from "@/components/language";
+import Image from "./localized-image";
 import { Typewriter } from "./typewriter";
 import type { CSSProperties } from "react";
 import { signs } from "@/lib/knowledge";
@@ -15,7 +16,8 @@ export function ZodiacMascot({
   );
   return (
     <span className="mascot-with-caption">
-      <span
+      <LocalizedElement
+        as="span"
         className={`zodiac-mascot ${className}`}
         role="img"
         aria-label={`${sign} cartoon mascot`}

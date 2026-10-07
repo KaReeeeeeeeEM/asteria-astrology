@@ -1,4 +1,5 @@
 "use client";
+import { useLocalizedProps } from "@/components/language-context";
 
 import * as React from "react";
 import { cn } from "cn";
@@ -9,6 +10,8 @@ function Accordion({
   className,
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Root>) {
+  props = useLocalizedProps(props);
+
   return (
     <AccordionPrimitive.Root
       data-slot="accordion"
@@ -22,6 +25,8 @@ function AccordionItem({
   className,
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Item>) {
+  props = useLocalizedProps(props);
+
   return (
     <AccordionPrimitive.Item
       data-slot="accordion-item"
@@ -36,6 +41,8 @@ function AccordionTrigger({
   children,
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Trigger>) {
+  props = useLocalizedProps(props);
+
   return (
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
@@ -65,6 +72,8 @@ function AccordionContent({
   children,
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Content>) {
+  props = useLocalizedProps(props);
+
   return (
     <AccordionPrimitive.Content
       data-slot="accordion-content"

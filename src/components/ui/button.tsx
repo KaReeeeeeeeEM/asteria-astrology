@@ -1,4 +1,7 @@
 "use client";
+import { useLocalizedProps } from "@/components/language-context";
+
+import { useLanguage } from "@/components/language-context";
 import { useHydrated } from "@/hooks/use-hydrated";
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
@@ -52,7 +55,10 @@ function Button({
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
   }) {
+  props = useLocalizedProps(props);
+
   const ready = useHydrated();
+  const { t } = useLanguage();
   const Comp = asChild ? Slot.Root : "button";
 
   return (
@@ -62,6 +68,8 @@ function Button({
       data-size={size}
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
+      aria-label={props["aria-label"] ? t(props["aria-label"]) : undefined}
+      title={props.title ? t(props.title) : undefined}
       disabled={props.disabled || (!asChild && !ready)}
     />
   );

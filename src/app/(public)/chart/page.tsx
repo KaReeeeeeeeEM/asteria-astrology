@@ -1,10 +1,15 @@
+import { localizedMetadata } from "@/i18n/server";
 import { PageHeading } from "@/components/page-heading";
 import { ChartTool } from "@/components/chart-tool";
-export const metadata = {
+const pageMetadata = {
   title: "Free birth chart calculator",
   description:
     "Calculate your Sun, Moon, rising sign, ten planets, aspects, and whole-sign houses for free.",
 };
+export async function generateMetadata() {
+  return localizedMetadata(pageMetadata);
+}
+
 export default function ChartPage() {
   return (
     <main className="container public-main">

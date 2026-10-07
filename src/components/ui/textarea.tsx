@@ -1,10 +1,16 @@
 "use client";
+import { useLocalizedProps } from "@/components/language-context";
+
+import { useLanguage } from "@/components/language-context";
 import { useHydrated } from "@/hooks/use-hydrated";
 import * as React from "react";
 import { cn } from "cn";
 
 function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
+  props = useLocalizedProps(props);
+
   const ready = useHydrated();
+  const { t } = useLanguage();
   return (
     <textarea
       data-slot="textarea"
@@ -13,6 +19,9 @@ function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
         className,
       )}
       {...props}
+      aria-label={props["aria-label"] ? t(props["aria-label"]) : undefined}
+      title={props.title ? t(props.title) : undefined}
+      placeholder={props.placeholder ? t(props.placeholder) : undefined}
       disabled={props.disabled || !ready}
     />
   );

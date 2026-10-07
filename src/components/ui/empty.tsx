@@ -1,7 +1,11 @@
+"use client";
+import { useLocalizedProps } from "@/components/language-context";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
 
 function Empty({ className, ...props }: React.ComponentProps<"div">) {
+  props = useLocalizedProps(props);
+
   return (
     <div
       data-slot="empty"
@@ -15,6 +19,8 @@ function Empty({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 function EmptyHeader({ className, ...props }: React.ComponentProps<"div">) {
+  props = useLocalizedProps(props);
+
   return (
     <div
       data-slot="empty-header"
@@ -44,6 +50,8 @@ function EmptyMedia({
   variant = "default",
   ...props
 }: React.ComponentProps<"div"> & VariantProps<typeof emptyMediaVariants>) {
+  props = useLocalizedProps(props);
+
   return (
     <div
       data-slot="empty-icon"
@@ -55,6 +63,8 @@ function EmptyMedia({
 }
 
 function EmptyTitle({ className, ...props }: React.ComponentProps<"div">) {
+  props = useLocalizedProps(props);
+
   return (
     <div
       data-slot="empty-title"
@@ -68,6 +78,8 @@ function EmptyTitle({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 function EmptyDescription({ className, ...props }: React.ComponentProps<"p">) {
+  props = useLocalizedProps(props);
+
   return (
     <div
       data-slot="empty-description"
@@ -81,6 +93,8 @@ function EmptyDescription({ className, ...props }: React.ComponentProps<"p">) {
 }
 
 function EmptyContent({ className, ...props }: React.ComponentProps<"div">) {
+  props = useLocalizedProps(props);
+
   return (
     <div
       data-slot="empty-content"

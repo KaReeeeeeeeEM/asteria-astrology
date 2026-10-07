@@ -1,5 +1,7 @@
 "use client";
-import Link from "next/link";
+import { Text } from "@/components/language";
+
+import Link from "@/components/app-link";
 import { NumerologyReport } from "./numerology-report";
 import { useState, useRef, useEffect } from "react";
 import { animate } from "animejs";
@@ -45,12 +47,18 @@ export function Numerology() {
   return (
     <>
       <div className="journey-progress">
-        <Badge variant="outline">STEP {step + 1} OF 3</Badge>
+        <Badge variant="outline">
+          <Text>{"STEP "}</Text>
+          <Text>{step + 1}</Text>
+          <Text>{"OF 3"}</Text>
+        </Badge>
         <Progress
           value={((step + 1) / 3) * 100}
           aria-label="Numerology journey progress"
         />
-        <span>{["Say hello", "Your birthday", "Your numbers"][step]}</span>
+        <span>
+          <Text>{["Say hello", "Your birthday", "Your numbers"][step]}</Text>
+        </span>
       </div>
       <div className="step-panel" ref={root}>
         {step === 0 && (
@@ -58,22 +66,35 @@ export function Numerology() {
             <LearningFriends />
             <Card>
               <CardHeader>
-                <CardDescription>A LITTLE NUMBER MAGIC</CardDescription>
+                <CardDescription>
+                  <Text>{"A LITTLE NUMBER MAGIC"}</Text>
+                </CardDescription>
                 <CardTitle>
-                  <h2>A birthday. A beginning.</h2>
+                  <h2>
+                    <Text>{"A birthday. A beginning."}</Text>
+                  </h2>
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p>
-                  Meet your life path, birthday number, and personal year. You
-                  bring a date; we’ll show every step.
+                  <Text>
+                    {
+                      "Meet your life path, birthday number, and personal year. You bring a date; we’ll show every step."
+                    }
+                  </Text>
                 </p>
                 <Typewriter text="No account needed. Just a birthday and a little curiosity." />
-                <p className="method-note">Learning to give readings? Start with the <Link href="/learn/numerology-readers-handbook">reader’s handbook</Link>, then use your own results to practice.</p>
+                <p className="method-note">
+                  <Text>{"Learning to give readings? Start with the "}</Text>
+                  <Link href="/learn/numerology-readers-handbook">
+                    <Text>{"reader’s handbook"}</Text>
+                  </Link>
+                  <Text>{", then use your own results to practice."}</Text>
+                </p>
               </CardContent>
               <CardFooter>
                 <Button onClick={() => setStep(1)}>
-                  Let’s begin
+                  <Text>{"Let’s begin"}</Text>
                   <ArrowRight data-icon="inline-end" />
                 </Button>
               </CardFooter>
@@ -86,10 +107,12 @@ export function Numerology() {
             <Card>
               <CardHeader>
                 <CardTitle>
-                  <h2>When did your story begin?</h2>
+                  <h2>
+                    <Text>{"When did your story begin?"}</Text>
+                  </h2>
                 </CardTitle>
                 <CardDescription>
-                  Your date stays in your browser.
+                  <Text>{"Your date stays in your browser."}</Text>
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -111,7 +134,9 @@ export function Numerology() {
                 >
                   <FieldGroup>
                     <Field data-invalid={!!error}>
-                      <FieldLabel htmlFor="number-birth">Birth date</FieldLabel>
+                      <FieldLabel htmlFor="number-birth">
+                        <Text>{"Birth date"}</Text>
+                      </FieldLabel>
                       <DatePicker
                         id="number-birth"
                         value={date}
@@ -122,13 +147,17 @@ export function Numerology() {
                         }}
                       />
                       <FieldDescription>
-                        Type YYYY-MM-DD, or open the calendar.
+                        <Text>{"Type YYYY-MM-DD, or open the calendar."}</Text>
                       </FieldDescription>
                     </Field>
                     {error && (
                       <Alert variant="destructive">
-                        <AlertTitle>Check your birth date</AlertTitle>
-                        <AlertDescription>{error}</AlertDescription>
+                        <AlertTitle>
+                          <Text>{"Check your birth date"}</Text>
+                        </AlertTitle>
+                        <AlertDescription>
+                          <Text>{error}</Text>
+                        </AlertDescription>
                       </Alert>
                     )}
                   </FieldGroup>
@@ -137,10 +166,10 @@ export function Numerology() {
               <CardFooter className="step-actions">
                 <Button variant="ghost" onClick={() => setStep(0)}>
                   <ArrowLeft data-icon="inline-start" />
-                  Back
+                  <Text>{"Back"}</Text>
                 </Button>
                 <Button type="submit" form="number-form">
-                  Discover my numbers
+                  <Text>{"Discover my numbers"}</Text>
                   <ArrowRight data-icon="inline-end" />
                 </Button>
               </CardFooter>
@@ -153,18 +182,24 @@ export function Numerology() {
               <Typewriter text="A little number magic, made just for your birthday." />
               <Button variant="outline" onClick={() => setStep(1)}>
                 <RotateCcw data-icon="inline-start" />
-                Try another birthday
+                <Text>{"Try another birthday"}</Text>
               </Button>
             </div>
-            <NumerologyReport key={date} date={date} result={result} onYearChange={year=>setResult(numerology(date,year))}/>
+            <NumerologyReport
+              key={date}
+              date={date}
+              result={result}
+              onYearChange={(year) => setResult(numerology(date, year))}
+            />
           </section>
         )}
       </div>
       <p className="method-note">
-        Pythagorean-style numerology: reduce month, day, and year separately,
-        preserving 11, 22, and 33, then reduce their sum. Other schools use
-        different methods. Personal year uses the current UTC calendar year and
-        reduces to 1–9. These are symbolic interpretations.
+        <Text>
+          {
+            "Pythagorean-style numerology: reduce month, day, and year separately, preserving 11, 22, and 33, then reduce their sum. Other schools use different methods. Personal year uses the current UTC calendar year and reduces to 1–9. These are symbolic interpretations."
+          }
+        </Text>
       </p>
     </>
   );

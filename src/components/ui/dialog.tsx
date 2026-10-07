@@ -1,4 +1,7 @@
 "use client";
+import { useLocalizedProps } from "@/components/language-context";
+
+import { Text } from "@/components/language";
 
 import * as React from "react";
 import { cn } from "cn";
@@ -10,24 +13,32 @@ import { XIcon } from "lucide-react";
 function Dialog({
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Root>) {
+  props = useLocalizedProps(props);
+
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
 }
 
 function DialogTrigger({
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Trigger>) {
+  props = useLocalizedProps(props);
+
   return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />;
 }
 
 function DialogPortal({
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Portal>) {
+  props = useLocalizedProps(props);
+
   return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />;
 }
 
 function DialogClose({
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Close>) {
+  props = useLocalizedProps(props);
+
   return <DialogPrimitive.Close data-slot="dialog-close" {...props} />;
 }
 
@@ -35,6 +46,8 @@ function DialogOverlay({
   className,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Overlay>) {
+  props = useLocalizedProps(props);
+
   return (
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
@@ -55,6 +68,8 @@ function DialogContent({
 }: React.ComponentProps<typeof DialogPrimitive.Content> & {
   showCloseButton?: boolean;
 }) {
+  props = useLocalizedProps(props);
+
   return (
     <DialogPortal>
       <DialogOverlay />
@@ -75,7 +90,9 @@ function DialogContent({
               size="icon-sm"
             >
               <XIcon />
-              <span className="sr-only">Close</span>
+              <span className="sr-only">
+                <Text>{"Close"}</Text>
+              </span>
             </Button>
           </DialogPrimitive.Close>
         )}
@@ -85,6 +102,8 @@ function DialogContent({
 }
 
 function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
+  props = useLocalizedProps(props);
+
   return (
     <div
       data-slot="dialog-header"
@@ -102,6 +121,8 @@ function DialogFooter({
 }: React.ComponentProps<"div"> & {
   showCloseButton?: boolean;
 }) {
+  props = useLocalizedProps(props);
+
   return (
     <div
       data-slot="dialog-footer"
@@ -114,7 +135,9 @@ function DialogFooter({
       {children}
       {showCloseButton && (
         <DialogPrimitive.Close asChild>
-          <Button variant="outline">Close</Button>
+          <Button variant="outline">
+            <Text>{"Close"}</Text>
+          </Button>
         </DialogPrimitive.Close>
       )}
     </div>
@@ -125,6 +148,8 @@ function DialogTitle({
   className,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Title>) {
+  props = useLocalizedProps(props);
+
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
@@ -141,6 +166,8 @@ function DialogDescription({
   className,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Description>) {
+  props = useLocalizedProps(props);
+
   return (
     <DialogPrimitive.Description
       data-slot="dialog-description"

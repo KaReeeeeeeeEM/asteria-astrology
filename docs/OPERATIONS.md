@@ -33,3 +33,9 @@ Run lint, typecheck, calculation assertions, migration validation, and a product
 ## Dependency advisories
 
 The launch audit found upstream advisories in the CLI/lint/migration tool chain (`braces` through globbing tools and older esbuild through drizzle-kit's legacy loader). These tools do not process public requests in Asteria's deployed routes. The audit's proposed forced changes downgrade major packages; they were not applied blindly. Track upstream patches and rerun `npm audit` before future releases. Do not expose tooling dev servers or run registry/pattern inputs from untrusted users. This is a documented remaining tooling limitation, not a claim of a clean audit.
+
+## Dashboard navigation
+
+Public and dashboard tools share page-content components. Dashboard tool routes live below `/dashboard` and inherit its authenticated layout. `AppLink` keeps links to articles, zodiac details, readings, tools and policy pages within that shell when opened from a dashboard route. “Visit public site” is the explicit exit.
+
+The sidenav uses shadcn Sidebar with icon collapse on desktop and a sheet on mobile. The header trigger and Command+B / Ctrl+B toggle it. Its desktop preference persists in `sidebar_state`; the dashboard server layout reads that cookie on refresh. Menu buttons retain accessible labels and tooltips when collapsed.

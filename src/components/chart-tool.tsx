@@ -1,6 +1,8 @@
 "use client";
+import { Text } from "@/components/language";
+
 import { useState } from "react";
-import Link from "next/link";
+import Link from "@/components/app-link";
 import {
   ArrowUpRight,
   Search,
@@ -9,7 +11,7 @@ import {
   RotateCcw,
   LoaderCircle,
 } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "@/lib/localized-toast";
 import { Button } from "./ui/button";
 import { DatePicker, TimePicker } from "./date-picker";
 import { Input } from "./ui/input";
@@ -138,15 +140,23 @@ export function BirthForm({
       }}
     >
       <div className="journey-progress">
-        <Badge variant="outline">STEP {step + 1} OF 2</Badge>
+        <Badge variant="outline">
+          <Text>{"STEP "}</Text>
+          <Text>{step + 1}</Text>
+          <Text>{"OF 2"}</Text>
+        </Badge>
         <Progress value={(step + 1) * 50} aria-label="Birth chart progress" />
-        <span>{step === 0 ? "Your birth moment" : "Your birth place"}</span>
+        <span>
+          <Text>{step === 0 ? "Your birth moment" : "Your birth place"}</Text>
+        </span>
       </div>
       <FieldGroup key={step} className="step-panel">
         {step === 0 && (
           <FieldGroup>
             <Field>
-              <FieldLabel htmlFor="birth-name">Chart name</FieldLabel>
+              <FieldLabel htmlFor="birth-name">
+                <Text>{"Chart name"}</Text>
+              </FieldLabel>
               <Input
                 id="birth-name"
                 autoComplete="off"
@@ -157,13 +167,18 @@ export function BirthForm({
                 required
               />
               <FieldDescription>
-                Use a nickname if you prefer. Public calculations stay in your
-                browser.
+                <Text>
+                  {
+                    "Use a nickname if you prefer. Public calculations stay in your browser."
+                  }
+                </Text>
               </FieldDescription>
             </Field>
             <div className="form-columns">
               <Field>
-                <FieldLabel htmlFor="birth-date">Birth date</FieldLabel>
+                <FieldLabel htmlFor="birth-date">
+                  <Text>{"Birth date"}</Text>
+                </FieldLabel>
                 <DatePicker
                   id="birth-date"
                   value={input.date}
@@ -171,7 +186,9 @@ export function BirthForm({
                 />
               </Field>
               <Field>
-                <FieldLabel htmlFor="birth-time">Birth time</FieldLabel>
+                <FieldLabel htmlFor="birth-time">
+                  <Text>{"Birth time"}</Text>
+                </FieldLabel>
                 <TimePicker
                   id="birth-time"
                   value={input.time}
@@ -187,14 +204,16 @@ export function BirthForm({
                 onCheckedChange={(v) => update("unknownTime", v === true)}
               />
               <FieldLabel htmlFor="unknown-time">
-                I don’t know my birth time
+                <Text>{"I don’t know my birth time"}</Text>
               </FieldLabel>
             </Field>
             {input.unknownTime && (
               <FieldDescription>
-                We’ll use local noon for planetary positions and omit rising
-                sign and houses. The Moon and boundary placements may be
-                uncertain.
+                <Text>
+                  {
+                    "We’ll use local noon for planetary positions and omit rising sign and houses. The Moon and boundary placements may be uncertain."
+                  }
+                </Text>
               </FieldDescription>
             )}
           </FieldGroup>
@@ -203,7 +222,7 @@ export function BirthForm({
           <FieldGroup>
             <Field>
               <FieldLabel htmlFor="city-search">
-                Find your birth city
+                <Text>{"Find your birth city"}</Text>
               </FieldLabel>
               <div className="search-city">
                 <Input
@@ -233,12 +252,12 @@ export function BirthForm({
                   ) : (
                     <Search data-icon="inline-start" />
                   )}
-                  Search
+                  <Text>{"Search"}</Text>
                 </Button>
               </div>
               {locationMessage && (
                 <FieldDescription role="status">
-                  {locationMessage}
+                  <Text>{locationMessage}</Text>
                 </FieldDescription>
               )}
               {cities.length > 0 && (
@@ -272,7 +291,9 @@ export function BirthForm({
               )}
             </Field>
             <Field>
-              <FieldLabel htmlFor="birth-place">Birth place</FieldLabel>
+              <FieldLabel htmlFor="birth-place">
+                <Text>{"Birth place"}</Text>
+              </FieldLabel>
               <Input
                 id="birth-place"
                 value={input.place}
@@ -283,7 +304,9 @@ export function BirthForm({
             </Field>
             <div className="form-columns">
               <Field>
-                <FieldLabel htmlFor="birth-lat">Latitude</FieldLabel>
+                <FieldLabel htmlFor="birth-lat">
+                  <Text>{"Latitude"}</Text>
+                </FieldLabel>
                 <Input
                   id="birth-lat"
                   type="number"
@@ -296,7 +319,9 @@ export function BirthForm({
                 />
               </Field>
               <Field>
-                <FieldLabel htmlFor="birth-lon">Longitude</FieldLabel>
+                <FieldLabel htmlFor="birth-lon">
+                  <Text>{"Longitude"}</Text>
+                </FieldLabel>
                 <Input
                   id="birth-lon"
                   type="number"
@@ -310,7 +335,9 @@ export function BirthForm({
               </Field>
             </div>
             <Field>
-              <FieldLabel htmlFor="birth-zone">Time zone at birth</FieldLabel>
+              <FieldLabel htmlFor="birth-zone">
+                <Text>{"Time zone at birth"}</Text>
+              </FieldLabel>
               <Select
                 value={input.timezone}
                 onValueChange={(v) => update("timezone", v)}
@@ -328,24 +355,30 @@ export function BirthForm({
                       ]),
                     ).map((z) => (
                       <SelectItem value={z} key={z}>
-                        {z.replaceAll("_", " ")}
+                        <Text>{z.replaceAll("_", " ")}</Text>
                       </SelectItem>
                     ))}
                   </SelectGroup>
                 </SelectContent>
               </Select>
               <FieldDescription>
-                IANA time zone, such as Africa/Dar_es_Salaam. Historical
-                daylight saving is applied. For an ambiguous repeated hour,
-                verify the UTC offset with your birth record.
+                <Text>
+                  {
+                    "IANA time zone, such as Africa/Dar_es_Salaam. Historical daylight saving is applied. For an ambiguous repeated hour, verify the UTC offset with your birth record."
+                  }
+                </Text>
               </FieldDescription>
             </Field>
           </FieldGroup>
         )}
         {error && (
           <Alert variant="destructive" role="alert">
-            <AlertTitle>Check your details</AlertTitle>
-            <AlertDescription>{error}</AlertDescription>
+            <AlertTitle>
+              <Text>{"Check your details"}</Text>
+            </AlertTitle>
+            <AlertDescription>
+              <Text>{error}</Text>
+            </AlertDescription>
           </Alert>
         )}
         {step === 1 && (
@@ -357,11 +390,11 @@ export function BirthForm({
               setError("");
             }}
           >
-            Back to birth moment
+            <Text>{"Back to birth moment"}</Text>
           </Button>
         )}
         <Button size="lg" type="submit">
-          {step === 0 ? "Continue to birth place" : label}
+          <Text>{step === 0 ? "Continue to birth place" : label}</Text>
           <ArrowUpRight data-icon="inline-end" />
         </Button>
       </FieldGroup>
@@ -383,12 +416,20 @@ export function ChartResult({
     <div className="chart-result">
       <div className="chart-result-heading">
         <div>
-          <span className="eyebrow">YOUR CELESTIAL BLUEPRINT</span>
-          <h2>{chart.input.name}’s birth chart</h2>
+          <span className="eyebrow">
+            <Text>{"YOUR CELESTIAL BLUEPRINT"}</Text>
+          </span>
+          <h2>
+            {chart.input.name}
+            <Text>{"’s birth chart"}</Text>
+          </h2>
           <p>
-            {chart.input.date} ·{" "}
-            {chart.input.unknownTime ? "Time unknown" : chart.input.time} ·{" "}
-            {chart.input.place}
+            <Text>{chart.input.date}</Text> ·<Text> </Text>
+            <Text>
+              {chart.input.unknownTime ? "Time unknown" : chart.input.time}
+            </Text>{" "}
+            ·<Text> </Text>
+            <Text>{chart.input.place}</Text>
           </p>
         </div>
         <div className="chart-result-actions">
@@ -408,7 +449,7 @@ export function ChartResult({
             }}
           >
             <Download data-icon="inline-start" />
-            Export
+            <Text>{"Export"}</Text>
           </Button>
           {canSave &&
             (data ? (
@@ -436,12 +477,12 @@ export function ChartResult({
                 }}
               >
                 <Save data-icon="inline-start" />
-                {saving ? "Saving…" : "Save chart"}
+                <Text>{saving ? "Saving…" : "Save chart"}</Text>
               </Button>
             ) : (
               <Button asChild size="sm">
                 <Link href="/signup">
-                  Sign up to save
+                  <Text>{"Sign up to save"}</Text>
                   <Save data-icon="inline-end" />
                 </Link>
               </Button>
@@ -451,7 +492,9 @@ export function ChartResult({
       <div className="chart-overview">
         <CelestialWheel placements={chart.placements} aspects={chart.aspects} />
         <div className="big-three">
-          <span className="eyebrow">YOUR BIG THREE</span>
+          <span className="eyebrow">
+            <Text>{"YOUR BIG THREE"}</Text>
+          </span>
           {[
             {
               symbol: "☉",
@@ -479,11 +522,19 @@ export function ChartResult({
             },
           ].map((p) => (
             <div className="big-three-item" key={p.label}>
-              <span>{p.symbol}</span>
+              <span>
+                <Text>{p.symbol}</Text>
+              </span>
               <div>
-                <span className="eyebrow">{p.label}</span>
-                <h3>{p.name}</h3>
-                <p>{p.text.split(". ").slice(0, 2).join(". ")}.</p>
+                <span className="eyebrow">
+                  <Text>{p.label}</Text>
+                </span>
+                <h3>
+                  <Text>{p.name}</Text>
+                </h3>
+                <p>
+                  <Text>{p.text.split(". ").slice(0, 2).join(". ")}</Text>.
+                </p>
               </div>
             </div>
           ))}
@@ -491,30 +542,49 @@ export function ChartResult({
       </div>
       <Tabs defaultValue="placements">
         <TabsList>
-          <TabsTrigger value="placements">Placements</TabsTrigger>
-          <TabsTrigger value="aspects">
-            Aspects ({chart.aspects.length})
+          <TabsTrigger value="placements">
+            <Text>{"Placements"}</Text>
           </TabsTrigger>
-          <TabsTrigger value="houses">Houses</TabsTrigger>
-          <TabsTrigger value="elements">Elements</TabsTrigger>
+          <TabsTrigger value="aspects">
+            <Text>{"Aspects ("}</Text>
+            <Text>{chart.aspects.length}</Text>)
+          </TabsTrigger>
+          <TabsTrigger value="houses">
+            <Text>{"Houses"}</Text>
+          </TabsTrigger>
+          <TabsTrigger value="elements">
+            <Text>{"Elements"}</Text>
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="placements">
           <div className="placement-list">
             {chart.placements.map((p) => (
               <div className="placement-row" key={p.name}>
-                <span className="planet-glyph">{p.symbol}</span>
+                <span className="planet-glyph">
+                  <Text>{p.symbol}</Text>
+                </span>
                 <div>
-                  <strong>{p.name}</strong>
-                  <span>{p.theme}</span>
+                  <strong>
+                    <Text>{p.name}</Text>
+                  </strong>
+                  <span>
+                    <Text>{p.theme}</Text>
+                  </span>
                 </div>
                 <span>
-                  {p.signSymbol} {p.sign}
+                  <Text>{p.signSymbol}</Text> <Text>{p.sign}</Text>
                 </span>
-                <span className="degree">{degreeText(p.degree)}</span>
+                <span className="degree">
+                  <Text>{degreeText(p.degree)}</Text>
+                </span>
                 <span className="small">
-                  {p.house ? `House ${p.house}` : "—"}
+                  <Text>{p.house ? `House ${p.house}` : "—"}</Text>
                 </span>
-                {p.retrograde && <Badge variant="secondary">Rx</Badge>}
+                {p.retrograde && (
+                  <Badge variant="secondary">
+                    <Text>{"Rx"}</Text>
+                  </Badge>
+                )}
               </div>
             ))}
           </div>
@@ -524,13 +594,21 @@ export function ChartResult({
             {chart.aspects.map((a) => (
               <div key={`${a.a}-${a.b}`} className="aspect-item">
                 <div>
-                  <span>{a.symbol}</span>
+                  <span>
+                    <Text>{a.symbol}</Text>
+                  </span>
                   <h3>
-                    {a.a} {a.name.toLowerCase()} {a.b}
+                    <Text>{a.a}</Text> <Text>{a.name.toLowerCase()}</Text>{" "}
+                    <Text>{a.b}</Text>
                   </h3>
-                  <Badge variant="secondary">{a.orb.toFixed(1)}° orb</Badge>
+                  <Badge variant="secondary">
+                    <Text>{a.orb.toFixed(1)}</Text>
+                    <Text>{"° orb"}</Text>
+                  </Badge>
                 </div>
-                <p>{aspectReading(a)}</p>
+                <p>
+                  <Text>{aspectReading(a)}</Text>
+                </p>
               </div>
             ))}
           </div>
@@ -538,10 +616,15 @@ export function ChartResult({
         <TabsContent value="houses">
           {chart.ascendant === null ? (
             <Alert>
-              <AlertTitle>Houses are unavailable</AlertTitle>
+              <AlertTitle>
+                <Text>{"Houses are unavailable"}</Text>
+              </AlertTitle>
               <AlertDescription>
-                Enter a known birth time and location below 66° latitude to
-                calculate whole-sign houses.
+                <Text>
+                  {
+                    "Enter a known birth time and location below 66° latitude to calculate whole-sign houses."
+                  }
+                </Text>
               </AlertDescription>
             </Alert>
           ) : (
@@ -550,11 +633,16 @@ export function ChartResult({
                 const s = signAt(chart.ascendant! + i * 30);
                 return (
                   <div className="house-item" key={h}>
-                    <span className="eyebrow">HOUSE {i + 1}</span>
+                    <span className="eyebrow">
+                      <Text>{"HOUSE "}</Text>
+                      <Text>{i + 1}</Text>
+                    </span>
                     <h3>
-                      {s.symbol} {s.name}
+                      <Text>{s.symbol}</Text> <Text>{s.name}</Text>
                     </h3>
-                    <p>{h}</p>
+                    <p>
+                      <Text>{h}</Text>
+                    </p>
                   </div>
                 );
               })}
@@ -566,36 +654,48 @@ export function ChartResult({
             {Object.entries(chart.elements).map(([e, n]) => (
               <div key={e}>
                 <h3>
-                  {e}
+                  <Text>{e}</Text>
                   <span>{n}/10</span>
                 </h3>
                 <div className="element-track">
                   <div style={{ width: `${n * 10}%` }} />
                 </div>
                 <p className="small muted">
-                  {Math.round(n * 10)}% of the ten planetary placements
+                  <Text>{Math.round(n * 10)}</Text>
+                  <Text>{"% of the ten planetary placements"}</Text>
                 </p>
               </div>
             ))}
           </div>
           <p className="method-note">
-            Each planet has equal weight. These symbolic counts do not measure
-            your personality or abilities.
+            <Text>
+              {
+                "Each planet has equal weight. These symbolic counts do not measure your personality or abilities."
+              }
+            </Text>
           </p>
         </TabsContent>
       </Tabs>
       <p className="method-note">
-        {chart.method}
+        <Text>{chart.method}</Text>
         <br />
-        UTC moment: {chart.utc}.{" "}
-        {chart.midheaven !== null &&
-          `Midheaven: ${signAt(chart.midheaven).name} ${degreeText(chart.midheaven)}.`}{" "}
-        {chart.input.unknownTime &&
-          "Planetary placements use local noon; signs near boundaries may be uncertain."}{" "}
-        Geocentric longitudes are calculated with Astronomy Engine. This is an
-        approximate educational chart, with simplified mean-obliquity angle
-        calculations; it does not include nodes, Chiron, fixed stars,
-        declination parallels, or sidereal techniques.
+        <Text>{"UTC moment: "}</Text>
+        <Text>{chart.utc}</Text>.<Text> </Text>
+        <Text>
+          {chart.midheaven !== null &&
+            `Midheaven: ${signAt(chart.midheaven).name} ${degreeText(chart.midheaven)}.`}
+        </Text>
+        <Text> </Text>
+        <Text>
+          {chart.input.unknownTime &&
+            "Planetary placements use local noon; signs near boundaries may be uncertain."}
+        </Text>
+        <Text> </Text>
+        <Text>
+          {
+            "Geocentric longitudes are calculated with Astronomy Engine. This is an approximate educational chart, with simplified mean-obliquity angle calculations; it does not include nodes, Chiron, fixed stars, declination parallels, or sidereal techniques."
+          }
+        </Text>
       </p>
     </div>
   );
@@ -606,7 +706,7 @@ export function ChartTool() {
     <>
       <Button variant="ghost" onClick={() => setChart(null)}>
         <RotateCcw data-icon="inline-start" />
-        Edit birth details
+        <Text>{"Edit birth details"}</Text>
       </Button>
       <ChartResult chart={chart} />
     </>
@@ -615,24 +715,38 @@ export function ChartTool() {
       <div className="chart-form-intro">
         <CelestialWheel hero />
         <h2>
-          Your sky.
+          <Text>{"Your sky."}</Text>
           <br />
-          <em>Your story.</em>
+          <em>
+            <Text>{"Your story."}</Text>
+          </em>
         </h2>
         <p>
-          A snapshot of the cosmos at the moment you arrived. All ten planetary
-          placements, aspects, and whole-sign houses—free to explore.
+          <Text>
+            {
+              "A snapshot of the cosmos at the moment you arrived. All ten planetary placements, aspects, and whole-sign houses—free to explore."
+            }
+          </Text>
         </p>
         <div className="small muted">
-          Your birth details stay in this browser until you choose to save a
-          chart. City search sends only the city name to Open-Meteo.
+          <Text>
+            {
+              "Your birth details stay in this browser until you choose to save a chart. City search sends only the city name to Open-Meteo."
+            }
+          </Text>
         </div>
       </div>
       <div className="form-panel">
-        <span className="eyebrow">LET’S BEGIN WITH YOU</span>
-        <h2>A few earthly details.</h2>
+        <span className="eyebrow">
+          <Text>{"LET’S BEGIN WITH YOU"}</Text>
+        </span>
+        <h2>
+          <Text>{"A few earthly details."}</Text>
+        </h2>
         <p className="muted">
-          For the most accurate chart, use the time on your birth record.
+          <Text>
+            {"For the most accurate chart, use the time on your birth record."}
+          </Text>
         </p>
         <BirthForm
           onCalculate={(i) => {

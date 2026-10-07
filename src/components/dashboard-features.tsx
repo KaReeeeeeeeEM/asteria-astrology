@@ -1,6 +1,9 @@
 "use client";
+import { LocalizedDate } from "./localized-date";
+import { Text, useLanguage } from "@/components/language";
+
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import Link from "@/components/app-link";
 import { useRouter } from "next/navigation";
 import {
   Plus,
@@ -9,7 +12,7 @@ import {
   ArrowUpRight,
   Download,
 } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "@/lib/localized-toast";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -55,6 +58,7 @@ function jsonOptions(data: unknown): RequestInit {
   };
 }
 export function SavedCharts() {
+  const { t } = useLanguage();
   const [charts, setCharts] = useState<SavedChart[]>([]);
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
@@ -82,13 +86,21 @@ export function SavedCharts() {
     <>
       <div className="dashboard-heading enter">
         <div>
-          <span className="eyebrow">YOUR CELESTIAL BLUEPRINTS</span>
+          <span className="eyebrow">
+            <Text>{"YOUR CELESTIAL BLUEPRINTS"}</Text>
+          </span>
           <h1>
-            Every chart has <em>a story.</em>
+            <Text>{"Every chart has "}</Text>
+            <em>
+              <Text>{"a story."}</Text>
+            </em>
           </h1>
           <p>
-            Save up to 20 charts. Your most recently saved chart powers your
-            overview.
+            <Text>
+              {
+                "Save up to 20 charts. Your most recently saved chart powers your overview."
+              }
+            </Text>
           </p>
         </div>
         <Button
@@ -98,16 +110,19 @@ export function SavedCharts() {
           }}
         >
           <Plus data-icon="inline-start" />
-          New birth chart
+          <Text>{"New birth chart"}</Text>
         </Button>
       </div>
       {error && (
         <Alert variant="destructive">
-          <AlertTitle>Couldn’t load your charts</AlertTitle>
+          <AlertTitle>
+            <Text>{"Couldn’t load your charts"}</Text>
+          </AlertTitle>
           <AlertDescription>
-            {error}{" "}
+            <Text>{error}</Text>
+            <Text> </Text>
             <Button variant="link" onClick={load}>
-              Retry
+              <Text>{"Retry"}</Text>
             </Button>
           </AlertDescription>
         </Alert>
@@ -115,7 +130,7 @@ export function SavedCharts() {
       {creating ? (
         <div className="dashboard-form-panel">
           <Button variant="ghost" onClick={() => setCreating(false)}>
-            ← Back to my charts
+            <Text>{"← Back to my charts"}</Text>
           </Button>
           <BirthForm
             onCalculate={async (input) => {
@@ -141,7 +156,7 @@ export function SavedCharts() {
       ) : active ? (
         <>
           <Button variant="ghost" onClick={() => setActive(null)}>
-            ← All saved charts
+            <Text>{"← All saved charts"}</Text>
           </Button>
           <ChartResult chart={calculateChart(active.input)} canSave={false} />
         </>
@@ -157,24 +172,25 @@ export function SavedCharts() {
             return (
               <div className="saved-chart-card" key={c.id}>
                 <span className="saved-chart-symbol">
-                  {chart.placements[0].signSymbol}
+                  <Text>{chart.placements[0].signSymbol}</Text>
                 </span>
                 <Badge variant="secondary">
-                  {chart.placements[0].sign} Sun
+                  <Text>{chart.placements[0].sign}</Text>
+                  <Text>{"Sun"}</Text>
                 </Badge>
                 <h2>{c.input.name}</h2>
                 <p>
-                  {c.input.date} · {c.input.place}
+                  <Text>{c.input.date}</Text> · <Text>{c.input.place}</Text>
                 </p>
                 <div className="saved-chart-actions">
                   <Button variant="outline" onClick={() => setActive(c)}>
-                    Explore chart
+                    <Text>{"Explore chart"}</Text>
                     <ArrowUpRight data-icon="inline-end" />
                   </Button>
                   <Button
                     size="icon"
                     variant="ghost"
-                    aria-label={`Delete ${c.input.name}'s chart`}
+                    aria-label={`${t("Delete chart")}: ${c.input.name}`}
                     onClick={() => setRemove(c)}
                   >
                     <Trash2 />
@@ -187,14 +203,19 @@ export function SavedCharts() {
       ) : (
         <Empty>
           <EmptyHeader>
-            <EmptyTitle>Your first chart is waiting.</EmptyTitle>
+            <EmptyTitle>
+              <Text>{"Your first chart is waiting."}</Text>
+            </EmptyTitle>
             <EmptyDescription>
-              Create a birth chart to explore your placements, aspects, and
-              personal transits.
+              <Text>
+                {
+                  "Create a birth chart to explore your placements, aspects, and personal transits."
+                }
+              </Text>
             </EmptyDescription>
           </EmptyHeader>
           <Button onClick={() => setCreating(true)}>
-            Create my first chart
+            <Text>{"Create my first chart"}</Text>
             <Plus data-icon="inline-end" />
           </Button>
         </Empty>
@@ -202,15 +223,21 @@ export function SavedCharts() {
       <Dialog open={!!remove} onOpenChange={(v) => !v && setRemove(null)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Delete this saved chart?</DialogTitle>
+            <DialogTitle>
+              <Text>{"Delete this saved chart?"}</Text>
+            </DialogTitle>
             <DialogDescription>
-              {remove?.input.name}’s chart will be removed from your account.
-              You can calculate it again with its birth details.
+              {remove?.input.name}
+              <Text>
+                {
+                  "’s chart will be removed from your account. You can calculate it again with its birth details."
+                }
+              </Text>
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="outline" onClick={() => setRemove(null)}>
-              Keep chart
+              <Text>{"Keep chart"}</Text>
             </Button>
             <Button
               variant="destructive"
@@ -227,7 +254,7 @@ export function SavedCharts() {
                 }
               }}
             >
-              Delete chart
+              <Text>{"Delete chart"}</Text>
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -263,12 +290,21 @@ export function Journal() {
     <>
       <div className="dashboard-heading enter">
         <div>
-          <span className="eyebrow">A PRIVATE PLACE TO PAUSE</span>
+          <span className="eyebrow">
+            <Text>{"A PRIVATE PLACE TO PAUSE"}</Text>
+          </span>
           <h1>
-            Notice your <em>own rhythms.</em>
+            <Text>{"Notice your "}</Text>
+            <em>
+              <Text>{"own rhythms."}</Text>
+            </em>
           </h1>
           <p>
-            One sentence, a small observation, or a thought you want to keep.
+            <Text>
+              {
+                "One sentence, a small observation, or a thought you want to keep."
+              }
+            </Text>
           </p>
         </div>
       </div>
@@ -293,7 +329,7 @@ export function Journal() {
           <FieldGroup>
             <Field>
               <FieldLabel htmlFor="journal-mood">
-                How are you arriving?
+                <Text>{"How are you arriving?"}</Text>
               </FieldLabel>
               <Select value={mood} onValueChange={setMood}>
                 <SelectTrigger id="journal-mood">
@@ -309,7 +345,7 @@ export function Journal() {
                       "Tender",
                     ].map((m) => (
                       <SelectItem value={m} key={m}>
-                        {m}
+                        <Text>{m}</Text>
                       </SelectItem>
                     ))}
                   </SelectGroup>
@@ -317,7 +353,9 @@ export function Journal() {
               </Select>
             </Field>
             <Field>
-              <FieldLabel htmlFor="reflection">Your reflection</FieldLabel>
+              <FieldLabel htmlFor="reflection">
+                <Text>{"Your reflection"}</Text>
+              </FieldLabel>
               <Textarea
                 id="reflection"
                 value={text}
@@ -328,21 +366,28 @@ export function Journal() {
                 rows={8}
               />
               <span className="small muted">
-                {text.length}/5000 · Only visible in your account
+                <Text>{text.length}</Text>
+                <Text>{"/5000 · Only visible in your account"}</Text>
               </span>
             </Field>
             <Button disabled={busy || !text.trim()}>
-              {busy ? "Saving…" : "Save my reflection"}
+              <Text>{busy ? "Saving…" : "Save my reflection"}</Text>
               <ArrowUpRight data-icon="inline-end" />
             </Button>
           </FieldGroup>
         </form>
         <section className="journal-entries">
-          <h2>Your recent chapters</h2>
+          <h2>
+            <Text>{"Your recent chapters"}</Text>
+          </h2>
           {error && (
             <Alert variant="destructive">
-              <AlertTitle>Couldn’t load reflections</AlertTitle>
-              <AlertDescription>{error}</AlertDescription>
+              <AlertTitle>
+                <Text>{"Couldn’t load reflections"}</Text>
+              </AlertTitle>
+              <AlertDescription>
+                <Text>{error}</Text>
+              </AlertDescription>
             </Alert>
           )}
           {loading ? (
@@ -351,9 +396,11 @@ export function Journal() {
             entries.map((e) => (
               <article key={e.id} className="journal-entry">
                 <div>
-                  <Badge variant="secondary">{e.mood}</Badge>
+                  <Badge variant="secondary">
+                    <Text>{e.mood}</Text>
+                  </Badge>
                   <span className="small muted">
-                    {new Date(e.createdAt).toLocaleDateString()}
+                    <LocalizedDate value={e.createdAt} />
                   </span>
                   <Button
                     size="icon"
@@ -370,10 +417,15 @@ export function Journal() {
           ) : (
             <Empty>
               <EmptyHeader>
-                <EmptyTitle>A new page.</EmptyTitle>
+                <EmptyTitle>
+                  <Text>{"A new page."}</Text>
+                </EmptyTitle>
                 <EmptyDescription>
-                  Your saved reflections will appear here. Start with whatever
-                  feels present.
+                  <Text>
+                    {
+                      "Your saved reflections will appear here. Start with whatever feels present."
+                    }
+                  </Text>
                 </EmptyDescription>
               </EmptyHeader>
             </Empty>
@@ -383,14 +435,20 @@ export function Journal() {
       <Dialog open={!!remove} onOpenChange={(v) => !v && setRemove(null)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Delete this reflection?</DialogTitle>
+            <DialogTitle>
+              <Text>{"Delete this reflection?"}</Text>
+            </DialogTitle>
             <DialogDescription>
-              This reflection will be permanently removed from your journal.
+              <Text>
+                {
+                  "This reflection will be permanently removed from your journal."
+                }
+              </Text>
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="outline" onClick={() => setRemove(null)}>
-              Keep reflection
+              <Text>{"Keep reflection"}</Text>
             </Button>
             <Button
               variant="destructive"
@@ -407,7 +465,7 @@ export function Journal() {
                 }
               }}
             >
-              Delete reflection
+              <Text>{"Delete reflection"}</Text>
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -438,26 +496,38 @@ export function SavedLibrary() {
     <>
       <div className="dashboard-heading enter">
         <div>
-          <span className="eyebrow">YOUR COLLECTION OF CURIOSITY</span>
+          <span className="eyebrow">
+            <Text>{"YOUR COLLECTION OF CURIOSITY"}</Text>
+          </span>
           <h1>
-            Knowledge to <em>come back to.</em>
+            <Text>{"Knowledge to "}</Text>
+            <em>
+              <Text>{"come back to."}</Text>
+            </em>
           </h1>
           <p>
-            Save articles from the open library and keep learning at your own
-            pace.
+            <Text>
+              {
+                "Save articles from the open library and keep learning at your own pace."
+              }
+            </Text>
           </p>
         </div>
         <Button asChild variant="outline">
           <Link href="/learn">
-            Explore the library
+            <Text>{"Explore the library"}</Text>
             <ArrowUpRight data-icon="inline-end" />
           </Link>
         </Button>
       </div>
       {error && (
         <Alert variant="destructive">
-          <AlertTitle>Couldn’t load saved articles</AlertTitle>
-          <AlertDescription>{error}</AlertDescription>
+          <AlertTitle>
+            <Text>{"Couldn’t load saved articles"}</Text>
+          </AlertTitle>
+          <AlertDescription>
+            <Text>{error}</Text>
+          </AlertDescription>
         </Alert>
       )}
       {loading ? (
@@ -469,15 +539,21 @@ export function SavedLibrary() {
             return (
               a && (
                 <article className="library-card" key={s.id}>
-                  <Badge variant="secondary">{a.category}</Badge>
+                  <Badge variant="secondary">
+                    <Text>{a.category}</Text>
+                  </Badge>
                   <h3>
-                    <Link href={`/learn/${a.slug}`}>{a.title}</Link>
+                    <Link href={`/learn/${a.slug}`}>
+                      <Text>{a.title}</Text>
+                    </Link>
                   </h3>
-                  <p>{a.intro}</p>
+                  <p>
+                    <Text>{a.intro}</Text>
+                  </p>
                   <div className="saved-chart-actions">
                     <Button asChild variant="outline">
                       <Link href={`/learn/${a.slug}`}>
-                        Read article
+                        <Text>{"Read article"}</Text>
                         <ArrowUpRight data-icon="inline-end" />
                       </Link>
                     </Button>
@@ -509,15 +585,20 @@ export function SavedLibrary() {
       ) : (
         <Empty>
           <EmptyHeader>
-            <EmptyTitle>Make room for a good question.</EmptyTitle>
+            <EmptyTitle>
+              <Text>{"Make room for a good question."}</Text>
+            </EmptyTitle>
             <EmptyDescription>
-              Open any article and choose “Save article” to start your personal
-              library.
+              <Text>
+                {
+                  "Open any article and choose “Save article” to start your personal library."
+                }
+              </Text>
             </EmptyDescription>
           </EmptyHeader>
           <Button asChild>
             <Link href="/learn">
-              Browse free articles
+              <Text>{"Browse free articles"}</Text>
               <ArrowUpRight data-icon="inline-end" />
             </Link>
           </Button>
@@ -551,16 +632,27 @@ export function Settings({ initialName }: { initialName: string }) {
     <>
       <div className="dashboard-heading enter">
         <div>
-          <span className="eyebrow">MAKE YOURSELF AT HOME</span>
+          <span className="eyebrow">
+            <Text>{"MAKE YOURSELF AT HOME"}</Text>
+          </span>
           <h1>
-            Your account. <em>Your choices.</em>
+            <Text>{"Your account. "}</Text>
+            <em>
+              <Text>{"Your choices."}</Text>
+            </em>
           </h1>
-          <p>Manage your profile, sign-in methods, and personal data.</p>
+          <p>
+            <Text>
+              {"Manage your profile, sign-in methods, and personal data."}
+            </Text>
+          </p>
         </div>
       </div>
       <div className="settings-grid">
         <section className="settings-panel">
-          <h2>Your profile</h2>
+          <h2>
+            <Text>{"Your profile"}</Text>
+          </h2>
           <p className="muted">{session?.user.email}</p>
           <form
             onSubmit={async (e) => {
@@ -577,7 +669,9 @@ export function Settings({ initialName }: { initialName: string }) {
           >
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor="profile-name">Display name</FieldLabel>
+                <FieldLabel htmlFor="profile-name">
+                  <Text>{"Display name"}</Text>
+                </FieldLabel>
                 <Input
                   id="profile-name"
                   value={name}
@@ -586,12 +680,16 @@ export function Settings({ initialName }: { initialName: string }) {
                   required
                 />
               </Field>
-              <Button disabled={busy}>Save profile</Button>
+              <Button disabled={busy}>
+                <Text>{"Save profile"}</Text>
+              </Button>
             </FieldGroup>
           </form>
           {!session?.user.emailVerified && (
             <div className="verification-notice">
-              <p className="small">Your email has not been verified yet.</p>
+              <p className="small">
+                <Text>{"Your email has not been verified yet."}</Text>
+              </p>
               <Button
                 variant="outline"
                 size="sm"
@@ -604,16 +702,21 @@ export function Settings({ initialName }: { initialName: string }) {
                   else toast.success("Verification email sent");
                 }}
               >
-                Send verification link
+                <Text>{"Send verification link"}</Text>
               </Button>
             </div>
           )}
         </section>
         <section className="settings-panel">
-          <h2>Passkeys</h2>
+          <h2>
+            <Text>{"Passkeys"}</Text>
+          </h2>
           <p>
-            Log in with your fingerprint, face, device PIN, or security key.
-            Your private key stays with your authenticator.
+            <Text>
+              {
+                "Log in with your fingerprint, face, device PIN, or security key. Your private key stays with your authenticator."
+              }
+            </Text>
           </p>
           <Button
             disabled={busy}
@@ -638,11 +741,13 @@ export function Settings({ initialName }: { initialName: string }) {
             }}
           >
             <Fingerprint data-icon="inline-start" />
-            Add a passkey
+            <Text>{"Add a passkey"}</Text>
           </Button>
           {keys.map((k) => (
             <div className="passkey-row" key={k.id}>
-              <span>{k.name || "Asteria passkey"}</span>
+              <span>
+                <Text>{k.name || "Asteria passkey"}</Text>
+              </span>
               <Button
                 variant="ghost"
                 size="icon"
@@ -655,13 +760,18 @@ export function Settings({ initialName }: { initialName: string }) {
           ))}
           {!keys.length && (
             <p className="small muted">
-              No passkeys registered yet. Register on the domain you use to log
-              in.
+              <Text>
+                {
+                  "No passkeys registered yet. Register on the domain you use to log in."
+                }
+              </Text>
             </p>
           )}
         </section>
         <section className="settings-panel">
-          <h2>Change password</h2>
+          <h2>
+            <Text>{"Change password"}</Text>
+          </h2>
           <form
             onSubmit={async (e) => {
               e.preventDefault();
@@ -684,7 +794,7 @@ export function Settings({ initialName }: { initialName: string }) {
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="current-password">
-                  Current password
+                  <Text>{"Current password"}</Text>
                 </FieldLabel>
                 <Input
                   id="current-password"
@@ -695,7 +805,9 @@ export function Settings({ initialName }: { initialName: string }) {
                 />
               </Field>
               <Field>
-                <FieldLabel htmlFor="next-password">New password</FieldLabel>
+                <FieldLabel htmlFor="next-password">
+                  <Text>{"New password"}</Text>
+                </FieldLabel>
                 <Input
                   id="next-password"
                   type="password"
@@ -706,15 +818,22 @@ export function Settings({ initialName }: { initialName: string }) {
                   required
                 />
               </Field>
-              <Button disabled={busy}>Update password</Button>
+              <Button disabled={busy}>
+                <Text>{"Update password"}</Text>
+              </Button>
             </FieldGroup>
           </form>
         </section>
         <section className="settings-panel">
-          <h2>Your data belongs to you.</h2>
+          <h2>
+            <Text>{"Your data belongs to you."}</Text>
+          </h2>
           <p>
-            Export your saved chart details, reflections, and bookmarks as JSON.
-            Store the download privately.
+            <Text>
+              {
+                "Export your saved chart details, reflections, and bookmarks as JSON. Store the download privately."
+              }
+            </Text>
           </p>
           <Button
             variant="outline"
@@ -754,19 +873,24 @@ export function Settings({ initialName }: { initialName: string }) {
             }}
           >
             <Download data-icon="inline-start" />
-            Export my data
+            <Text>{"Export my data"}</Text>
           </Button>
           <div className="danger-zone">
-            <h3>Delete account</h3>
+            <h3>
+              <Text>{"Delete account"}</Text>
+            </h3>
             <p className="small">
-              Remove your account, charts, journal, bookmarks, and passkeys.
-              This cannot be undone.
+              <Text>
+                {
+                  "Remove your account, charts, journal, bookmarks, and passkeys. This cannot be undone."
+                }
+              </Text>
             </p>
             <Button
               variant="destructive"
               onClick={() => setDeleteAccount(true)}
             >
-              Delete my account
+              <Text>{"Delete my account"}</Text>
             </Button>
           </div>
         </section>
@@ -774,14 +898,18 @@ export function Settings({ initialName }: { initialName: string }) {
       <Dialog open={!!removeKey} onOpenChange={(v) => !v && setRemoveKey(null)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Remove this passkey?</DialogTitle>
+            <DialogTitle>
+              <Text>{"Remove this passkey?"}</Text>
+            </DialogTitle>
             <DialogDescription>
-              You can continue signing in with your email and password.
+              <Text>
+                {"You can continue signing in with your email and password."}
+              </Text>
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="outline" onClick={() => setRemoveKey(null)}>
-              Keep passkey
+              <Text>{"Keep passkey"}</Text>
             </Button>
             <Button
               variant="destructive"
@@ -797,7 +925,7 @@ export function Settings({ initialName }: { initialName: string }) {
                 }
               }}
             >
-              Remove passkey
+              <Text>{"Remove passkey"}</Text>
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -805,16 +933,21 @@ export function Settings({ initialName }: { initialName: string }) {
       <Dialog open={deleteAccount} onOpenChange={setDeleteAccount}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Delete your Asteria account?</DialogTitle>
+            <DialogTitle>
+              <Text>{"Delete your Asteria account?"}</Text>
+            </DialogTitle>
             <DialogDescription>
-              Your account and all saved data will be permanently deleted.
-              Confirm with your password and type DELETE.
+              <Text>
+                {
+                  "Your account and all saved data will be permanently deleted. Confirm with your password and type DELETE."
+                }
+              </Text>
             </DialogDescription>
           </DialogHeader>
           <FieldGroup>
             <Field>
               <FieldLabel htmlFor="delete-password">
-                Current password
+                <Text>{"Current password"}</Text>
               </FieldLabel>
               <Input
                 id="delete-password"
@@ -825,7 +958,9 @@ export function Settings({ initialName }: { initialName: string }) {
               />
             </Field>
             <Field>
-              <FieldLabel htmlFor="delete-confirm">Type DELETE</FieldLabel>
+              <FieldLabel htmlFor="delete-confirm">
+                <Text>{"Type DELETE"}</Text>
+              </FieldLabel>
               <Input
                 id="delete-confirm"
                 value={deleteConfirm}
@@ -835,7 +970,7 @@ export function Settings({ initialName }: { initialName: string }) {
           </FieldGroup>
           <DialogFooter>
             <Button variant="outline" onClick={() => setDeleteAccount(false)}>
-              Keep my account
+              <Text>{"Keep my account"}</Text>
             </Button>
             <Button
               variant="destructive"
@@ -854,7 +989,7 @@ export function Settings({ initialName }: { initialName: string }) {
                 }
               }}
             >
-              Permanently delete
+              <Text>{"Permanently delete"}</Text>
             </Button>
           </DialogFooter>
         </DialogContent>

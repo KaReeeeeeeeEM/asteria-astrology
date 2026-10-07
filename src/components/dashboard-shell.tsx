@@ -1,8 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Orbit,
@@ -13,131 +11,176 @@ import {
   Heart,
   LogOut,
   ArrowUpRight,
-  Menu,
-  X,
+  Sparkles,
+  GraduationCap,
 } from "lucide-react";
 import { Logo } from "./logo";
 import { Button } from "./ui/button";
+import {
+  SidebarProvider,
+  Sidebar,
+  SidebarHeader,
+  SidebarContent,
+  SidebarFooter,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarInset,
+  SidebarTrigger,
+  useSidebar,
+} from "./ui/sidebar";
+import { TooltipProvider } from "./ui/tooltip";
 import { authClient } from "@/lib/auth-client";
 import { ThemeToggle } from "./theme";
 import { PWAInstall } from "./pwa";
+import { LanguageSwitcher, Text, useLanguage } from "./language";
 const nav = [
   { title: "Overview", href: "/dashboard", icon: LayoutDashboard },
   { title: "My birth charts", href: "/dashboard/charts", icon: Orbit },
   { title: "My journal", href: "/dashboard/journal", icon: NotebookPen },
+  { title: "Numerology", href: "/dashboard/numerology", icon: Hash },
+  { title: "Compatibility", href: "/dashboard/compatibility", icon: Heart },
+  { title: "Daily readings", href: "/dashboard/horoscopes", icon: Sparkles },
+  { title: "Today’s sky", href: "/dashboard/sky", icon: Orbit },
+  { title: "Learn astrology", href: "/dashboard/learn", icon: GraduationCap },
+  { title: "Zodiac signs", href: "/dashboard/zodiac", icon: Sparkles },
   { title: "Saved knowledge", href: "/dashboard/library", icon: BookOpen },
-  { title: "Numerology", href: "/numerology", icon: Hash },
-  { title: "Compatibility", href: "/compatibility", icon: Heart },
   { title: "Settings", href: "/dashboard/settings", icon: Settings },
 ];
-export function DashboardShell({
-  children,
-  name,
-  email,
-}: {
+type Props = {
   children: React.ReactNode;
   name: string;
   email: string;
-}) {
-  const router = useRouter();
-  const path = usePathname();
-  const [open, setOpen] = useState(false);
+  defaultOpen?: boolean;
+};
+export function DashboardShell({ defaultOpen = true, ...props }: Props) {
   return (
-    <div className="dashboard-shell">
-      <aside className={`dashboard-sidebar ${open ? "sidebar-open" : ""}`}>
-        <div className="sidebar-brand">
-          <Logo />
-          <Button
-            variant="ghost"
-            size="icon"
-            className="mobile-menu"
-            onClick={() => setOpen(false)}
-            aria-label="Close menu"
-          >
-            <X />
-          </Button>
-        </div>
-        <span className="eyebrow sidebar-label">YOUR PERSONAL ORBIT</span>
-        <nav aria-label="Dashboard navigation">
-          {nav.map((n) => (
-            <Link
-              key={n.href}
-              href={n.href}
-              data-active={path === n.href}
-              aria-current={path === n.href ? "page" : undefined}
-              className="nav-link"
-              onClick={() => setOpen(false)}
-            >
-              <n.icon size={18} strokeWidth={1.5} />
-              {n.title}
-              <span className="nav-underline" aria-hidden="true" />
+    <TooltipProvider>
+      <SidebarProvider
+        defaultOpen={defaultOpen}
+        className="dashboard-shell"
+        style={
+          {
+            "--sidebar-width": "255px",
+            "--sidebar-width-icon": "64px",
+          } as React.CSSProperties
+        }
+      >
+        <DashboardFrame {...props} />
+      </SidebarProvider>
+    </TooltipProvider>
+  );
+}
+function DashboardFrame({ children, name, email }: Props) {
+  const path = usePathname(),
+    router = useRouter(),
+    { t } = useLanguage(),
+    { open, openMobile, isMobile, setOpenMobile } = useSidebar();
+  return (
+    <>
+      <Sidebar collapsible="icon" className="dashboard-navigation">
+        <SidebarHeader className="sidebar-brand">
+          <Logo href="/dashboard" />
+        </SidebarHeader>
+        <SidebarContent>
+          <span className="eyebrow sidebar-label">
+            <Text>YOUR PERSONAL ORBIT</Text>
+          </span>
+          <SidebarMenu aria-label={t("Dashboard navigation")}>
+            {nav.map((n) => {
+              const active =
+                path === n.href ||
+                (n.href != "/dashboard" && path.startsWith(n.href + "/"));
+              return (
+                <SidebarMenuItem key={n.href}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={active}
+                    tooltip={t(n.title)}
+                  >
+                    <Link
+                      href={n.href}
+                      aria-label={t(n.title)}
+                      aria-current={active ? "page" : undefined}
+                      className="nav-link"
+                      onClick={() => setOpenMobile(false)}
+                    >
+                      <n.icon size={18} />
+                      <span>
+                        <Text>{n.title}</Text>
+                      </span>
+                      <span className="nav-underline" aria-hidden="true" />
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              );
+            })}
+          </SidebarMenu>
+        </SidebarContent>
+        <SidebarFooter>
+          <div className="sidebar-bottom">
+            <Link href="/" className="text-link sidebar-public">
+              <Text>Visit public site</Text>
+              <ArrowUpRight size={16} />
             </Link>
-          ))}
-        </nav>
-        <div className="sidebar-note">
-          <span>✦</span>
-          <p>
-            A little space to pause,
-            <br />
-            notice, and come back to you.
-          </p>
-          <Link href="/sky">
-            Explore today’s sky
-            <ArrowUpRight size={15} />
-          </Link>
-        </div>
-        <div className="sidebar-bottom">
-          <Link href="/" className="text-link">
-            Visit public site
-            <ArrowUpRight size={16} />
-          </Link>
-          <div className="sidebar-user">
-            <span className="user-avatar">
-              {name.slice(0, 1).toUpperCase()}
-            </span>
-            <div>
-              <strong>{name}</strong>
-              <span>{email}</span>
+            <div className="sidebar-user">
+              <span className="user-avatar">
+                {name.slice(0, 1).toUpperCase()}
+              </span>
+              <div className="sidebar-identity">
+                <strong>{name}</strong>
+                <span>{email}</span>
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label={t("Log out")}
+                onClick={async () => {
+                  await authClient.signOut();
+                  router.push("/signin");
+                  router.refresh();
+                }}
+              >
+                <LogOut />
+              </Button>
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              aria-label="Log out"
-              onClick={async () => {
-                await authClient.signOut();
-                router.push("/signin");
-                router.refresh();
-              }}
-            >
-              <LogOut />
-            </Button>
           </div>
-        </div>
-      </aside>
-      <div className="dashboard-body">
+        </SidebarFooter>
+      </Sidebar>
+      <SidebarInset className="dashboard-body">
         <header className="dashboard-header">
-          <div className="dashboard-mobile-brand"><Logo /></div>
-          <span className="eyebrow">✦ ASTERIA · YOUR CORNER OF THE COSMOS</span>
+          <div className="dashboard-heading-actions">
+            <SidebarTrigger
+              aria-label={t("Toggle sidebar")}
+              title={t("Toggle sidebar (⌘B / Ctrl+B)")}
+              aria-expanded={isMobile ? openMobile : open}
+            />
+            <div className="dashboard-mobile-brand">
+              <Logo href="/dashboard" />
+            </div>
+            <span className="eyebrow">
+              <Text>✦ ASTERIA · YOUR CORNER OF THE COSMOS</Text>
+            </span>
+          </div>
           <div className="dashboard-theme-actions">
+            <LanguageSwitcher compact />
             <ThemeToggle />
-            <Button
-              className="mobile-menu"
-              size="icon"
-              variant="ghost"
-              onClick={() => setOpen(true)}
-              aria-label="Open dashboard navigation"
-            >
-              <Menu />
-            </Button>
           </div>
         </header>
-        <main className="dashboard-main">{children}</main>
+        <main className="dashboard-main" id="dashboard-content">
+          {children}
+        </main>
         <footer className="dashboard-footer">
-          <span>Always free. Your story remains yours.</span>
+          <span>
+            <Text>Always free. Your story remains yours.</Text>
+          </span>
           <PWAInstall />
-          <Link href="/privacy">Privacy & your data</Link>
+          <Link href="/dashboard/privacy">
+            <Text>Privacy & your data</Text>
+          </Link>
+          <LanguageSwitcher />
         </footer>
-      </div>
-    </div>
+      </SidebarInset>
+    </>
   );
 }

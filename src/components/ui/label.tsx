@@ -1,4 +1,5 @@
 "use client";
+import { useLocalizedProps } from "@/components/language-context";
 
 import * as React from "react";
 import { cn } from "cn";
@@ -8,6 +9,8 @@ function Label({
   className,
   ...props
 }: React.ComponentProps<typeof LabelPrimitive.Root>) {
+  props = useLocalizedProps(props);
+
   return (
     <LabelPrimitive.Root
       data-slot="label"

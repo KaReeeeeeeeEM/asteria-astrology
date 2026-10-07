@@ -1,3 +1,4 @@
+import { Text } from "@/components/language";
 export function PageHeading({
   eyebrow,
   title,
@@ -9,9 +10,15 @@ export function PageHeading({
 }) {
   return (
     <div className="page-heading enter">
-      <span className="eyebrow">✦ {eyebrow}</span>
-      <h1>{title}</h1>
-      <p>{description}</p>
+      <span className="eyebrow">
+        ✦ <Text>{eyebrow}</Text>
+      </span>
+      <h1>
+        <Text>{title}</Text>
+      </h1>
+      <p>
+        <Text>{description}</Text>
+      </p>
     </div>
   );
 }

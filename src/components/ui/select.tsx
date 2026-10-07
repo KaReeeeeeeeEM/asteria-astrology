@@ -1,5 +1,7 @@
 "use client";
+import { useLocalizedProps } from "@/components/language-context";
 
+import { useLanguage } from "@/components/language-context";
 import { useHydrated } from "@/hooks/use-hydrated";
 import * as React from "react";
 import { cn } from "cn";
@@ -9,6 +11,8 @@ import { ChevronDownIcon, CheckIcon, ChevronUpIcon } from "lucide-react";
 function Select({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Root>) {
+  props = useLocalizedProps(props);
+
   return <SelectPrimitive.Root data-slot="select" {...props} />;
 }
 
@@ -16,6 +20,8 @@ function SelectGroup({
   className,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Group>) {
+  props = useLocalizedProps(props);
+
   return (
     <SelectPrimitive.Group
       data-slot="select-group"
@@ -28,6 +34,8 @@ function SelectGroup({
 function SelectValue({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Value>) {
+  props = useLocalizedProps(props);
+
   return <SelectPrimitive.Value data-slot="select-value" {...props} />;
 }
 
@@ -39,7 +47,10 @@ function SelectTrigger({
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
   size?: "sm" | "default";
 }) {
+  props = useLocalizedProps(props);
+
   const ready = useHydrated();
+  const { t } = useLanguage();
   return (
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
@@ -49,6 +60,8 @@ function SelectTrigger({
         className,
       )}
       {...props}
+      aria-label={props["aria-label"] ? t(props["aria-label"]) : undefined}
+      title={props.title ? t(props.title) : undefined}
       disabled={props.disabled || !ready}
     >
       {children}
@@ -66,6 +79,8 @@ function SelectContent({
   align = "center",
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
+  props = useLocalizedProps(props);
+
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content
@@ -101,6 +116,8 @@ function SelectLabel({
   className,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Label>) {
+  props = useLocalizedProps(props);
+
   return (
     <SelectPrimitive.Label
       data-slot="select-label"
@@ -115,6 +132,8 @@ function SelectItem({
   children,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Item>) {
+  props = useLocalizedProps(props);
+
   return (
     <SelectPrimitive.Item
       data-slot="select-item"
@@ -138,6 +157,8 @@ function SelectSeparator({
   className,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Separator>) {
+  props = useLocalizedProps(props);
+
   return (
     <SelectPrimitive.Separator
       data-slot="select-separator"
@@ -151,6 +172,8 @@ function SelectScrollUpButton({
   className,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.ScrollUpButton>) {
+  props = useLocalizedProps(props);
+
   return (
     <SelectPrimitive.ScrollUpButton
       data-slot="select-scroll-up-button"
@@ -169,6 +192,8 @@ function SelectScrollDownButton({
   className,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.ScrollDownButton>) {
+  props = useLocalizedProps(props);
+
   return (
     <SelectPrimitive.ScrollDownButton
       data-slot="select-scroll-down-button"

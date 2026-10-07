@@ -1,4 +1,7 @@
 "use client";
+import { useLocalizedProps } from "@/components/language-context";
+
+import { Text } from "@/components/language";
 
 import { useMemo } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
@@ -8,6 +11,8 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 
 function FieldSet({ className, ...props }: React.ComponentProps<"fieldset">) {
+  props = useLocalizedProps(props);
+
   return (
     <fieldset
       data-slot="field-set"
@@ -25,6 +30,8 @@ function FieldLegend({
   variant = "legend",
   ...props
 }: React.ComponentProps<"legend"> & { variant?: "legend" | "label" }) {
+  props = useLocalizedProps(props);
+
   return (
     <legend
       data-slot="field-legend"
@@ -39,6 +46,8 @@ function FieldLegend({
 }
 
 function FieldGroup({ className, ...props }: React.ComponentProps<"div">) {
+  props = useLocalizedProps(props);
+
   return (
     <div
       data-slot="field-group"
@@ -74,6 +83,8 @@ function Field({
   orientation = "vertical",
   ...props
 }: React.ComponentProps<"div"> & VariantProps<typeof fieldVariants>) {
+  props = useLocalizedProps(props);
+
   return (
     <div
       role="group"
@@ -86,6 +97,8 @@ function Field({
 }
 
 function FieldContent({ className, ...props }: React.ComponentProps<"div">) {
+  props = useLocalizedProps(props);
+
   return (
     <div
       data-slot="field-content"
@@ -102,6 +115,8 @@ function FieldLabel({
   className,
   ...props
 }: React.ComponentProps<typeof Label>) {
+  props = useLocalizedProps(props);
+
   return (
     <Label
       data-slot="field-label"
@@ -116,6 +131,8 @@ function FieldLabel({
 }
 
 function FieldTitle({ className, ...props }: React.ComponentProps<"div">) {
+  props = useLocalizedProps(props);
+
   return (
     <div
       data-slot="field-label"
@@ -129,6 +146,8 @@ function FieldTitle({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 function FieldDescription({ className, ...props }: React.ComponentProps<"p">) {
+  props = useLocalizedProps(props);
+
   return (
     <p
       data-slot="field-description"
@@ -150,6 +169,8 @@ function FieldSeparator({
 }: React.ComponentProps<"div"> & {
   children?: React.ReactNode;
 }) {
+  props = useLocalizedProps(props);
+
   return (
     <div
       data-slot="field-separator"
@@ -181,6 +202,8 @@ function FieldError({
 }: React.ComponentProps<"div"> & {
   errors?: Array<{ message?: string } | undefined>;
 }) {
+  props = useLocalizedProps(props);
+
   const content = useMemo(() => {
     if (children) {
       return children;
@@ -202,7 +225,11 @@ function FieldError({
       <ul className="ml-4 flex list-disc flex-col gap-1">
         {uniqueErrors.map(
           (error, index) =>
-            error?.message && <li key={index}>{error.message}</li>,
+            error?.message && (
+              <li key={index}>
+                <Text>{error.message}</Text>
+              </li>
+            ),
         )}
       </ul>
     );
@@ -219,7 +246,7 @@ function FieldError({
       className={cn("text-sm font-normal text-destructive", className)}
       {...props}
     >
-      {content}
+      <Text>{content}</Text>
     </div>
   );
 }

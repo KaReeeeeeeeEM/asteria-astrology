@@ -1,8 +1,12 @@
 "use client";
+import { LocalizedDate } from "@/components/localized-date";
+
+import { Text } from "@/components/language";
+
 import { ZodiacMascot } from "./cartoons";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import Link from "next/link";
+import Link from "@/components/app-link";
 import { ArrowUpRight, Heart, Compass, NotebookPen } from "lucide-react";
 import { signs } from "@/lib/knowledge";
 import { dailyReading } from "@/lib/astrology";
@@ -33,11 +37,11 @@ export function Horoscopes({ date }: { date: string }) {
     <>
       <div className="tool-toolbar">
         <span className="eyebrow">
-          {new Intl.DateTimeFormat("en", {
-            dateStyle: "long",
-            timeZone: "UTC",
-          }).format(new Date(date))}{" "}
-          · UTC
+          <Text>
+            <LocalizedDate value={new Date(date)} dateStyle="long" />
+          </Text>
+          <Text> </Text>
+          <Text>{"· UTC"}</Text>
         </span>
         <Select value={sign} onValueChange={setSign}>
           <SelectTrigger
@@ -50,7 +54,7 @@ export function Horoscopes({ date }: { date: string }) {
             <SelectGroup>
               {signs.map((s) => (
                 <SelectItem value={s.name} key={s.name}>
-                  {s.symbol} {s.name}
+                  <Text>{s.symbol}</Text> <Text>{s.name}</Text>
                 </SelectItem>
               ))}
             </SelectGroup>
@@ -58,15 +62,21 @@ export function Horoscopes({ date }: { date: string }) {
         </Select>
       </div>
       <div className="reading-hero" key={sign}>
-        <ZodiacMascot sign={reading.sign.name}/>
+        <ZodiacMascot sign={reading.sign.name} />
         <div>
           <span className="eyebrow">
-            {reading.sign.name} · {reading.sign.element}
+            <Text>{reading.sign.name}</Text> ·{" "}
+            <Text>{reading.sign.element}</Text>
           </span>
-          <h2>{reading.title}</h2>
-          <p>{reading.text}</p>
+          <h2>
+            <Text>{reading.title}</Text>
+          </h2>
+          <p>
+            <Text>{reading.text}</Text>
+          </p>
           <span className="small muted">
-            Moon in {reading.moon.sign} · {reading.phaseName}
+            <Text>{"Moon in "}</Text>
+            <Text>{reading.moon.sign}</Text> · <Text>{reading.phaseName}</Text>
           </span>
         </div>
       </div>
@@ -83,34 +93,47 @@ export function Horoscopes({ date }: { date: string }) {
           <Card key={x.title}>
             <CardHeader>
               <x.icon strokeWidth={1} />
-              <CardTitle>{x.title}</CardTitle>
+              <CardTitle>
+                <Text>{x.title}</Text>
+              </CardTitle>
               <CardDescription>
-                A thoughtful moment for your day
+                <Text>{"A thoughtful moment for your day"}</Text>
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p>{x.text}</p>
+              <p>
+                <Text>{x.text}</Text>
+              </p>
             </CardContent>
           </Card>
         ))}
       </div>
       <div className="inline-cta">
         <div>
-          <h3>Make space for your own story.</h3>
+          <h3>
+            <Text>{"Make space for your own story."}</Text>
+          </h3>
           <p>
-            Save a chart and keep a private reflection journal in your
-            dashboard.
+            <Text>
+              {
+                "Save a chart and keep a private reflection journal in your dashboard."
+              }
+            </Text>
           </p>
         </div>
         <Button asChild>
           <Link href="/dashboard/journal">
-            Open your journal
+            <Text>{"Open your journal"}</Text>
             <ArrowUpRight data-icon="inline-end" />
           </Link>
         </Button>
       </div>
       <p className="method-note">
-        These readings combine calculated Sun and Moon signs, lunar phase, the closest current sky aspect, and a solar-sign whole-sign reflection theme. Original rule-based text varies with the sky and UTC date. Themes use your chosen Sun sign, not your saved natal chart; they are symbolic reflections, not event forecasts.
+        <Text>
+          {
+            "These readings combine calculated Sun and Moon signs, lunar phase, the closest current sky aspect, and a solar-sign whole-sign reflection theme. Original rule-based text varies with the sky and UTC date. Themes use your chosen Sun sign, not your saved natal chart; they are symbolic reflections, not event forecasts."
+          }
+        </Text>
       </p>
     </>
   );

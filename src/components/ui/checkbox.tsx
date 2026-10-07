@@ -1,4 +1,5 @@
 "use client";
+import { useLocalizedProps } from "@/components/language-context";
 
 import * as React from "react";
 import { cn } from "cn";
@@ -9,6 +10,8 @@ function Checkbox({
   className,
   ...props
 }: React.ComponentProps<typeof CheckboxPrimitive.Root>) {
+  props = useLocalizedProps(props);
+
   return (
     <CheckboxPrimitive.Root
       data-slot="checkbox"
