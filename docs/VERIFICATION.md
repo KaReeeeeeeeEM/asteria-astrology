@@ -36,3 +36,18 @@ Verified on October 6, 2026, production code revision `046a4a6`:
 ESLint, TypeScript, existing astrology checks, new exploration checks, and optimized build passed. GitHub Application checks passed for both redesign commits. Production browser checks recorded no console errors. Local and production screenshots are kept outside Git in `output/`.
 
 Artwork composition/mode is documented in ART.md; dynamic-data and scoring methods are documented in DYNAMICS.md. Email delivery remains pending the dedicated Easymail credential, as recorded above.
+
+## Black-and-white immersive edition
+
+Verified October 7, 2026, production code revision `e23bdda`:
+
+- Self-hosted Bricolage Grotesque display typography and Nunito Sans body text; black/white light and dark semantic tokens, grayscale cartoons, and refreshed PWA branding.
+- Browser confirmed two real Three.js WebGL canvases on the landing page. Native scrolling selected all three full-screen story chapters correctly.
+- Guided numerology produced life path 7 for 1990-07-17. Guided zodiac comparison displayed its percentage. The two-step birth form calculated and displayed a chart on the canonical production origin.
+- Local browser selected July 17, 1990 through the shadcn Calendar and month/year Select controls. Native date/time pickers and the time-zone datalist were replaced.
+- Active navigation and animated hover underline, focus-trapping mobile Sheet, and eight production routes at 390px passed. Additional local zodiac-profile, daily-reading, and signup layouts passed.
+- Dark mode persisted after a production reload. Reduced-motion mode created no WebGL canvases and exposed all three story chapters as ordinary content.
+- PWA Install remained present and the production service worker was activated. Health check reported the database connected; email delivery remains unconfigured.
+- Production browser checks recorded zero console errors. ESLint, TypeScript, calculation assertions, optimized build and GitHub Application checks passed.
+
+Two issues found during this revision were corrected: overly broad reveal observers mutated server-rendered nodes before hydration, and early clicks on server-rendered buttons could be lost before handlers attached. Reveals now avoid that race; shadcn action/text/select controls use a shared readiness guard. A browser test with client JavaScript deliberately delayed confirmed the guard was disabled initially and the first interaction completed correctly.
