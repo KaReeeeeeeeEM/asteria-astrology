@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 import {InputGroup,InputGroupInput,InputGroupAddon,InputGroupButton} from './ui/input-group';
 import { Field, FieldGroup, FieldLabel, FieldDescription } from "./ui/field";
 import { Alert, AlertTitle, AlertDescription } from "./ui/alert";
@@ -189,15 +188,17 @@ export function AuthForm({ mode }: { mode: Mode }) {
                 {mode !== "reset-password" && (
                   <Field>
                     <FieldLabel htmlFor="email">Email address</FieldLabel>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      autoComplete="username webauthn"
-                      placeholder="you@example.com"
-                      required
-                      maxLength={254}
-                    />
+                    <InputGroup>
+                      <InputGroupInput
+                        id="email"
+                        name="email"
+                        type="email"
+                        autoComplete="username webauthn"
+                        placeholder="you@example.com"
+                        required
+                        maxLength={254}
+                      />
+                    </InputGroup>
                   </Field>
                 )}
                 {(mode === "signup" ||

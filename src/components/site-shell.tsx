@@ -61,7 +61,7 @@ export function SiteHeader() {
           <Link href={data ? "/dashboard" : "/signin"} className="signin-link">
             {data ? "My dashboard" : "Log in"}
           </Link>
-          <Button asChild size="sm">
+          <Button asChild size="sm" className="header-primary-action">
             <Link href={data ? "/dashboard/charts" : "/signup"}>
               {data ? "My charts" : "Begin your journey"}
               <ArrowUpRight data-icon="inline-end" />
@@ -89,6 +89,7 @@ export function SiteHeader() {
                     ["Birth chart", "/chart"],
                     ["Daily readings", "/horoscopes"],
                     ["Compatibility", "/compatibility"],
+                    ...(data ? [] : [["Create account", "/signup"]]),
                     [
                       data ? "Dashboard" : "Log in",
                       data ? "/dashboard" : "/signin",

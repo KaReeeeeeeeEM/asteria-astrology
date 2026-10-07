@@ -51,3 +51,12 @@ Verified October 7, 2026, production code revision `e23bdda`:
 - Production browser checks recorded zero console errors. ESLint, TypeScript, calculation assertions, optimized build and GitHub Application checks passed.
 
 Two issues found during this revision were corrected: overly broad reveal observers mutated server-rendered nodes before hydration, and early clicks on server-rendered buttons could be lost before handlers attached. Reveals now avoid that race; shadcn action/text/select controls use a shared readiness guard. A browser test with client JavaScript deliberately delayed confirmed the guard was disabled initially and the first interaction completed correctly.
+
+## Responsive polish — 7 October 2026
+
+- Signup email and password now share shadcn InputGroup structure; browser measurements confirm matching 48px height, width, radius and padding. Password visibility toggle remains functional.
+- Shared accessible shadcn Spinner replaces auth Suspense text and route skeletons.
+- Mobile public and dashboard headers contain the logo, theme toggle and menu. Dashboard installation moved to the footer; account creation remains available in the mobile menu.
+- Nine public/auth routes checked at 320, 390, 430, 1024, 1440 and 1920px (54 viewport checks): rendered card grids use one mobile column and two desktop columns, with no horizontal overflow.
+- Dashboard shell independently rendered with sample cards at the same six widths; menu opening/closing, footer installation and spinner accessibility checked. The temporary verification route was removed before publication.
+- ESLint and optimized Next.js build passed.

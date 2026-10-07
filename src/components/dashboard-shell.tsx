@@ -116,24 +116,25 @@ export function DashboardShell({
       </aside>
       <div className="dashboard-body">
         <header className="dashboard-header">
-          <Button
-            className="mobile-menu"
-            size="icon"
-            variant="ghost"
-            onClick={() => setOpen(true)}
-            aria-label="Open dashboard navigation"
-          >
-            <Menu />
-          </Button>
+          <div className="dashboard-mobile-brand"><Logo /></div>
           <span className="eyebrow">✦ ASTERIA · YOUR CORNER OF THE COSMOS</span>
           <div className="dashboard-theme-actions">
             <ThemeToggle />
-            <PWAInstall />
+            <Button
+              className="mobile-menu"
+              size="icon"
+              variant="ghost"
+              onClick={() => setOpen(true)}
+              aria-label="Open dashboard navigation"
+            >
+              <Menu />
+            </Button>
           </div>
         </header>
         <main className="dashboard-main">{children}</main>
         <footer className="dashboard-footer">
           <span>Always free. Your story remains yours.</span>
+          <PWAInstall />
           <Link href="/privacy">Privacy & your data</Link>
         </footer>
       </div>
