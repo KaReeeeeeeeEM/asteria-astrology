@@ -13,6 +13,16 @@ const sans = localFont({
   variable: "--font-body",
   display: "swap",
 });
+const display = localFont({
+  src: [
+    { path: "./fonts/bricolage-400.ttf", weight: "400" },
+    { path: "./fonts/bricolage-600.ttf", weight: "600" },
+    { path: "./fonts/bricolage-700.ttf", weight: "700" },
+    { path: "./fonts/bricolage-800.ttf", weight: "800" },
+  ],
+  variable: "--font-display",
+  display: "swap",
+});
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.BETTER_AUTH_URL || "http://localhost:3000"),
   title: {
@@ -37,8 +47,8 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f7f6ff" },
-    { media: "(prefers-color-scheme: dark)", color: "#121127" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
   ],
 };
 export default function RootLayout({
@@ -47,7 +57,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={sans.variable} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${sans.variable} ${display.variable}`}
+      suppressHydrationWarning
+    >
       <body>
         <ThemeProvider>
           <a className="skip-link" href="#content">

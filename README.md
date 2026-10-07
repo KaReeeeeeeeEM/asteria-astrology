@@ -2,7 +2,7 @@
 
 [Open the app](https://asteria-sand-nine.vercel.app) · [Verification record](docs/VERIFICATION.md)
 
-A free astrology web app and installable PWA. Built with Next.js, TypeScript, Anime.js, shadcn/ui (Radix Nova), Better Auth, and Neon Postgres. A playful lavender and midnight interface pairs original learning material with calculated tropical charts and a private reflection space.
+A free astrology web app and installable PWA. Built with Next.js, TypeScript, Anime.js, shadcn/ui (Radix Nova), Better Auth, and Neon Postgres. A playful black-and-white interface pairs original learning material with calculated tropical charts and a private reflection space.
 
 ## Features
 
@@ -11,7 +11,9 @@ A free astrology web app and installable PWA. Built with Next.js, TypeScript, An
 - Zodiac match percentages with a transparent symbolic scoring breakdown, and two-person planetary synastry.
 - Life path, birthday, and personal-year numerology with visible calculation steps.
 - Upcoming lunar quarters, sign ingresses, stations, seasonal markers, and global eclipse dates; public `/api/sky` JSON.
-- Light/dark themes, self-hosted Nunito Sans, Anime.js perspective scenes, and original cartoon zodiac mascots.
+- Black/white light and dark themes; self-hosted Bricolage Grotesque and Nunito Sans.
+- Three.js full-screen scroll chapters, pointer-responsive 3D geometry, Anime.js page/wizard transitions, and typewriter cartoon captions.
+- Guided numerology, compatibility, and birth-chart flows; shadcn calendars, selects, navigation and mobile sheets.
 - Email/password registration and signin, password recovery and email verification through Easymail, WebAuthn passkeys.
 - Protected dashboard with saved charts, current transits, private mood journal, article bookmarks, profile/password/passkey management, data export, and account deletion.
 - Installable PWA with custom SVG branding, PNG/maskable icons, and a lightweight offline fallback. Private pages and auth responses are never cached by the service worker.
@@ -63,7 +65,7 @@ See [operations](docs/OPERATIONS.md) for Vercel, domains, environment variables,
 
 ## Design and attribution
 
-[Design notes](docs/DESIGN.md) describe the palette, chosen preset, research references, accessibility, and motion. Logo and favicon are original vector artwork. Nunito Sans uses the SIL Open Font License. Earlier Cormorant Garamond and DM Sans files retain their licenses. Original AI-assisted illustrations and their prompts are recorded in [art notes](docs/ART.md). Astronomy Engine is MIT-licensed; see its upstream validation references in the calculation notes. shadcn/ui components are generated from the official registry.
+[Design notes](docs/DESIGN.md) describe the palette, chosen preset, research references, accessibility, and motion. Logo and favicon are original vector artwork. Bricolage Grotesque and Nunito Sans use the SIL Open Font License. Earlier Cormorant Garamond and DM Sans files retain their licenses. Original AI-assisted illustrations and their prompts are recorded in [art notes](docs/ART.md). Astronomy Engine is MIT-licensed; see its upstream validation references in the calculation notes. shadcn/ui components are generated from the official registry.
 
 ## License
 

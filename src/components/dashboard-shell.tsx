@@ -64,10 +64,13 @@ export function DashboardShell({
               key={n.href}
               href={n.href}
               data-active={path === n.href}
+              aria-current={path === n.href ? "page" : undefined}
+              className="nav-link"
               onClick={() => setOpen(false)}
             >
               <n.icon size={18} strokeWidth={1.5} />
               {n.title}
+              <span className="nav-underline" aria-hidden="true" />
             </Link>
           ))}
         </nav>

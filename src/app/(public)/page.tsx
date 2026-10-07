@@ -17,8 +17,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { ScrollStory } from "@/components/scroll-story";
 import { CosmicScene } from "@/components/cosmic-scene";
-import { LearningFriends,ZodiacMascot } from "@/components/cartoons";
+import { LearningFriends, ZodiacMascot } from "@/components/cartoons";
 import { signs, articles } from "@/lib/knowledge";
 import { skyAt } from "@/lib/astrology";
 export const revalidate = 3600;
@@ -38,7 +39,8 @@ export default function Home() {
             <em>a little closer.</em>
           </h1>
           <p className="hero-description enter">
-            Meet your celestial side. Explore your birth chart, discover your numbers, and follow the sky with a little more curiosity.
+            Meet your celestial side. Explore your birth chart, discover your
+            numbers, and follow the sky with a little more curiosity.
           </p>
           <div className="hero-actions enter">
             <Button asChild size="lg">
@@ -70,7 +72,7 @@ export default function Home() {
           </div>
         </div>
         <div className="hero-visual enter">
-          <CosmicScene/>
+          <CosmicScene />
           <div className="sky-note">
             <span className="sky-note-icon">☽</span>
             <div>
@@ -92,7 +94,24 @@ export default function Home() {
           <span>EST. 2026 · OPEN TO ALL</span>
         </div>
       </section>
-      <section className="container quick-explore" data-reveal><Link href="/numerology"><span>01 · NUMBER MAGIC</span><h3>Find your life path</h3><p>Three numbers. A fresh perspective.</p></Link><Link href="/compatibility"><span>02 · COSMIC CONNECTION</span><h3>Explore your match</h3><p>A playful percentage, with the method explained.</p></Link><Link href="/sky"><span>03 · ALWAYS IN MOTION</span><h3>See what’s coming</h3><p>Live positions and your next celestial moments.</p></Link></section>
+      <ScrollStory />
+      <section className="container quick-explore" data-reveal>
+        <Link href="/numerology">
+          <span>01 · NUMBER MAGIC</span>
+          <h3>Find your life path</h3>
+          <p>Three numbers. A fresh perspective.</p>
+        </Link>
+        <Link href="/compatibility">
+          <span>02 · COSMIC CONNECTION</span>
+          <h3>Explore your match</h3>
+          <p>A playful percentage, with the method explained.</p>
+        </Link>
+        <Link href="/sky">
+          <span>03 · ALWAYS IN MOTION</span>
+          <h3>See what’s coming</h3>
+          <p>Live positions and your next celestial moments.</p>
+        </Link>
+      </section>
       <div className="zodiac-ribbon" aria-hidden="true">
         {signs.map((s) => (
           <span key={s.name}>
@@ -173,7 +192,13 @@ export default function Home() {
       <section className="philosophy-section">
         <div className="container philosophy-inner">
           <div className="philosophy-art" data-reveal>
-            <LearningFriends/><svg className="legacy-art" viewBox="0 0 360 360" fill="none" aria-hidden="true">
+            <LearningFriends />
+            <svg
+              className="legacy-art"
+              viewBox="0 0 360 360"
+              fill="none"
+              aria-hidden="true"
+            >
               <circle
                 cx="180"
                 cy="180"
@@ -267,7 +292,7 @@ export default function Home() {
               href={`/zodiac/${s.name.toLowerCase()}`}
               data-reveal
             >
-              <ZodiacMascot sign={s.name}/>
+              <ZodiacMascot sign={s.name} />
               <div>
                 <span className="eyebrow">
                   {s.element} · {s.modality}

@@ -5,8 +5,8 @@ export default function Image() {
   return new ImageResponse(
     <div
       style={{
-        background: "#f7f6ff",
-        color: "#262342",
+        background: "#ffffff",
+        color: "#000000",
         width: "100%",
         height: "100%",
         display: "flex",
@@ -19,7 +19,7 @@ export default function Image() {
         style={{
           display: "flex",
           fontSize: 28,
-          color: "#7052e8",
+          color: "#000000",
           letterSpacing: 5,
         }}
       >
@@ -41,7 +41,7 @@ export default function Image() {
           fontSize: 82,
           fontFamily: "sans-serif",
           fontWeight: 700,
-          color: "#7052e8",
+          color: "#000000",
         }}
       >
         a little closer.
@@ -51,7 +51,7 @@ export default function Image() {
           display: "flex",
           fontSize: 25,
           marginTop: 40,
-          color: "#68627e",
+          color: "#666666",
         }}
       >
         Free birth charts · Daily reflections · An open astrology library

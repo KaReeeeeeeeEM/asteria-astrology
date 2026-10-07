@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { Typewriter } from "./typewriter";
 import { animate, createScope, stagger } from "animejs";
 export function CosmicScene() {
   const root = useRef<HTMLDivElement>(null);
@@ -133,7 +134,9 @@ export function CosmicScene() {
           </span>
         ))}
       </div>
-      <span className="cosmic-caption">A LITTLE WONDER. A WHOLE UNIVERSE.</span>
+      <span className="cosmic-caption">
+        <Typewriter text="Hey, stargazer. Ready for a little adventure?" />
+      </span>
     </div>
   );
 }

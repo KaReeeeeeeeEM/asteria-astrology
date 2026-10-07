@@ -11,11 +11,21 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "./ui/button";
+import { DatePicker, TimePicker } from "./date-picker";
 import { Input } from "./ui/input";
 import { Checkbox } from "./ui/checkbox";
 import { Field, FieldGroup, FieldLabel, FieldDescription } from "./ui/field";
 import { Alert, AlertTitle, AlertDescription } from "./ui/alert";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
+import { Progress } from "./ui/progress";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+} from "./ui/select";
 import { Badge } from "./ui/badge";
 import {
   calculateChart,
@@ -57,6 +67,7 @@ export function BirthForm({
   label?: string;
 }) {
   const [input, setInput] = useState(initial);
+  const [step, setStep] = useState(0);
   const [error, setError] = useState("");
   const [query, setQuery] = useState("");
   const [cities, setCities] = useState<City[]>([]);
@@ -96,8 +107,21 @@ export function BirthForm({
   return (
     <form
       className="birth-form"
+      noValidate
       onSubmit={(e) => {
         e.preventDefault();
+        if (step === 0) {
+          const check = birthSchema
+            .pick({ name: true, date: true, time: true, unknownTime: true })
+            .safeParse(input);
+          if (!check.success) {
+            setError(check.error.issues[0].message);
+            return;
+          }
+          setError("");
+          setStep(1);
+          return;
+        }
         const result = birthSchema.safeParse(input);
         if (!result.success) {
           setError(result.error.issues[0].message);
@@ -113,211 +137,231 @@ export function BirthForm({
         }
       }}
     >
-      <FieldGroup>
-        <Field>
-          <FieldLabel htmlFor="birth-name">Chart name</FieldLabel>
-          <Input
-            id="birth-name"
-            autoComplete="off"
-            placeholder="Your name or a nickname"
-            maxLength={80}
-            value={input.name}
-            onChange={(e) => update("name", e.target.value)}
-            required
-          />
-          <FieldDescription>
-            Use a nickname if you prefer. Public calculations stay in your
-            browser.
-          </FieldDescription>
-        </Field>
-        <div className="form-columns">
-          <Field>
-            <FieldLabel htmlFor="birth-date">Birth date</FieldLabel>
-            <Input
-              id="birth-date"
-              type="date"
-              min="1900-01-01"
-              max={new Date().toISOString().slice(0, 10)}
-              value={input.date}
-              onChange={(e) => update("date", e.target.value)}
-              required
-            />
-          </Field>
-          <Field>
-            <FieldLabel htmlFor="birth-time">Birth time</FieldLabel>
-            <Input
-              id="birth-time"
-              type="time"
-              value={input.time}
-              onChange={(e) => update("time", e.target.value)}
-              disabled={input.unknownTime}
-              required={!input.unknownTime}
-            />
-          </Field>
-        </div>
-        <Field orientation="horizontal">
-          <Checkbox
-            id="unknown-time"
-            checked={input.unknownTime}
-            onCheckedChange={(v) => update("unknownTime", v === true)}
-          />
-          <FieldLabel htmlFor="unknown-time">
-            I don’t know my birth time
-          </FieldLabel>
-        </Field>
-        {input.unknownTime && (
-          <FieldDescription>
-            We’ll use local noon for planetary positions and omit rising sign
-            and houses. The Moon and boundary placements may be uncertain.
-          </FieldDescription>
-        )}
-        <Field>
-          <FieldLabel htmlFor="city-search">Find your birth city</FieldLabel>
-          <div className="search-city">
-            <Input
-              id="city-search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search a city, e.g. Nairobi"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  e.preventDefault();
-                  void search();
-                }
-              }}
-            />
-            <Button
-              type="button"
-              variant="outline"
-              onClick={search}
-              disabled={searching}
-              aria-label="Search birth city"
-            >
-              {searching ? (
-                <LoaderCircle
-                  data-icon="inline-start"
-                  className="animate-spin"
+      <div className="journey-progress">
+        <Badge variant="outline">STEP {step + 1} OF 2</Badge>
+        <Progress value={(step + 1) * 50} aria-label="Birth chart progress" />
+        <span>{step === 0 ? "Your birth moment" : "Your birth place"}</span>
+      </div>
+      <FieldGroup key={step} className="step-panel">
+        {step === 0 && (
+          <FieldGroup>
+            <Field>
+              <FieldLabel htmlFor="birth-name">Chart name</FieldLabel>
+              <Input
+                id="birth-name"
+                autoComplete="off"
+                placeholder="Your name or a nickname"
+                maxLength={80}
+                value={input.name}
+                onChange={(e) => update("name", e.target.value)}
+                required
+              />
+              <FieldDescription>
+                Use a nickname if you prefer. Public calculations stay in your
+                browser.
+              </FieldDescription>
+            </Field>
+            <div className="form-columns">
+              <Field>
+                <FieldLabel htmlFor="birth-date">Birth date</FieldLabel>
+                <DatePicker
+                  id="birth-date"
+                  value={input.date}
+                  onChange={(v) => update("date", v)}
                 />
-              ) : (
-                <Search data-icon="inline-start" />
-              )}
-              Search
-            </Button>
-          </div>
-          {locationMessage && (
-            <FieldDescription role="status">{locationMessage}</FieldDescription>
-          )}
-          {cities.length > 0 && (
-            <div className="city-results">
-              {cities.map((c) => (
-                <Button
-                  variant="ghost"
-                  type="button"
-                  key={c.id}
-                  onClick={() => {
-                    setInput((x) => ({
-                      ...x,
-                      place: [c.name, c.admin1, c.country]
-                        .filter(Boolean)
-                        .join(", "),
-                      latitude: c.latitude,
-                      longitude: c.longitude,
-                      timezone: c.timezone || x.timezone,
-                    }));
-                    setCities([]);
-                    setQuery("");
-                    setLocationMessage(
-                      `Selected ${c.name}, ${c.country || ""}. Please confirm the time zone.`,
-                    );
-                  }}
-                >
-                  {c.name}, {c.admin1 || c.country}
-                </Button>
-              ))}
+              </Field>
+              <Field>
+                <FieldLabel htmlFor="birth-time">Birth time</FieldLabel>
+                <TimePicker
+                  id="birth-time"
+                  value={input.time}
+                  onChange={(v) => update("time", v)}
+                  disabled={input.unknownTime}
+                />
+              </Field>
             </div>
-          )}
-        </Field>
-        <Field>
-          <FieldLabel htmlFor="birth-place">Birth place</FieldLabel>
-          <Input
-            id="birth-place"
-            value={input.place}
-            onChange={(e) => update("place", e.target.value)}
-            maxLength={160}
-            required
-          />
-        </Field>
-        <div className="form-columns">
-          <Field>
-            <FieldLabel htmlFor="birth-lat">Latitude</FieldLabel>
-            <Input
-              id="birth-lat"
-              type="number"
-              step="any"
-              min={-90}
-              max={90}
-              value={input.latitude}
-              onChange={(e) => update("latitude", Number(e.target.value))}
-              required
-            />
-          </Field>
-          <Field>
-            <FieldLabel htmlFor="birth-lon">Longitude</FieldLabel>
-            <Input
-              id="birth-lon"
-              type="number"
-              step="any"
-              min={-180}
-              max={180}
-              value={input.longitude}
-              onChange={(e) => update("longitude", Number(e.target.value))}
-              required
-            />
-          </Field>
-        </div>
-        <Field>
-          <FieldLabel htmlFor="birth-zone">Time zone at birth</FieldLabel>
-          <Input
-            id="birth-zone"
-            list="timezones"
-            value={input.timezone}
-            onChange={(e) => update("timezone", e.target.value)}
-            required
-          />
-          <datalist id="timezones">
-            {[
-              "Africa/Dar_es_Salaam",
-              "Africa/Nairobi",
-              "Africa/Johannesburg",
-              "Africa/Lagos",
-              "Europe/London",
-              "Europe/Paris",
-              "Asia/Kolkata",
-              "Asia/Dubai",
-              "Asia/Tokyo",
-              "America/New_York",
-              "America/Chicago",
-              "America/Los_Angeles",
-              "Australia/Sydney",
-              "UTC",
-            ].map((z) => (
-              <option key={z} value={z} />
-            ))}
-          </datalist>
-          <FieldDescription>
-            IANA time zone, such as Africa/Dar_es_Salaam. Historical daylight
-            saving is applied. For an ambiguous repeated hour, verify the UTC
-            offset with your birth record.
-          </FieldDescription>
-        </Field>
+            <Field orientation="horizontal">
+              <Checkbox
+                id="unknown-time"
+                checked={input.unknownTime}
+                onCheckedChange={(v) => update("unknownTime", v === true)}
+              />
+              <FieldLabel htmlFor="unknown-time">
+                I don’t know my birth time
+              </FieldLabel>
+            </Field>
+            {input.unknownTime && (
+              <FieldDescription>
+                We’ll use local noon for planetary positions and omit rising
+                sign and houses. The Moon and boundary placements may be
+                uncertain.
+              </FieldDescription>
+            )}
+          </FieldGroup>
+        )}
+        {step === 1 && (
+          <FieldGroup>
+            <Field>
+              <FieldLabel htmlFor="city-search">
+                Find your birth city
+              </FieldLabel>
+              <div className="search-city">
+                <Input
+                  id="city-search"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search a city, e.g. Nairobi"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      void search();
+                    }
+                  }}
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={search}
+                  disabled={searching}
+                  aria-label="Search birth city"
+                >
+                  {searching ? (
+                    <LoaderCircle
+                      data-icon="inline-start"
+                      className="animate-spin"
+                    />
+                  ) : (
+                    <Search data-icon="inline-start" />
+                  )}
+                  Search
+                </Button>
+              </div>
+              {locationMessage && (
+                <FieldDescription role="status">
+                  {locationMessage}
+                </FieldDescription>
+              )}
+              {cities.length > 0 && (
+                <div className="city-results">
+                  {cities.map((c) => (
+                    <Button
+                      variant="ghost"
+                      type="button"
+                      key={c.id}
+                      onClick={() => {
+                        setInput((x) => ({
+                          ...x,
+                          place: [c.name, c.admin1, c.country]
+                            .filter(Boolean)
+                            .join(", "),
+                          latitude: c.latitude,
+                          longitude: c.longitude,
+                          timezone: c.timezone || x.timezone,
+                        }));
+                        setCities([]);
+                        setQuery("");
+                        setLocationMessage(
+                          `Selected ${c.name}, ${c.country || ""}. Please confirm the time zone.`,
+                        );
+                      }}
+                    >
+                      {c.name}, {c.admin1 || c.country}
+                    </Button>
+                  ))}
+                </div>
+              )}
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="birth-place">Birth place</FieldLabel>
+              <Input
+                id="birth-place"
+                value={input.place}
+                onChange={(e) => update("place", e.target.value)}
+                maxLength={160}
+                required
+              />
+            </Field>
+            <div className="form-columns">
+              <Field>
+                <FieldLabel htmlFor="birth-lat">Latitude</FieldLabel>
+                <Input
+                  id="birth-lat"
+                  type="number"
+                  step="any"
+                  min={-90}
+                  max={90}
+                  value={input.latitude}
+                  onChange={(e) => update("latitude", Number(e.target.value))}
+                  required
+                />
+              </Field>
+              <Field>
+                <FieldLabel htmlFor="birth-lon">Longitude</FieldLabel>
+                <Input
+                  id="birth-lon"
+                  type="number"
+                  step="any"
+                  min={-180}
+                  max={180}
+                  value={input.longitude}
+                  onChange={(e) => update("longitude", Number(e.target.value))}
+                  required
+                />
+              </Field>
+            </div>
+            <Field>
+              <FieldLabel htmlFor="birth-zone">Time zone at birth</FieldLabel>
+              <Select
+                value={input.timezone}
+                onValueChange={(v) => update("timezone", v)}
+              >
+                <SelectTrigger id="birth-zone" aria-label="Time zone at birth">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {Array.from(
+                      new Set([
+                        input.timezone,
+                        "UTC",
+                        ...Intl.supportedValuesOf("timeZone"),
+                      ]),
+                    ).map((z) => (
+                      <SelectItem value={z} key={z}>
+                        {z.replaceAll("_", " ")}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              <FieldDescription>
+                IANA time zone, such as Africa/Dar_es_Salaam. Historical
+                daylight saving is applied. For an ambiguous repeated hour,
+                verify the UTC offset with your birth record.
+              </FieldDescription>
+            </Field>
+          </FieldGroup>
+        )}
         {error && (
           <Alert variant="destructive" role="alert">
             <AlertTitle>Check your details</AlertTitle>
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
+        {step === 1 && (
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={() => {
+              setStep(0);
+              setError("");
+            }}
+          >
+            Back to birth moment
+          </Button>
+        )}
         <Button size="lg" type="submit">
-          {label}
+          {step === 0 ? "Continue to birth place" : label}
           <ArrowUpRight data-icon="inline-end" />
         </Button>
       </FieldGroup>

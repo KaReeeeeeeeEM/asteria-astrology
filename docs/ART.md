@@ -7,3 +7,5 @@ Generated with the built-in image generation tool in transparent-background mode
 - `public/art/learning-friends.png`: a friendly lavender crescent Moon with glasses, small golden star, and aqua ringed planet reading an open book together. Soft clay-like 3D shading, cohesive palette, transparent square illustration, no text or logo.
 
 These prompt descriptions document the composition and reuse intent. Raster illustrations are layered in an Anime.js/CSS perspective scene; they are not polygonal 3D models. Real perspective transforms animate orbit planes, spheres, and illustration layers. Mascots appear on zodiac profiles, daily reflections, sign comparisons, learning, numerology, and onboarding.
+
+The black-and-white edition presents the original raster assets with a CSS grayscale filter. Anime.js types character captions when they enter the viewport. The original transparent files are retained unchanged. Three.js adds separate, real polygonal geometry to the scroll story and shared page background.

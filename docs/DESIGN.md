@@ -1,6 +1,6 @@
 # Asteria design system
 
-Asteria is a playful celestial atlas: lavender and white in light mode; midnight, lilac, and mint in dark mode. Soft peach and aqua support original cartoon illustrations. Both themes use semantic tokens for consistent cards, forms, charts, and dashboard surfaces. The original logo combines an orbit, a four-point star, and a satellite dot. It is drawn as SVG, works in one color, and remains recognizable as an app icon. No stock logo is reused.
+Asteria is a playful celestial atlas in black, white, and neutral grays. Light mode is white with black typography; dark mode reverses this relationship. Original cartoons receive a grayscale presentation to match the palette. Both themes use semantic tokens for consistent cards, forms, charts, and dashboard surfaces. The original logo combines an orbit, a four-point star, and a satellite dot. It is drawn as SVG, works in one color, and remains recognizable as an app icon. No stock logo is reused.
 
 ## Research and references
 
@@ -15,7 +15,7 @@ Asteria is a playful celestial atlas: lavender and white in light mode; midnight
 
 ## Typography
 
-Nunito Sans is self-hosted in weights 400, 700, and 900. Rounded, heavy headings suit the cartoon characters; readable body copy and visible form labels carry the tools. Theme selection persists across reloads, with color transitions disabled for reduced motion.
+Bricolage Grotesque provides expressive display typography in weights 400, 600, 700, and 800. Nunito Sans carries body text and controls. Both families are self-hosted and licensed under the SIL Open Font License. Theme selection persists across reloads, with color transitions disabled for reduced motion.
 
 ## Motion
 
@@ -35,3 +35,13 @@ Anime.js v4 handles initial page entrances, CSS perspective, tilted orbital plan
 - Match percentages expose their weights and are labeled as symbolic scores. Readings avoid deterministic personal event predictions.
 - Navigation, chart wheel, library, and dashboard reflow for phones.
 - The PWA offline experience avoids caching authenticated content.
+
+## Immersive motion and guided tools
+
+Three.js creates genuine WebGL geometry: a faceted planet, intersecting orbital rings, moving satellites, and a star field. A full-screen sticky story scrubs through three chapters with native scrolling; Anime.js controls the chapter entrances, page veil, route fade, hover movement, wizard transitions, and typewriter captions. Pointer movement tilts the universe. A subtle shared universe also accompanies other pages. Native browser scrolling is preserved.
+
+WebGL imports lazily, uses a capped pixel ratio and approximately 30 fps, pauses offscreen/in hidden tabs, and disposes geometry, materials, renderer, observers, and animation frames on unmount. A static decorative fallback remains if WebGL is unavailable. Reduced motion skips WebGL/typewriter/reveal animation and displays story chapters as normal content.
+
+Active navigation retains an underline; hover/focus draws the underline from left to right. Public navigation composes shadcn NavigationMenu and a focus-trapping Sheet on phones. Date inputs compose shadcn Input, Popover, Calendar and Select; time and time-zone choices use Select. No native date/time picker or datalist UI is used.
+
+Numerology and sign matching use three guided steps. Birth charts split the birth moment from the birth place. Back actions retain inputs, result screens allow corrections, validation is local, and there are no artificial processing delays.
