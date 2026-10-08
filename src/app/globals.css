@@ -4754,3 +4754,21 @@ a {
 .language-select-compact[data-state="open"] {
   background: var(--accent);
 }
+
+/* Keep navigation visible and reserve its space above public content. */
+.public-shell { padding-top: 92px; }
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  width: 100%;
+}
+.dashboard-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+html { scroll-padding-top: 104px; }
+@media (max-width: 700px) {
+  .public-shell { padding-top: 75px; }
+  html { scroll-padding-top: 87px; }
+}
